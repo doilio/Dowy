@@ -52,8 +52,7 @@ class MoviesFragment : Fragment() {
 
         binding.movieList.adapter = adapter
         binding.movieList.hasFixedSize()
-        val layoutManager = GridLayoutManager(activity, 2)
-        binding.movieList.layoutManager = layoutManager
+        binding.movieList.layoutManager = GridLayoutManager(activity, 2)
 
     }
 }

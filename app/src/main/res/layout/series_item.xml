@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.doiliomatsinhe.mymovies.model.Movie" />
+            name="series"
+            type="com.doiliomatsinhe.mymovies.model.TvSeries" />
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.MovieClickListener" />
+            type="com.doiliomatsinhe.mymovies.adapter.SeriesClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,18 +20,18 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{() -> clickListener.onClick(movie)}"
+        android:onClick="@{()->clickListener.onClick(series)}"
         app:cardElevation="1dp"
         app:cardPreventCornerOverlap="true">
 
         <ImageView
-            android:id="@+id/movie_image"
+            android:id="@+id/series_image"
+            seriesPoster="@{series}"
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:contentDescription="@string/movie_poster"
+            android:contentDescription="@string/series_poster"
             android:scaleType="centerCrop"
-            android:src="@drawable/test_image"
-            app:moviePoster="@{movie}" />
+            android:src="@drawable/test_image" />
 
     </androidx.cardview.widget.CardView>
 

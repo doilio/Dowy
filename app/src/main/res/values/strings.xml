@@ -4,4 +4,5 @@
     <string name="tv_series">TV Series</string>
     <string name="favorites">Favorites</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="series_poster">Series Poster</string>
 </resources>

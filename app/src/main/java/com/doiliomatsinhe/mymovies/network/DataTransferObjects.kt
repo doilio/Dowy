@@ -3,6 +3,7 @@ package com.doiliomatsinhe.mymovies.network
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.model.Review
 import com.doiliomatsinhe.mymovies.model.Trailer
+import com.doiliomatsinhe.mymovies.model.TvSeries
 import com.google.gson.annotations.SerializedName
 
 data class NetworkReview(
@@ -26,4 +27,12 @@ data class NetworkTrailer(
 
     @SerializedName("id") val id: Int,
     @SerializedName("results") val results: List<Trailer>
+)
+
+data class NetworkTvSeries (
+
+    @SerializedName("page") val page : Int,
+    @SerializedName("total_results") val total_results : Int,
+    @SerializedName("total_pages") val total_pages : Int,
+    @SerializedName("results") val results : List<TvSeries>
 )

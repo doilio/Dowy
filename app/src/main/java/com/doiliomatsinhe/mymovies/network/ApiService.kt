@@ -17,5 +17,14 @@ interface ApiService {
         @Query(LANGUAGE) language: String,
         @Query(PAGE) page: Int
     ): NetworkMovie
+
+    @GET("tv/{category}")
+    suspend fun getSeries(
+        @Path(CATEGORY) category: String,
+        @Query(API_KEY) apiKey: String,
+        @Query(LANGUAGE) language: String,
+        @Query(PAGE) page: Int
+    ): NetworkTvSeries
+
 }
 
