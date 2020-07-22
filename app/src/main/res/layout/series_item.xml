@@ -31,7 +31,7 @@
             android:layout_height="270dp"
             android:contentDescription="@string/series_poster"
             android:scaleType="centerCrop"
-            android:src="@drawable/test_image" />
+            android:src="@drawable/series_poster" />
 
     </androidx.cardview.widget.CardView>
 

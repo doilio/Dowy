@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.adapter.SeriesAdapter
 import com.doiliomatsinhe.mymovies.adapter.SeriesClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesBinding
@@ -51,7 +51,8 @@ class TvSeriesFragment : Fragment() {
         })
 
         binding.seriesList.hasFixedSize()
-        binding.seriesList.layoutManager = GridLayoutManager(activity, 2)
+        binding.seriesList.layoutManager =
+            GridLayoutManager(activity, resources.getInteger(R.integer.span_count))
         binding.seriesList.adapter = adapter
     }
 }

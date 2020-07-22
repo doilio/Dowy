@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.adapter.MovieAdapter
 import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
@@ -52,7 +53,7 @@ class MoviesFragment : Fragment() {
 
         binding.movieList.adapter = adapter
         binding.movieList.hasFixedSize()
-        binding.movieList.layoutManager = GridLayoutManager(activity, 2)
+        binding.movieList.layoutManager = GridLayoutManager(activity, resources.getInteger(R.integer.span_count))
 
     }
 }
