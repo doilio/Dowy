@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/moviesFragment">
+
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.movies.MoviesFragment"
+        android:label="@string/movies"
+        tools:layout="@layout/fragment_movies" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.favorites.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/tvSeriesFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.series.TvSeriesFragment"
+        android:label="@string/tv_series"
+        tools:layout="@layout/fragment_tv_series" />
+</navigation>
