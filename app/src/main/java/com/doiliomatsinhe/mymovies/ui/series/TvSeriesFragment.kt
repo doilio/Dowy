@@ -52,7 +52,16 @@ class TvSeriesFragment : Fragment() {
 
         viewModel.listOfTvSeries.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                if (it.isNotEmpty()){
+                    adapter.submitList(it)
+                    binding.seriesProgress.visibility = View.GONE
+                    binding.seriesList.visibility = View.VISIBLE
+                    binding.seriesError.visibility = View.GONE
+                }else{
+                    binding.seriesError.visibility = View.VISIBLE
+                    binding.seriesProgress.visibility = View.GONE
+                }
+
             }
         })
     }

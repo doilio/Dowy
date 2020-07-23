@@ -12,6 +12,7 @@
     <string name="dark">Dark</string>
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="loading_error">Oops!\nError loading data</string>
     <!--Preference Entries-->
 
     <string-array name="language_entries">

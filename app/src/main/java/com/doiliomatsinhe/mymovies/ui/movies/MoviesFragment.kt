@@ -52,8 +52,16 @@ class MoviesFragment : Fragment() {
         initComponents()
         viewModel.listOfMovies.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
-                Timber.d("List from DB: $it")
+                if (it.isNotEmpty()) {
+                    adapter.submitList(it)
+                    binding.movieProgress.visibility = View.GONE
+                    binding.movieList.visibility = View.VISIBLE
+                    binding.moviesError.visibility = View.GONE
+                } else {
+                    binding.movieProgress.visibility = View.GONE
+                    binding.moviesError.visibility = View.VISIBLE
+                }
+
             }
         })
 
