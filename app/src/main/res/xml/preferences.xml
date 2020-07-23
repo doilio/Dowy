@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:order="10"
+        android:title="Display">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:icon="@drawable/ic_baseline_brightness_medium_24"
+            android:key="night_mode_list"
+            android:summary="@string/light"
+            android:title="Theme"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:order="20"
+        android:title="Contents">
+        <ListPreference
+            android:defaultValue="popular"
+            android:entries="@array/category_entries"
+            android:entryValues="@array/category_values"
+            android:icon="@drawable/ic_baseline_category_24"
+            android:key="category_list"
+            android:summary="@string/popular"
+            android:title="Category"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:defaultValue="en-US"
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values"
+            android:icon="@drawable/ic_baseline_translate_24"
+            android:key="language_list"
+            android:summary="@string/english"
+            android:title="Language"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>
