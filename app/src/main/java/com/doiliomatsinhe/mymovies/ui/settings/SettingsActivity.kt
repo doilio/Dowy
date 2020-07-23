@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.ui.preferences
+package com.doiliomatsinhe.mymovies.ui.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

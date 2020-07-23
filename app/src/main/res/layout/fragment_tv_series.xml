@@ -54,7 +54,6 @@
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:text="@string/loading_error"
-            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"

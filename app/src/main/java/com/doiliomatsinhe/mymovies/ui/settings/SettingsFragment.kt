@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.ui.preferences
+package com.doiliomatsinhe.mymovies.ui.settings
 
 import android.os.Bundle
 import androidx.activity.addCallback
@@ -25,7 +25,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            activity?.onNavigateUp()
+            requireActivity().onNavigateUp()
         }
     }
 
@@ -37,11 +37,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val languageList: ListPreference? = findPreference(LANGUAGE_KEY)
 
         nightModeList?.setOnPreferenceChangeListener { _, newValue ->
-            if (nightModeList.value == newValue) {
-                Timber.d("Preference not altered")
-            } else {
-                Timber.d("Preference altered")
-            }
+            Timber.d("Preference  altered $newValue")
             true
         }
 

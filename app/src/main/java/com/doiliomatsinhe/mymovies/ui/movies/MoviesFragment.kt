@@ -56,10 +56,10 @@ class MoviesFragment : Fragment() {
                     adapter.submitList(it)
                     binding.movieProgress.visibility = View.GONE
                     binding.movieList.visibility = View.VISIBLE
-                    binding.moviesError.visibility = View.GONE
+                    //binding.moviesError.visibility = View.GONE
                 } else {
-                    binding.movieProgress.visibility = View.GONE
-                    binding.moviesError.visibility = View.VISIBLE
+                    binding.movieProgress.visibility = View.VISIBLE
+                    //binding.moviesError.visibility = View.VISIBLE
                 }
 
             }
