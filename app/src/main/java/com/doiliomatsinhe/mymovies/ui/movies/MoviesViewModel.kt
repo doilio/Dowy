@@ -1,6 +1,5 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
@@ -10,7 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MoviesViewModel @ViewModelInject constructor(private val repository: Repository) :
+class MoviesViewModel(
+    private val repository: Repository,
+    private val category: String?,
+    private val language: String?
+) :
     ViewModel() {
 
     private val viewModelJob = Job()
@@ -20,7 +23,7 @@ class MoviesViewModel @ViewModelInject constructor(private val repository: Repos
 
     init {
         uiScope.launch {
-            repository.refreshMovies()
+            repository.refreshMovies(category, language)
         }
         listOfMovies.addSource(repository.getMovies(), listOfMovies::setValue)
     }

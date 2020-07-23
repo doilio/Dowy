@@ -79,7 +79,7 @@ fun List<TvSeries>.asDatabaseModel(): Array<DatabaseSeries> {
             origin_country = it.origin_country,
             vote_count = it.vote_count,
             first_air_date = it.first_air_date,
-            backdrop_path = it.backdrop_path,
+            backdrop_path = it.backdrop_path.toString(),
             original_language = it.original_language,
             vote_average = it.vote_average,
             overview = it.overview,

@@ -17,6 +17,9 @@ interface MoviesDao {
     @Query("SELECT * FROM movies WHERE id = :id")
     fun getMovieById(id: Int): LiveData<DatabaseMovie>
 
+    @Query("DELETE FROM movies")
+    fun deleteAllMovies()
+
     @Query("SELECT * FROM series")
     fun getSeries(): LiveData<List<DatabaseSeries>>
 
@@ -25,5 +28,8 @@ interface MoviesDao {
 
     @Query("SELECT * FROM series WHERE id = :id")
     fun getSeriesById(id: Int): LiveData<DatabaseSeries>
+
+    @Query("DELETE FROM series")
+    fun deleteAllSeries()
 
 }

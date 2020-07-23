@@ -12,7 +12,7 @@ data class TvSeries (
     @SerializedName("origin_country") val origin_country : List<String>,
     @SerializedName("vote_count") val vote_count : Int,
     @SerializedName("first_air_date") val first_air_date : String,
-    @SerializedName("backdrop_path") val backdrop_path : String,
+    @SerializedName("backdrop_path") val backdrop_path : String?="",
     @SerializedName("original_language") val original_language : String,
     @SerializedName("id") val id : Int,
     @SerializedName("vote_average") val vote_average : Double,

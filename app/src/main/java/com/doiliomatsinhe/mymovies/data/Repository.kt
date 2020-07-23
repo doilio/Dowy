@@ -17,11 +17,10 @@ class Repository @Inject constructor(
     private val database: MoviesDao
 ) {
 
-    suspend fun refreshMovies() {
+    suspend fun refreshMovies(category: String?, language: String?) {
         withContext(Dispatchers.IO) {
             try {
-                val listOfMovies = service.getMovies("popular", SECRET_KEY, "en-US", 1).results
-                Timber.d("List of Movies Net: $listOfMovies")
+                val listOfMovies = service.getMovies(category.toString(), SECRET_KEY, language.toString(), 1).results
                 database.insertAllMovies(*listOfMovies.asDatabaseModel())
             } catch (e: Exception) {
                 Timber.d("Error reading Movies ${e.message}")
@@ -35,11 +34,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun refreshSeries() {
+    suspend fun refreshSeries(category: String?, language: String?) {
         withContext(Dispatchers.IO) {
             try {
-                val listOfSeries = service.getSeries("popular", SECRET_KEY, "en-US", 1).results
-                Timber.d("List of Series Net: $listOfSeries")
+                val listOfSeries = service.getSeries(category.toString(), SECRET_KEY, language.toString(), 1).results
                 database.insertAllSeries(*listOfSeries.asDatabaseModel())
             } catch (e: Exception) {
                 Timber.d("Error reading Series ${e.message}")
