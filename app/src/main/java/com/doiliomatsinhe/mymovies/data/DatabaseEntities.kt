@@ -1,10 +1,9 @@
 package com.doiliomatsinhe.mymovies.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.TvSeries
 
 @Entity(tableName = "movies")
 data class DatabaseMovie(
@@ -27,10 +26,29 @@ data class DatabaseMovie(
     val fullPosterPath: String
 )
 
-fun List<DatabaseMovie>.asDomainModel(): List<Movie> {
+@Entity(tableName = "series")
+data class DatabaseSeries(
 
+    @PrimaryKey
+    val id: Int,
+    val original_name: String,
+    val genre_ids: List<Int>,
+    val name: String,
+    val popularity: Double,
+    val origin_country: List<String>,
+    val vote_count: Int,
+    val first_air_date: String,
+    val backdrop_path: String,
+    val original_language: String,
+    val vote_average: Double,
+    val overview: String,
+    val poster_path: String,
+    val fullPosterPath: String
+)
+
+fun List<Movie>.asDatabaseModel(): Array<DatabaseMovie> {
     return map {
-        Movie(
+        DatabaseMovie(
             popularity = it.popularity,
             vote_count = it.vote_count,
             video = it.video,
@@ -44,28 +62,34 @@ fun List<DatabaseMovie>.asDomainModel(): List<Movie> {
             title = it.title,
             vote_average = it.vote_average,
             overview = it.overview,
-            release_date = it.release_date
+            release_date = it.release_date,
+            fullPosterPath = it.fullPosterPath
         )
-    }
+    }.toTypedArray()
 }
 
-fun LiveData<DatabaseMovie>.asDomainModel(): LiveData<Movie>{
+fun List<TvSeries>.asDatabaseModel(): Array<DatabaseSeries> {
     return map {
-        Movie(
-            popularity = it.popularity,
-            vote_count = it.vote_count,
-            video = it.video,
-            poster_path = it.poster_path,
+        DatabaseSeries(
             id = it.id,
-            adult = it.adult,
+            original_name = it.original_name,
+            genre_ids = it.genre_ids,
+            name = it.name,
+            popularity = it.popularity,
+            origin_country = it.origin_country,
+            vote_count = it.vote_count,
+            first_air_date = it.first_air_date,
             backdrop_path = it.backdrop_path,
             original_language = it.original_language,
-            original_title = it.original_title,
-            genre_ids = it.genre_ids,
-            title = it.title,
             vote_average = it.vote_average,
             overview = it.overview,
-            release_date = it.release_date
+            poster_path = it.poster_path,
+            fullPosterPath = it.fullPosterPath
         )
-    }
+    }.toTypedArray()
 }
+
+
+
+
+

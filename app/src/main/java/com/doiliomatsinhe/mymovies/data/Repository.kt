@@ -2,10 +2,9 @@ package com.doiliomatsinhe.mymovies.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.doiliomatsinhe.mymovies.data.Movies.MoviesDao
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.model.TvSeries
-import com.doiliomatsinhe.mymovies.model.asDatabaseModel
+import com.doiliomatsinhe.mymovies.model.asDomainModel
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import kotlinx.coroutines.Dispatchers
@@ -36,31 +35,22 @@ class Repository @Inject constructor(
         }
     }
 
-    /*    suspend fun getMovies(): List<Movie> {
-        return withContext(Dispatchers.IO) {
-            var listOfMovies = emptyList<Movie>()
-
+    suspend fun refreshSeries() {
+        withContext(Dispatchers.IO) {
             try {
-                listOfMovies = service.getMovies("popular", SECRET_KEY, "en-US", 1).results
+                val listOfSeries = service.getSeries("popular", SECRET_KEY, "en-US", 1).results
+                Timber.d("List of Series Net: $listOfSeries")
+                database.insertAllSeries(*listOfSeries.asDatabaseModel())
             } catch (e: Exception) {
-                Timber.d("Error reading Movies from Net ${e.message}")
+                Timber.d("Error reading Series ${e.message}")
             }
-            listOfMovies
-
         }
-
-    }*/
-
-    suspend fun getTvSeries(): List<TvSeries> {
-        return withContext(Dispatchers.IO) {
-            var listOfSeries = emptyList<TvSeries>()
-            try {
-                listOfSeries = service.getSeries("popular", SECRET_KEY, "en-US", 1).results
-            } catch (e: Exception) {
-                Timber.d("Error reading Series from Net${e.message}")
-            }
-            listOfSeries
-        }
-
     }
+
+    fun getSeries(): LiveData<List<TvSeries>> {
+        return Transformations.map(database.getSeries()) {
+            it.asDomainModel()
+        }
+    }
+
 }
