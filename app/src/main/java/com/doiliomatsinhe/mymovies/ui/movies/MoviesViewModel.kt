@@ -1,8 +1,7 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.Movie
@@ -17,14 +16,13 @@ class MoviesViewModel @ViewModelInject constructor(private val repository: Repos
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _listOfMovies = MutableLiveData<List<Movie>>()
-    val listOfMovies: LiveData<List<Movie>>
-        get() = _listOfMovies
+    val listOfMovies = MediatorLiveData<List<Movie>>()
 
     init {
         uiScope.launch {
-            _listOfMovies.value = repository.getMovies()
+            repository.refreshMovies()
         }
+        listOfMovies.addSource(repository.getMovies(), listOfMovies::setValue)
     }
 
     override fun onCleared() {

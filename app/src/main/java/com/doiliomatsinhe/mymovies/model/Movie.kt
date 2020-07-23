@@ -1,5 +1,6 @@
 package com.doiliomatsinhe.mymovies.model
 
+import com.doiliomatsinhe.mymovies.data.DatabaseMovie
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
@@ -23,3 +24,24 @@ data class Movie(
         get() = "http://image.tmdb.org/t/p/w342$poster_path"
 }
 
+fun List<Movie>.asDatabaseModel(): Array<DatabaseMovie> {
+    return map {
+        DatabaseMovie(
+            popularity = it.popularity,
+            vote_count = it.vote_count,
+            video = it.video,
+            poster_path = it.poster_path,
+            id = it.id,
+            adult = it.adult,
+            backdrop_path = it.backdrop_path,
+            original_language = it.original_language,
+            original_title = it.original_title,
+            genre_ids = it.genre_ids,
+            title = it.title,
+            vote_average = it.vote_average,
+            overview = it.overview,
+            release_date = it.release_date,
+            fullPosterPath = it.fullPosterPath
+        )
+    }.toTypedArray()
+}

@@ -14,6 +14,7 @@ import com.doiliomatsinhe.mymovies.adapter.MovieAdapter
 import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment() {
@@ -40,6 +41,7 @@ class MoviesFragment : Fragment() {
         viewModel.listOfMovies.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                Timber.d("List from DB: $it")
             }
         })
 
