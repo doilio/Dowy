@@ -5,4 +5,39 @@
     <string name="favorites">Favorites</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="series_poster">Series Poster</string>
+    <string name="settings">Settings</string>
+    <!--Preference Entries-->
+    <string name="english">English</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <!--Preference Entries-->
+
+    <string-array name="language_entries">
+        <item>@string/english</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en-US</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="category_entries">
+        <item>@string/popular</item>
+        <item>@string/top_rated</item>
+    </string-array>
+
+    <string-array name="category_values">
+        <item>popular</item>
+        <item>top_rated</item>
+    </string-array>
 </resources>
