@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.favorites.FavoritesFragment">
 
-
     <TextView
-        android:gravity="center"
-        android:textSize="24sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Favorites" />
+        android:gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/favorites"
+        android:textSize="24sp" />
 
 </FrameLayout>

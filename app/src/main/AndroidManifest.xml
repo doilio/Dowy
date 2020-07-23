@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".ui.preferences.SettingsActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".MainActivity" />
         <activity

@@ -13,6 +13,7 @@
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <!--Preference Entries-->
+    <string name="loading_error">Oops!\nError loading data</string>
 
     <string-array name="language_entries">
         <item>@string/english</item>
