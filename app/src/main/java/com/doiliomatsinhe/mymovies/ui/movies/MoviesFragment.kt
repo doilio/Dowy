@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
@@ -21,6 +22,9 @@ import com.doiliomatsinhe.mymovies.utils.DEFAULT_CATEGORY
 import com.doiliomatsinhe.mymovies.utils.DEFAULT_LANGUAGE
 import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -50,20 +54,26 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initComponents()
-        viewModel.listOfMovies.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    adapter.submitList(it)
-                    binding.movieProgress.visibility = View.GONE
-                    binding.movieList.visibility = View.VISIBLE
-                    //binding.moviesError.visibility = View.GONE
-                } else {
-                    binding.movieProgress.visibility = View.VISIBLE
-                    //binding.moviesError.visibility = View.VISIBLE
-                }
 
+        lifecycleScope.launch {
+            viewModel.getMoviesList().collectLatest {
+                adapter.submitData(it)
             }
-        })
+        }
+//        viewModel.listOfMovies.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                if (it.isNotEmpty()) {
+//                    adapter.submitList(it)
+//                    binding.movieProgress.visibility = View.GONE
+//                    binding.movieList.visibility = View.VISIBLE
+//                    //binding.moviesError.visibility = View.GONE
+//                } else {
+//                    binding.movieProgress.visibility = View.VISIBLE
+//                    //binding.moviesError.visibility = View.VISIBLE
+//                }
+//
+//            }
+//        })
 
     }
 

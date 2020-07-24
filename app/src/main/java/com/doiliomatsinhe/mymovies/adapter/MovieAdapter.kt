@@ -1,13 +1,14 @@
 package com.doiliomatsinhe.mymovies.adapter
 
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.Movie
 
 class MovieAdapter(private val clickListener: MovieClickListener) :
-    ListAdapter<Movie, RecyclerView.ViewHolder>(
+    PagingDataAdapter<Movie, RecyclerView.ViewHolder>(
         MovieDiffUtilCallback()
     ) {
 
