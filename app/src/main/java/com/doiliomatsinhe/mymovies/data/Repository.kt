@@ -11,6 +11,7 @@ import com.doiliomatsinhe.mymovies.model.asDomainModel
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import timber.log.Timber

@@ -5,7 +5,6 @@ import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 
 const val MOVIES_LIST_STARTING_PAGE = 1
@@ -18,9 +17,9 @@ class MoviesPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val position = params.key ?: MOVIES_LIST_STARTING_PAGE
-        Timber.d("Detalhes $position") // Aqui devolve 1
         return try {
-            val response = service.getMovies(category.toString(), SECRET_KEY, language.toString(), position)
+            val response =
+                service.getMovies(category.toString(), SECRET_KEY, language.toString(), position)
             val movies = response.results
             LoadResult.Page(
                 data = movies,
