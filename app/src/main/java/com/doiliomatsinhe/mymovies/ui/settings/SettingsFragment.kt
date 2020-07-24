@@ -2,6 +2,7 @@ package com.doiliomatsinhe.mymovies.ui.settings
 
 import android.os.Bundle
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.doiliomatsinhe.mymovies.R
@@ -37,7 +38,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val languageList: ListPreference? = findPreference(LANGUAGE_KEY)
 
         nightModeList?.setOnPreferenceChangeListener { _, newValue ->
-            Timber.d("Preference  altered $newValue")
+            if (newValue == "2") {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
             true
         }
 
