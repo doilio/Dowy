@@ -13,7 +13,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/loadstate_progress"

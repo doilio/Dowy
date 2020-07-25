@@ -19,10 +19,7 @@ import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
 import com.doiliomatsinhe.mymovies.adapter.MoviesLoadStateAdapter
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
-import com.doiliomatsinhe.mymovies.utils.CATEGORY_KEY
-import com.doiliomatsinhe.mymovies.utils.DEFAULT_CATEGORY
-import com.doiliomatsinhe.mymovies.utils.DEFAULT_LANGUAGE
-import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
+import com.doiliomatsinhe.mymovies.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -93,6 +90,14 @@ class MoviesFragment : Fragment() {
         binding.movieList.hasFixedSize()
         val layoutManager = GridLayoutManager(activity, resources.getInteger(R.integer.span_count))
 
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val viewType = adapter.getItemViewType(position)
+                return if (viewType == LOADSTATE_VIEW_TYPE) 1
+                else resources.getInteger(R.integer.span_count)
+            }
+
+        }
         binding.movieList.layoutManager = layoutManager
 
         binding.buttonRetry.setOnClickListener { adapter.retry() }

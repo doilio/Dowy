@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.utils.DATA_VIEWTYPE
+import com.doiliomatsinhe.mymovies.utils.LOADSTATE_VIEW_TYPE
 
 class MovieAdapter(private val clickListener: MovieClickListener) :
     PagingDataAdapter<Movie, RecyclerView.ViewHolder>(
@@ -18,6 +20,14 @@ class MovieAdapter(private val clickListener: MovieClickListener) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as MovieViewHolder).bind(getItem(position), clickListener)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount) {
+            DATA_VIEWTYPE
+        } else {
+            LOADSTATE_VIEW_TYPE
+        }
     }
 
 }
