@@ -2,8 +2,8 @@
 buildscript {
     ext {
         kotlin_version = "1.3.72"
-        paging_version = "3.0.0-alpha01"
-        room_version = "2.3.0-alpha01"
+        paging_version = "3.0.0-alpha03"
+        room_version = "2.3.0-alpha02"
     }
 
     repositories {
