@@ -1,19 +1,29 @@
 package com.doiliomatsinhe.mymovies.adapter
 
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.TvSeries
+import com.doiliomatsinhe.mymovies.utils.DATA_VIEWTYPE
+import com.doiliomatsinhe.mymovies.utils.LOADSTATE_VIEW_TYPE
 
 class SeriesAdapter(private val clickListener: SeriesClickListener) :
-    ListAdapter<TvSeries, RecyclerView.ViewHolder>(SeriesDiffUtilCallback()) {
+    PagingDataAdapter<TvSeries, RecyclerView.ViewHolder>(SeriesDiffUtilCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SeriesViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as SeriesViewHolder).bind(getItem(position), clickListener)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+       return if (position == itemCount) {
+            DATA_VIEWTYPE
+        } else {
+            LOADSTATE_VIEW_TYPE
+        }
     }
 
 }

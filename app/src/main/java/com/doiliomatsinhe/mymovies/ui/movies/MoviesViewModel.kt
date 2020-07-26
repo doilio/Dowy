@@ -1,13 +1,12 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.Movie
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 
 class MoviesViewModel(
     private val repository: Repository,
@@ -16,20 +15,23 @@ class MoviesViewModel(
 ) :
     ViewModel() {
 
-    private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var currentCategory: String? = null
+    private var currentSearchresult: Flow<PagingData<Movie>>? = null
 
-    val listOfMovies = MediatorLiveData<List<Movie>>()
-
-    init {
-        uiScope.launch {
-            repository.refreshMovies(category, language)
+    fun getMoviesList(): Flow<PagingData<Movie>> {
+        val lastResult = currentSearchresult
+        if (category == currentCategory &&
+            lastResult != null) {
+            return lastResult
         }
-        listOfMovies.addSource(repository.getMovies(), listOfMovies::setValue)
+
+        currentCategory = category
+        val newResult = repository.getMovieResultStream(category, language)
+            .cachedIn(viewModelScope)
+        currentSearchresult = newResult
+
+        return newResult
+
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 }

@@ -1,11 +1,8 @@
-package com.doiliomatsinhe.mymovies.data
+package com.doiliomatsinhe.mymovies.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.doiliomatsinhe.mymovies.data.DatabaseMovie
-import com.doiliomatsinhe.mymovies.data.DatabaseSeries
-import com.doiliomatsinhe.mymovies.data.MoviesDao
 import com.doiliomatsinhe.mymovies.utils.Converters
 
 @Database(

@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.doiliomatsinhe.mymovies.data.Repository
 import java.lang.IllegalArgumentException
 
-class TvSeriesViewModelFactory(private val repository: Repository,
-                               private val category: String?,
-                               private val language: String?):
+class TvSeriesViewModelFactory(
+    private val repository: Repository,
+    private val category: String?,
+    private val language: String?
+) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

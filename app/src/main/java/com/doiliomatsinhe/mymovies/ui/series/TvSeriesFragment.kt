@@ -7,20 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.PreferenceManager
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
+import com.doiliomatsinhe.mymovies.adapter.LoadStateAdapter
 import com.doiliomatsinhe.mymovies.adapter.SeriesAdapter
 import com.doiliomatsinhe.mymovies.adapter.SeriesClickListener
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesBinding
-import com.doiliomatsinhe.mymovies.utils.CATEGORY_KEY
-import com.doiliomatsinhe.mymovies.utils.DEFAULT_CATEGORY
-import com.doiliomatsinhe.mymovies.utils.DEFAULT_LANGUAGE
-import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
+import com.doiliomatsinhe.mymovies.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +30,9 @@ class TvSeriesFragment : Fragment() {
     private lateinit var binding: FragmentTvSeriesBinding
     private lateinit var viewModel: TvSeriesViewModel
     private lateinit var adapter: SeriesAdapter
-    private lateinit var sharedPreference: SharedPreferences
+
+    @Inject
+    lateinit var sharedPreference: SharedPreferences
 
     @Inject
     lateinit var repository: Repository
@@ -50,38 +53,61 @@ class TvSeriesFragment : Fragment() {
 
         initComponents()
 
-        viewModel.listOfTvSeries.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it.isNotEmpty()){
-                    adapter.submitList(it)
-                    binding.seriesProgress.visibility = View.GONE
-                    binding.seriesList.visibility = View.VISIBLE
-                    //binding.seriesError.visibility = View.GONE
-                }else{
-                    //binding.seriesError.visibility = View.VISIBLE
-                    binding.seriesProgress.visibility = View.VISIBLE
-                }
-
+        lifecycleScope.launch {
+            viewModel.getTvSeriesList().collectLatest {
+                adapter.submitData(it)
             }
-        })
+        }
     }
 
     private fun initComponents() {
-        sharedPreference = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
 
         val factory = TvSeriesViewModelFactory(repository, category, language)
         viewModel = ViewModelProvider(this, factory).get(TvSeriesViewModel::class.java)
 
+        binding.lifecycleOwner = viewLifecycleOwner
 
+        initAdapter()
+
+        binding.buttonRetry.setOnClickListener { adapter.retry() }
+    }
+
+    private fun initAdapter() {
         adapter = SeriesAdapter(SeriesClickListener {
             Toast.makeText(activity, "${it.name} clicked!", Toast.LENGTH_SHORT).show()
-        })
+        }).apply {
 
+            addLoadStateListener { loadState ->
+                binding.seriesList.isVisible = loadState.source.refresh is LoadState.NotLoading
+
+                binding.seriesProgress.isVisible = loadState.source.refresh is LoadState.Loading
+
+                binding.seriesError.isVisible = loadState.source.refresh is LoadState.Error
+                binding.buttonRetry.isVisible = loadState.source.refresh is LoadState.Error
+            }
+
+        }
+
+        binding.seriesList.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = LoadStateAdapter { adapter.retry() },
+            footer = LoadStateAdapter { adapter.retry() }
+        )
+
+
+        // RecyclerView
         binding.seriesList.hasFixedSize()
-        binding.seriesList.layoutManager =
-            GridLayoutManager(activity, resources.getInteger(R.integer.span_count))
-        binding.seriesList.adapter = adapter
+        val layoutManager = GridLayoutManager(activity, resources.getInteger(R.integer.span_count))
+        binding.seriesList.layoutManager = layoutManager
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val viewType = adapter.getItemViewType(position)
+                return if (viewType == LOADSTATE_VIEW_TYPE) 1
+                else resources.getInteger(R.integer.span_count)
+            }
+
+        }
+
     }
 }

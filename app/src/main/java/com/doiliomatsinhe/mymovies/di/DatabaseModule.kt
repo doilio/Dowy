@@ -2,8 +2,8 @@ package com.doiliomatsinhe.mymovies.di
 
 import android.content.Context
 import androidx.room.Room
-import com.doiliomatsinhe.mymovies.data.MoviesDao
-import com.doiliomatsinhe.mymovies.data.MoviesDatabase
+import com.doiliomatsinhe.mymovies.data.db.MoviesDao
+import com.doiliomatsinhe.mymovies.data.db.MoviesDatabase
 import com.doiliomatsinhe.mymovies.utils.MOVIE_DATABASE
 import dagger.Module
 import dagger.Provides
