@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.data
+package com.doiliomatsinhe.mymovies.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

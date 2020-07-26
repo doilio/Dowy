@@ -6,22 +6,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.doiliomatsinhe.mymovies.R
-import com.doiliomatsinhe.mymovies.data.MoviesDao
 import com.doiliomatsinhe.mymovies.utils.CATEGORY_KEY
 import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
 import com.doiliomatsinhe.mymovies.utils.NIGHT_MODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 import timber.log.Timber
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
-    @Inject
-    lateinit var database: MoviesDao
-
-    private val job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Timber.d("Preference not altered")
             } else {
                 Timber.d("Preference altered")
-                uiScope.launch { invalidateCurrentData() }
+                //uiScope.launch { invalidateCurrentData() }
 
             }
             true
@@ -69,22 +60,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
     }
-
-    override fun onStop() {
-        super.onStop()
-        job.cancel()
-    }
-
-    /**
-     * Invalidate Both Movies and Series Lists
-     */
-    private suspend fun invalidateCurrentData() {
-
-        withContext(Dispatchers.IO) {
-            database.deleteAllSeries()
-            database.deleteAllMovies()
-        }
-    }
-
 
 }

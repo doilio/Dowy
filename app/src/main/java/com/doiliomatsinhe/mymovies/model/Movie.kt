@@ -2,7 +2,7 @@ package com.doiliomatsinhe.mymovies.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.doiliomatsinhe.mymovies.data.DatabaseMovie
+import com.doiliomatsinhe.mymovies.data.db.DatabaseMovie
 import com.google.gson.annotations.SerializedName
 
 data class Movie(

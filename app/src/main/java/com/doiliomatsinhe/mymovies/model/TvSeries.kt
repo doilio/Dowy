@@ -1,6 +1,6 @@
 package com.doiliomatsinhe.mymovies.model
 
-import com.doiliomatsinhe.mymovies.data.DatabaseSeries
+import com.doiliomatsinhe.mymovies.data.db.DatabaseSeries
 import com.google.gson.annotations.SerializedName
 
 data class TvSeries (

@@ -33,20 +33,5 @@ class MoviesViewModel(
         return newResult
 
     }
-/*    private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val listOfMovies = MediatorLiveData<List<Movie>>()
-
-    init {
-        uiScope.launch {
-            repository.refreshMovies(category, language)
-        }
-        listOfMovies.addSource(repository.getMovies(), listOfMovies::setValue)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }*/
 }

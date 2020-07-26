@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.databinding.MoviesLoadStateFooterViewItemBinding
+import com.doiliomatsinhe.mymovies.databinding.LoadStateFooterViewItemBinding
 
 
-class MoviesLoadStateViewHolder(
-    private val binding: MoviesLoadStateFooterViewItemBinding,
+class LoadStateViewHolder(
+    private val binding: LoadStateFooterViewItemBinding,
     private val retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -27,11 +27,11 @@ class MoviesLoadStateViewHolder(
     }
 
     companion object {
-        fun from(parent: ViewGroup, retry: () -> Unit): MoviesLoadStateViewHolder {
+        fun from(parent: ViewGroup, retry: () -> Unit): LoadStateViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = MoviesLoadStateFooterViewItemBinding.inflate(inflater, parent, false)
+            val binding = LoadStateFooterViewItemBinding.inflate(inflater, parent, false)
 
-            return MoviesLoadStateViewHolder(binding, retry)
+            return LoadStateViewHolder(binding, retry)
         }
     }
 
