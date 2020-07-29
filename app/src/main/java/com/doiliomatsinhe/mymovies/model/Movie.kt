@@ -21,4 +21,6 @@ data class Movie(
 ) {
     val fullPosterPath: String
         get() = "http://image.tmdb.org/t/p/w342$poster_path"
+    val fullBackDropPath: String
+        get() = "http://image.tmdb.org/t/p/w780$backdrop_path"
 }

@@ -85,4 +85,7 @@ dependencies {
 
     // Preferences
     implementation "androidx.preference:preference:$preference_version"
+
+    // CircleImageView
+    implementation "de.hdodenhof:circleimageview:$circle_image_version"
 }
