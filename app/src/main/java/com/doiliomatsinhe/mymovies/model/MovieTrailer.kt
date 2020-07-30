@@ -2,7 +2,7 @@ package com.doiliomatsinhe.mymovies.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Trailer (
+data class MovieTrailer (
 
     @SerializedName("id") val id : String,
     @SerializedName("iso_639_1") val iso_639_1 : String,
