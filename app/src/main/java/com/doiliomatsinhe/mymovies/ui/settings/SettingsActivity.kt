@@ -3,8 +3,6 @@ package com.doiliomatsinhe.mymovies.ui.settings
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.doiliomatsinhe.mymovies.R
-import dagger.hilt.android.AndroidEntryPoint
-
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

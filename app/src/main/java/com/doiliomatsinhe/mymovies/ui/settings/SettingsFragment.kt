@@ -9,7 +9,6 @@ import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.utils.CATEGORY_KEY
 import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
 import com.doiliomatsinhe.mymovies.utils.NIGHT_MODE_KEY
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {

@@ -20,7 +20,6 @@ import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
 import com.doiliomatsinhe.mymovies.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +30,6 @@ class MoviesFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var viewModel: MoviesViewModel
     private lateinit var adapter: MovieAdapter
-    private var queryJob: Job? = null
 
     @Inject
     lateinit var sharedPreference: SharedPreferences
@@ -55,9 +53,7 @@ class MoviesFragment : Fragment() {
 
         initComponents()
 
-        queryJob?.cancel()
-
-        queryJob = lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.getMoviesList().collectLatest {
                 adapter.submitData(it)
             }
@@ -93,7 +89,6 @@ class MoviesFragment : Fragment() {
                 binding.moviesError.isVisible = loadState.source.refresh is LoadState.Error
             }
         }
-
 
         binding.movieList.adapter = adapter.withLoadStateHeaderAndFooter(
             header = LoadStateAdapter { adapter.retry() },

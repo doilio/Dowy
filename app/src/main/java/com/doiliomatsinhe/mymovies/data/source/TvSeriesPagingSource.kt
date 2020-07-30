@@ -7,6 +7,7 @@ import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import com.doiliomatsinhe.mymovies.utils.SERIES_LIST_STARTING_PAGE
 import retrofit2.HttpException
 import java.io.IOException
+import java.io.InvalidObjectException
 
 class TvSeriesPagingSource(
     private val service: ApiService,
@@ -17,8 +18,11 @@ class TvSeriesPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvSeries> {
         val page = params.key ?: SERIES_LIST_STARTING_PAGE
         return try {
-            val response =
-                service.getSeries(category.toString(), SECRET_KEY, language.toString(), page)
+            val response = if (category != null && language != null) {
+                service.getSeries(category, SECRET_KEY, language, page)
+            } else {
+                throw InvalidObjectException("Category and Language should not be null!")
+            }
             val series = response.results
             LoadResult.Page(
                 data = series,

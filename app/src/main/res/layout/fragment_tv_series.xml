@@ -5,13 +5,6 @@
 
     <data>
 
-        <variable
-            name="series"
-            type="com.doiliomatsinhe.mymovies.model.TvSeries" />
-
-        <variable
-            name="clicklistener"
-            type="com.doiliomatsinhe.mymovies.adapter.SeriesClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
