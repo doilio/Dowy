@@ -2,7 +2,7 @@ package com.doiliomatsinhe.mymovies.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Review (
+data class MovieReview (
 
     @SerializedName("author") val author : String,
     @SerializedName("content") val content : String,
