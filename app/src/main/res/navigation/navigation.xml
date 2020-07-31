@@ -10,7 +10,11 @@
         android:id="@+id/moviesFragment"
         android:name="com.doiliomatsinhe.mymovies.ui.movies.MoviesFragment"
         android:label="@string/movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies">
+        <action
+            android:id="@+id/action_moviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.doiliomatsinhe.mymovies.ui.favorites.FavoritesFragment"
@@ -21,4 +25,12 @@
         android:name="com.doiliomatsinhe.mymovies.ui.series.TvSeriesFragment"
         android:label="@string/tv_series"
         tools:layout="@layout/fragment_tv_series" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="Movie"
+            app:argType="com.doiliomatsinhe.mymovies.model.Movie" />
+    </fragment>
 </navigation>

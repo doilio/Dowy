@@ -17,7 +17,7 @@
             android:layout_height="1300dp">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/movie_cover"
                 android:layout_width="0dp"
                 android:layout_height="260dp"
                 android:contentDescription="@string/movie_cover"
@@ -40,6 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
+                    android:id="@+id/movie_poster"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/movie_photo"
@@ -53,7 +54,7 @@
                 android:layout_height="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4">
+                app:layout_constraintTop_toBottomOf="@+id/movie_cover">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -97,10 +98,12 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             tools:chipBackgroundColor="@android:color/transparent"
                             tools:chipStrokeColor="@color/colorAccent"
                             tools:chipStrokeWidth="1dp"
-                            tools:text="Adventure" />
+                            tools:text="Adventure"
+                            tools:visibility="visible" />
 
                     </com.google.android.material.chip.ChipGroup>
 

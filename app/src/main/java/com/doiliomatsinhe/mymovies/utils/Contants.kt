@@ -3,6 +3,7 @@ package com.doiliomatsinhe.mymovies.utils
 const val BASE_URL = "https://api.themoviedb.org/3/"
 const val PAGE = "page"
 const val API_KEY = "api_key"
+const val MOVIE_ID = "movie_id"
 const val LANGUAGE = "language"
 const val CATEGORY = "category"
 const val NIGHT_MODE_KEY = "night_mode_list"

@@ -1,9 +1,11 @@
 package com.doiliomatsinhe.mymovies.adapter
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.MovieCast
 import com.doiliomatsinhe.mymovies.model.TvSeries
 import timber.log.Timber
 
@@ -21,5 +23,24 @@ fun ImageView.setSeriesPoster(item: TvSeries?) {
 
     item?.let {
         Glide.with(this.context).load(it.fullPosterPath).into(this)
+    }
+}
+
+@BindingAdapter("castImage")
+fun ImageView.setCastImage(item: MovieCast?) {
+
+    item?.let {
+        if (!it.profile_path.isNullOrEmpty()) {
+            Glide.with(this.context).load(it.fullProfilePath).into(this)
+        }
+
+    }
+}
+
+@BindingAdapter("castName")
+fun TextView.setCastName(item: MovieCast?) {
+
+    item?.let {
+        this.text = it.name
     }
 }

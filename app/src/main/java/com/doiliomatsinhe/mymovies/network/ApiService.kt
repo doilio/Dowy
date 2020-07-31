@@ -1,9 +1,6 @@
 package com.doiliomatsinhe.mymovies.network
 
-import com.doiliomatsinhe.mymovies.utils.API_KEY
-import com.doiliomatsinhe.mymovies.utils.CATEGORY
-import com.doiliomatsinhe.mymovies.utils.LANGUAGE
-import com.doiliomatsinhe.mymovies.utils.PAGE
+import com.doiliomatsinhe.mymovies.utils.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,6 +14,17 @@ interface ApiService {
         @Query(LANGUAGE) language: String,
         @Query(PAGE) page: Int
     ): NetworkMovie
+
+    @GET("genre/movie/list")
+    suspend fun getMovieGenres(
+        @Query(API_KEY) apiKey: String
+    ): NetworkMovieGenres
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path(MOVIE_ID) movieId: Int,
+        @Query(API_KEY) apiKey: String
+    ): NetworkMovieCredit
 
     @GET("tv/{category}")
     suspend fun getSeries(

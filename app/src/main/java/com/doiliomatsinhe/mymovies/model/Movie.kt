@@ -1,7 +1,10 @@
 package com.doiliomatsinhe.mymovies.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie(
 
     @SerializedName("popularity") val popularity: Double,
@@ -18,7 +21,7 @@ data class Movie(
     @SerializedName("vote_average") val vote_average: Double,
     @SerializedName("overview") val overview: String,
     @SerializedName("release_date") val release_date: String
-) {
+) : Parcelable {
     val fullPosterPath: String
         get() = "http://image.tmdb.org/t/p/w342$poster_path"
     val fullBackDropPath: String

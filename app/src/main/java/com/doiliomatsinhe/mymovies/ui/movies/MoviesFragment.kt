@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
@@ -77,7 +78,11 @@ class MoviesFragment : Fragment() {
 
     private fun initAdapter() {
         adapter = MovieAdapter(MovieClickListener {
-            Toast.makeText(activity, "${it.title} clicked!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                    it
+                )
+            )
         }).apply {
             addLoadStateListener { loadState ->
                 // If list has items. Show
