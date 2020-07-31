@@ -1,12 +1,10 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +17,7 @@ import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
 import com.doiliomatsinhe.mymovies.adapter.LoadStateAdapter
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
+import com.doiliomatsinhe.mymovies.ui.settings.SettingsActivity
 import com.doiliomatsinhe.mymovies.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -63,6 +62,8 @@ class MoviesFragment : Fragment() {
     }
 
     private fun initComponents() {
+        setHasOptionsMenu(true)
+
         val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
 
@@ -112,5 +113,21 @@ class MoviesFragment : Fragment() {
 
         }
         binding.movieList.layoutManager = layoutManager
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settingsActivity -> openSettings()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun openSettings() {
+        startActivity(Intent(activity, SettingsActivity::class.java))
     }
 }

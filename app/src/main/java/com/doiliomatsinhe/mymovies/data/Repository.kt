@@ -48,6 +48,12 @@ class Repository @Inject constructor(
 
     }
 
+    suspend fun getMovieReviews(movieId: Int): List<MovieReview> {
+        return withContext(Dispatchers.IO) {
+            service.getMovieReview(movieId, SECRET_KEY).results
+        }
+    }
+
     suspend fun getMovieTrailer(movieId: Int): List<MovieTrailer> {
         return withContext(Dispatchers.IO) {
             service.getMovieTrailers(movieId, SECRET_KEY).results

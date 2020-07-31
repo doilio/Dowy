@@ -21,7 +21,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->clickListener.onClick(series)}"
-        app:cardElevation="1dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true">
 
         <ImageView

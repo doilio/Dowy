@@ -20,6 +20,12 @@ interface ApiService {
         @Query(API_KEY) apiKey: String
     ): NetworkMovieGenres
 
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getMovieReview(
+        @Path(MOVIE_ID) movieId: Int,
+        @Query(API_KEY) apiKey: String
+    ): NetworkMovieReview
+
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
         @Path(MOVIE_ID) movieId: Int,

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.MovieCast
 import com.doiliomatsinhe.mymovies.model.MovieGenres
+import com.doiliomatsinhe.mymovies.model.MovieReview
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +31,15 @@ constructor(private val repository: Repository) :
             _listOfGenres.value = repository.getGenreList()
         }
 
+    }
+
+    fun getMovieReview(movieId: Int): LiveData<List<MovieReview>> {
+        val reviewList = MutableLiveData<List<MovieReview>>()
+        uiScope.launch {
+            reviewList.value = repository.getMovieReviews(movieId)
+        }
+
+        return reviewList
     }
 
     fun getMovieTrailers(movieId: Int): LiveData<List<MovieTrailer>> {

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.adapter.CastAdapter
+import com.doiliomatsinhe.mymovies.adapter.ReviewAdapter
 import com.doiliomatsinhe.mymovies.adapter.TrailerAdapter
 import com.doiliomatsinhe.mymovies.databinding.FragmentDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
@@ -61,7 +62,8 @@ class DetailsFragment : Fragment() {
 
         // Trailer Adapter
         binding.recyclerTrailer.hasFixedSize()
-        binding.recyclerTrailer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerTrailer.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val trailerAdapter = TrailerAdapter()
 
         Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
@@ -72,6 +74,11 @@ class DetailsFragment : Fragment() {
         binding.ratingText.text = movie.vote_average.toString()
         binding.overviewText.text = movie.overview
 
+        // Reviews Adapter
+        binding.recyclerReview.hasFixedSize()
+        binding.recyclerReview.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val reviewAdapter = ReviewAdapter()
         // Set Chips
         viewModel.listOfGenres.observe(viewLifecycleOwner, Observer { listOfGenres ->
             listOfGenres?.let {
@@ -99,6 +106,7 @@ class DetailsFragment : Fragment() {
 
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
+        binding.recyclerReview.adapter = reviewAdapter
 
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { castMembers ->
@@ -110,6 +118,12 @@ class DetailsFragment : Fragment() {
         viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
                 trailerAdapter.submitList(listOfTrailers)
+            }
+        })
+
+        viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, Observer {
+            it?.let { reviews ->
+                reviewAdapter.submitList(reviews)
             }
         })
 
