@@ -5,10 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.doiliomatsinhe.mymovies.data.source.MoviesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesPagingSource
-import com.doiliomatsinhe.mymovies.model.Movie
-import com.doiliomatsinhe.mymovies.model.MovieCast
-import com.doiliomatsinhe.mymovies.model.MovieGenres
-import com.doiliomatsinhe.mymovies.model.TvSeries
+import com.doiliomatsinhe.mymovies.model.*
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +46,12 @@ class Repository @Inject constructor(
                 )
             }).flow
 
+    }
+
+    suspend fun getMovieTrailer(movieId: Int): List<MovieTrailer> {
+        return withContext(Dispatchers.IO) {
+            service.getMovieTrailers(movieId, SECRET_KEY).results
+        }
     }
 
     suspend fun getCast(movieId: Int): List<MovieCast> {

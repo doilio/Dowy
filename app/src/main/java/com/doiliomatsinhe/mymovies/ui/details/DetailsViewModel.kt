@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.MovieCast
 import com.doiliomatsinhe.mymovies.model.MovieGenres
+import com.doiliomatsinhe.mymovies.model.MovieTrailer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class DetailsViewModel @ViewModelInject
 constructor(private val repository: Repository) :
@@ -24,8 +24,6 @@ constructor(private val repository: Repository) :
     val listOfGenres: LiveData<List<MovieGenres>>
         get() = _listOfGenres
 
-    private val _castMembers = MutableLiveData<List<MovieCast>>()
-
 
     init {
         uiScope.launch {
@@ -34,11 +32,22 @@ constructor(private val repository: Repository) :
 
     }
 
-    fun getMovieCast(movieId: Int): LiveData<List<MovieCast>> {
+    fun getMovieTrailers(movieId: Int): LiveData<List<MovieTrailer>> {
+        val trailers = MutableLiveData<List<MovieTrailer>>()
         uiScope.launch {
-            _castMembers.value = repository.getCast(movieId)
+            trailers.value = repository.getMovieTrailer(movieId)
         }
-        return _castMembers
+        return trailers
+    }
+
+    fun getMovieCast(movieId: Int): LiveData<List<MovieCast>> {
+        val castMembers = MutableLiveData<List<MovieCast>>()
+        uiScope.launch {
+            castMembers.value = repository.getCast(movieId).filter {
+                it.profile_path != null
+            }
+        }
+        return castMembers
     }
 
     override fun onCleared() {

@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -38,6 +39,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.moviesFragment, R.id.tvSeriesFragment, R.id.favoritesFragment
             )
         )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.moviesFragment -> navView.visibility = View.VISIBLE
+                R.id.tvSeriesFragment -> navView.visibility = View.VISIBLE
+                R.id.favoritesFragment -> navView.visibility = View.VISIBLE
+                else -> navView.visibility = View.GONE
+            }
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.adapter.CastAdapter
+import com.doiliomatsinhe.mymovies.adapter.TrailerAdapter
 import com.doiliomatsinhe.mymovies.databinding.FragmentDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.utils.Utils
@@ -51,13 +52,17 @@ class DetailsFragment : Fragment() {
 
     private fun populateMoviesUI(movie: Movie) {
 
-        // Adapter
+        // Cast Adapter
         binding.recyclerCast.hasFixedSize()
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerCast.layoutManager = layoutManager
         val castAdapter = CastAdapter()
-        //castAdapter.submitList()
+
+        // Trailer Adapter
+        binding.recyclerTrailer.hasFixedSize()
+        binding.recyclerTrailer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val trailerAdapter = TrailerAdapter()
 
         Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
         Glide.with(this).load(movie.fullPosterPath).into(binding.moviePoster)
@@ -93,11 +98,18 @@ class DetailsFragment : Fragment() {
 
 
         binding.recyclerCast.adapter = castAdapter
+        binding.recyclerTrailer.adapter = trailerAdapter
 
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { castMembers ->
                 castAdapter.submitList(castMembers)
                 Timber.d("Cast Members: $castMembers")
+            }
+        })
+
+        viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
+            it?.let { listOfTrailers ->
+                trailerAdapter.submitList(listOfTrailers)
             }
         })
 
