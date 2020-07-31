@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.review
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,7 +19,9 @@ class ReviewViewHolder(private val binding: ReviewItemBinding) :
             val inflater = LayoutInflater.from(parent.context)
             val binding = ReviewItemBinding.inflate(inflater, parent, false)
 
-            return ReviewViewHolder(binding)
+            return ReviewViewHolder(
+                binding
+            )
         }
     }
 

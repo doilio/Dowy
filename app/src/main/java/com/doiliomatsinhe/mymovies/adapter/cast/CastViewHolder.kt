@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.cast
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +18,9 @@ class CastViewHolder(private val binding: CastItemBinding) : RecyclerView.ViewHo
         fun from(parent: ViewGroup): CastViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = CastItemBinding.inflate(inflater, parent, false)
-            return CastViewHolder(binding)
+            return CastViewHolder(
+                binding
+            )
         }
     }
 }

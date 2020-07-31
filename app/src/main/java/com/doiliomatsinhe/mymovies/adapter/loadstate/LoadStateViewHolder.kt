@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.loadstate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,7 +31,10 @@ class LoadStateViewHolder(
             val inflater = LayoutInflater.from(parent.context)
             val binding = LoadStateFooterViewItemBinding.inflate(inflater, parent, false)
 
-            return LoadStateViewHolder(binding, retry)
+            return LoadStateViewHolder(
+                binding,
+                retry
+            )
         }
     }
 

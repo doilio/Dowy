@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.trailer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,7 +19,9 @@ class TrailerViewHolder(private val binding: TrailersItemBinding) :
             val inflater = LayoutInflater.from(parent.context)
             val binding = TrailersItemBinding.inflate(inflater, parent, false)
 
-            return TrailerViewHolder(binding)
+            return TrailerViewHolder(
+                binding
+            )
         }
     }
 

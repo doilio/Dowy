@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.trailer
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +9,9 @@ import com.doiliomatsinhe.mymovies.model.MovieTrailer
 class TrailerAdapter :
     ListAdapter<MovieTrailer, RecyclerView.ViewHolder>(TrailerDiffUtilCallbak()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TrailerViewHolder.from(parent)
+        return TrailerViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -6,15 +6,15 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
-import com.doiliomatsinhe.mymovies.adapter.MovieAdapter
-import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
-import com.doiliomatsinhe.mymovies.adapter.LoadStateAdapter
+import com.doiliomatsinhe.mymovies.adapter.movie.MovieAdapter
+import com.doiliomatsinhe.mymovies.adapter.movie.MovieClickListener
+import com.doiliomatsinhe.mymovies.adapter.loadstate.LoadStateAdapter
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
 import com.doiliomatsinhe.mymovies.ui.settings.SettingsActivity
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class MoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
-    private lateinit var viewModel: MoviesViewModel
+    private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
 
     @Inject
@@ -36,6 +36,7 @@ class MoviesFragment : Fragment() {
 
     @Inject
     lateinit var repository: Repository
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,22 +54,23 @@ class MoviesFragment : Fragment() {
 
         initComponents()
 
+        fetchMovies()
+
+    }
+
+    private fun fetchMovies() {
+        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
+        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
+
         lifecycleScope.launch {
-            viewModel.getMoviesList().collectLatest {
+            viewModel.getMoviesList(category, language).collectLatest {
                 adapter.submitData(it)
             }
         }
-
     }
 
     private fun initComponents() {
         setHasOptionsMenu(true)
-
-        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
-        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
-
-        val factory = MoviesViewModelFactory(repository, category, language)
-        viewModel = ViewModelProvider(this, factory).get(MoviesViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -78,13 +80,14 @@ class MoviesFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MovieAdapter(MovieClickListener {
-            findNavController().navigate(
-                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                    it
+        adapter = MovieAdapter(
+            MovieClickListener {
+                findNavController().navigate(
+                    MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                        it
+                    )
                 )
-            )
-        }).apply {
+            }).apply {
             addLoadStateListener { loadState ->
                 // If list has items. Show
                 binding.movieList.isVisible = loadState.source.refresh is LoadState.NotLoading
@@ -116,7 +119,7 @@ class MoviesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu,menu)
+        inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

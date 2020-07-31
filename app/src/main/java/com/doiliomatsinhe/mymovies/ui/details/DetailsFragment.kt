@@ -12,15 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.doiliomatsinhe.mymovies.adapter.CastAdapter
-import com.doiliomatsinhe.mymovies.adapter.ReviewAdapter
-import com.doiliomatsinhe.mymovies.adapter.TrailerAdapter
+import com.doiliomatsinhe.mymovies.adapter.cast.CastAdapter
+import com.doiliomatsinhe.mymovies.adapter.review.ReviewAdapter
+import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.databinding.FragmentDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -64,7 +63,8 @@ class DetailsFragment : Fragment() {
         binding.recyclerTrailer.hasFixedSize()
         binding.recyclerTrailer.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val trailerAdapter = TrailerAdapter()
+        val trailerAdapter =
+            TrailerAdapter()
 
         Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
         Glide.with(this).load(movie.fullPosterPath).into(binding.moviePoster)
@@ -78,7 +78,8 @@ class DetailsFragment : Fragment() {
         binding.recyclerReview.hasFixedSize()
         binding.recyclerReview.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val reviewAdapter = ReviewAdapter()
+        val reviewAdapter =
+            ReviewAdapter()
         // Set Chips
         viewModel.listOfGenres.observe(viewLifecycleOwner, Observer { listOfGenres ->
             listOfGenres?.let {
@@ -103,7 +104,6 @@ class DetailsFragment : Fragment() {
             }
         })
 
-
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
@@ -111,7 +111,6 @@ class DetailsFragment : Fragment() {
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { castMembers ->
                 castAdapter.submitList(castMembers)
-                Timber.d("Cast Members: $castMembers")
             }
         })
 
@@ -123,7 +122,11 @@ class DetailsFragment : Fragment() {
 
         viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { reviews ->
-                reviewAdapter.submitList(reviews)
+                if (reviews.isNotEmpty()) {
+                    reviewAdapter.submitList(reviews)
+                } else {
+                    binding.textView1sds3.visibility = View.GONE
+                }
             }
         })
 

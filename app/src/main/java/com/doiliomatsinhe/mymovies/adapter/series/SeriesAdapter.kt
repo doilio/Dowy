@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.series
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

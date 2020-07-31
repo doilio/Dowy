@@ -6,14 +6,12 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.model.*
-import timber.log.Timber
 
 @BindingAdapter("moviePoster")
 fun ImageView.setMoviePoster(item: Movie?) {
 
     item?.let {
         Glide.with(this.context).load(it.fullPosterPath).into(this)
-        Timber.d("Title: ${it.title}\n Profile: ${it.fullPosterPath}\n Cover: ${it.fullBackDropPath}")
     }
 }
 

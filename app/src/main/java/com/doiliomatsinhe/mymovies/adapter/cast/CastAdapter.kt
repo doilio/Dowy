@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.cast
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.MovieClickListener" />
+            type="com.doiliomatsinhe.mymovies.adapter.movie.MovieClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
