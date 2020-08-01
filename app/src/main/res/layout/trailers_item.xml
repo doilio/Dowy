@@ -9,6 +9,10 @@
             name="trailer"
             type="com.doiliomatsinhe.mymovies.model.MovieTrailer" />
 
+        <variable
+            name="clickListener"
+            type="com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener" />
+
     </data>
 
 
@@ -21,6 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()-> clickListener.onCLick(trailer)}"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintStart_toStartOf="parent"

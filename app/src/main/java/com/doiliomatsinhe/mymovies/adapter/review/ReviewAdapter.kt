@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.MovieReview
 
-class ReviewAdapter :
+class ReviewAdapter(private val clickListener: ReviewClickListener) :
     ListAdapter<MovieReview, RecyclerView.ViewHolder>(ReviewDiffUtilItemCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ReviewViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ReviewViewHolder).bind(getItem(position))
+        (holder as ReviewViewHolder).bind(getItem(position), clickListener)
     }
 }
 
@@ -26,4 +26,8 @@ class ReviewDiffUtilItemCallback : DiffUtil.ItemCallback<MovieReview>() {
         return oldItem == newItem
     }
 
+}
+
+class ReviewClickListener(val clicklistener: (review: MovieReview) -> Unit) {
+    fun onClick(review: MovieReview) = clicklistener(review)
 }

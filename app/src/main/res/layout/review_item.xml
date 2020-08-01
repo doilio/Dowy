@@ -9,6 +9,10 @@
             name="review"
             type="com.doiliomatsinhe.mymovies.model.MovieReview" />
 
+        <variable
+            name="clickListener"
+            type="com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,6 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()-> clickListener.onClick(review)}"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,17 +42,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                app:reviewerName="@{review}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:reviewerName="@{review}"
                 tools:text="Reviewer name" />
 
             <TextView
                 android:id="@+id/review_text"
+                reviewerText="@{review}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                reviewerText="@{review}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/review_name"

@@ -29,6 +29,7 @@
     <string name="movie_cover">Movie Cover</string>
     <string name="movie_trailer">Movie Trailer</string>
     <string name="play_trailer">Play Trailer</string>
+    <string name="youtube_app_name">com.google.android.youtube</string>
 
     <string-array name="language_entries">
         <item>@string/english</item>

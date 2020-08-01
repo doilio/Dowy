@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 
-class TrailerAdapter :
+class TrailerAdapter(private val clickListener: TrailerClickListener) :
     ListAdapter<MovieTrailer, RecyclerView.ViewHolder>(TrailerDiffUtilCallbak()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TrailerViewHolder.from(
@@ -15,7 +15,7 @@ class TrailerAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as TrailerViewHolder).bind(getItem(position))
+        (holder as TrailerViewHolder).bind(getItem(position),clickListener)
     }
 
 }
@@ -29,4 +29,8 @@ class TrailerDiffUtilCallbak : DiffUtil.ItemCallback<MovieTrailer>() {
         return oldItem == newItem
     }
 
+}
+
+class TrailerClickListener(val clickListener: (trailer: MovieTrailer) -> Unit) {
+    fun onCLick(trailer: MovieTrailer) = clickListener(trailer)
 }

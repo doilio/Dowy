@@ -70,7 +70,7 @@ fun TextView.setReviewerName(item: MovieReview?) {
 fun TextView.setReviewerText(item: MovieReview?) {
     item?.let {
         if (it.content.length > 1000) {
-            this.text = "${it.content.substring(0, 1000)}..."
+            this.text = "${it.content.substring(0, 1000)}...\n\"click to read more\"."
         } else {
             this.text = it.content
         }

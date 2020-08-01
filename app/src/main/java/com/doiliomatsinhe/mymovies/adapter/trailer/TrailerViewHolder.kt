@@ -9,8 +9,12 @@ import com.doiliomatsinhe.mymovies.model.MovieTrailer
 class TrailerViewHolder(private val binding: TrailersItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: MovieTrailer?) {
+    fun bind(
+        item: MovieTrailer?,
+        clickListener: TrailerClickListener
+    ) {
         binding.trailer = item
+        binding.clickListener = clickListener
         binding.executePendingBindings()
     }
 

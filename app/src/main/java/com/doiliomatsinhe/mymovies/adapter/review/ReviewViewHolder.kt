@@ -9,8 +9,12 @@ import com.doiliomatsinhe.mymovies.model.MovieReview
 class ReviewViewHolder(private val binding: ReviewItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: MovieReview?) {
+    fun bind(
+        item: MovieReview?,
+        clickListener: ReviewClickListener
+    ) {
         binding.review = item
+        binding.clickListener = clickListener
         binding.executePendingBindings()
     }
 
