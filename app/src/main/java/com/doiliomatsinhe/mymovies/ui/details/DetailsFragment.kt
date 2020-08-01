@@ -4,10 +4,9 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -34,6 +33,7 @@ class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var movie: Movie
     private val viewModel: DetailsViewModel by viewModels()
+    private lateinit var trailers: List<MovieTrailer>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +45,7 @@ class DetailsFragment : Fragment() {
         val arguments = DetailsFragmentArgs.fromBundle(requireArguments())
         movie = arguments.Movie
         setupActionBar(movie)
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -128,6 +129,7 @@ class DetailsFragment : Fragment() {
         viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
                 trailerAdapter.submitList(listOfTrailers)
+                trailers = listOfTrailers
             }
         })
 
@@ -159,6 +161,35 @@ class DetailsFragment : Fragment() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             .addCategory(Intent.CATEGORY_BROWSABLE)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.details_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.ic_share -> {
+                shareDetails()
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun shareDetails() {
+        if (trailers.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_SEND)
+            val firstTrailer = "https://youtu.be/${trailers[0].key}"
+            intent.putExtra(Intent.EXTRA_TEXT, "Check out: $firstTrailer")
+            intent.type = "text/plain"
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
+            }
+        } else {
+            Toast.makeText(activity, getString(R.string.sharing_failed), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupActionBar(movie: Movie) {
