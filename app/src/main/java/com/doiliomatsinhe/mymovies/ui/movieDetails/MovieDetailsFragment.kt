@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.ui.details
+package com.doiliomatsinhe.mymovies.ui.movieDetails
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -19,7 +19,7 @@ import com.doiliomatsinhe.mymovies.adapter.review.ReviewAdapter
 import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
-import com.doiliomatsinhe.mymovies.databinding.FragmentDetailsBinding
+import com.doiliomatsinhe.mymovies.databinding.FragmentMovieDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 import com.doiliomatsinhe.mymovies.utils.Utils
@@ -28,11 +28,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DetailsFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailsBinding
+    private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var movie: Movie
-    private val viewModel: DetailsViewModel by viewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels()
     private lateinit var trailers: List<MovieTrailer>
 
     override fun onCreateView(
@@ -40,9 +40,9 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
-        val arguments = DetailsFragmentArgs.fromBundle(requireArguments())
+        val arguments = MovieDetailsFragmentArgs.fromBundle(requireArguments())
         movie = arguments.Movie
         setupActionBar(movie)
         setHasOptionsMenu(true)

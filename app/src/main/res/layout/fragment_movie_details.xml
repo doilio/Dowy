@@ -10,11 +10,11 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.details.DetailsFragment">
+        tools:context=".ui.movieDetails.MovieDetailsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="1300dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/movie_cover"

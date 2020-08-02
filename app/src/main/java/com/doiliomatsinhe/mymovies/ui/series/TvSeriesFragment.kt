@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
@@ -78,7 +79,11 @@ class TvSeriesFragment : Fragment() {
     private fun initAdapter() {
         adapter = SeriesAdapter(
             SeriesClickListener {
-                Toast.makeText(activity, "${it.name} clicked!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(
+                    TvSeriesFragmentDirections.actionTvSeriesFragmentToTvSeriesDetailsFragment(
+                        it
+                    )
+                )
             }).apply {
 
             addLoadStateListener { loadState ->

@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.ui.details
+package com.doiliomatsinhe.mymovies.ui.movieDetails
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class DetailsViewModel @ViewModelInject
+class MovieDetailsViewModel @ViewModelInject
 constructor(private val repository: Repository) :
     ViewModel() {
 
