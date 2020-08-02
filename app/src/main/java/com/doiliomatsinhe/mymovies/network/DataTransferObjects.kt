@@ -58,7 +58,7 @@ data class NetworkTvReview(
 data class NetworkTvCredit(
 
     @SerializedName("cast") val cast: List<TvCast>,
-    @SerializedName("crew") val crew: List<String>,
+    @SerializedName("crew") val crew: List<TvCrew>,
     @SerializedName("id") val id: Int
 )
 

@@ -9,7 +9,7 @@ data class TvCast(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("gender") val gender: Int,
-    @SerializedName("profile_path") val profile_path: String,
+    @SerializedName("profile_path") val profile_path: String?,
     @SerializedName("order") val order: Int
 ) {
     val fullProfilePath: String
