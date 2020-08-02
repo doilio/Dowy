@@ -80,7 +80,7 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getCast(movieId: Int): Result<List<MovieCast>> {
+    suspend fun getMovieCast(movieId: Int): Result<List<MovieCast>> {
         return withContext(Dispatchers.IO) {
             try {
                 val castMembers = service.getMovieCredits(movieId, SECRET_KEY).cast
@@ -94,11 +94,67 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getGenreList(): Result<List<MovieGenres>> {
+    suspend fun getMovieGenres(): Result<List<MovieGenres>> {
         return withContext(Dispatchers.IO) {
             try {
                 val movieGenres = service.getMovieGenres(SECRET_KEY).genres
                 Result.Success(movieGenres)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getTvReviews(tvId: Int): Result<List<TvReview>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val tvReviews = service.getTvReview(tvId, SECRET_KEY).results
+                Result.Success(tvReviews)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getTvTrailer(tvId: Int): Result<List<TvTrailer>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val tvTrailers = service.getTvTrailers(tvId, SECRET_KEY).results
+                Result.Success(tvTrailers)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getTvCast(tvId: Int): Result<List<TvCast>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val castMembers = service.getTvCredits(tvId, SECRET_KEY).cast
+                Result.Success(castMembers)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getTvGenres(): Result<List<TvGenres>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val tvGenres = service.getTvGenres(SECRET_KEY).genres
+                Result.Success(tvGenres)
 
             } catch (exception: IOException) {
                 Result.Error(exception)

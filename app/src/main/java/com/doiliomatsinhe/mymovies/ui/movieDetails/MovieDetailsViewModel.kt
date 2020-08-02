@@ -29,7 +29,7 @@ constructor(private val repository: Repository) :
 
     init {
         uiScope.launch {
-            _listOfGenres.value = when (val movieGenres = repository.getGenreList()) {
+            _listOfGenres.value = when (val movieGenres = repository.getMovieGenres()) {
                 is Result.Success -> movieGenres.data
                 is Result.Error -> null
             }
@@ -64,7 +64,7 @@ constructor(private val repository: Repository) :
         val castMembers = MutableLiveData<List<MovieCast>>()
 
         uiScope.launch {
-            castMembers.value = when (val result = repository.getCast(movieId)) {
+            castMembers.value = when (val result = repository.getMovieCast(movieId)) {
                 is Result.Success -> result.data.filter { it.profile_path != null }
                 is Result.Error -> null
             }
