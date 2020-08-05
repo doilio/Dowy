@@ -330,7 +330,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView1sd3"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/trailers_item" />
+                tools:listitem="@layout/movie_trailers_item" />
 
             <TextView
                 android:id="@+id/textView1sds3"

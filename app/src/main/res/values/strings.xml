@@ -28,6 +28,7 @@
     <string name="movie_photo">Movie Photo</string>
     <string name="movie_cover">Movie Cover</string>
     <string name="movie_trailer">Movie Trailer</string>
+    <string name="series_trailer">Series Trailer</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="youtube_app_name">com.google.android.youtube</string>
     <string name="share">Share</string>

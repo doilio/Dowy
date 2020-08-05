@@ -26,8 +26,8 @@ fun ImageView.setSeriesPoster(item: TvSeries?) {
 @BindingAdapter("castImage")
 fun ImageView.setCastImage(item: Any?) {
 
-    when(item){
-        is MovieCast? ->{
+    when (item) {
+        is MovieCast? -> {
             if (!item?.profile_path.isNullOrEmpty()) {
                 Glide.with(this).load(item?.fullProfilePath).into(this)
             }
@@ -55,18 +55,20 @@ fun TextView.setCastName(item: Any?) {
 }
 
 @BindingAdapter("trailerName")
-fun TextView.setTrailerName(item: MovieTrailer?) {
+fun TextView.setTrailerName(item: Any?) {
 
-    item?.let {
-        this.text = item.name
+    when (item) {
+        is MovieTrailer? -> text = item?.name
+        is TvTrailer? -> text = item?.name
     }
 }
 
 @BindingAdapter("trailerImage")
-fun ImageView.setTrailerImage(item: MovieTrailer?) {
+fun ImageView.setTrailerImage(item: Any?) {
 
-    item?.let {
-        Glide.with(this).load(item.trailerImagePath).into(this)
+    when (item) {
+        is MovieTrailer -> Glide.with(this).load(item.trailerImagePath).into(this)
+        is TvTrailer -> Glide.with(this).load(item.trailerImagePath).into(this)
     }
 }
 

@@ -71,7 +71,7 @@ class MovieDetailsFragment : Fragment() {
         binding.recyclerTrailer.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val trailerAdapter = TrailerAdapter(TrailerClickListener {
-            openTrailer(it)
+            openTrailer(it as MovieTrailer)
         })
 
         Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
@@ -127,7 +127,7 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
-                trailerAdapter.submitList(listOfTrailers)
+                trailerAdapter.submitMovieTrailers(listOfTrailers)
                 trailers = listOfTrailers
             }
         })

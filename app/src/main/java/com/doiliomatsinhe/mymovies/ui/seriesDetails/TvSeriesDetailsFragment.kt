@@ -78,7 +78,7 @@ class TvSeriesDetailsFragment : Fragment() {
                 false
             )
         val trailerAdapter = TrailerAdapter(TrailerClickListener {
-            //TODO openTrailer(it)
+            openTrailer(it as TvTrailer)
         })
 
         Glide.with(this).load(tvSeries.fullBackDropPath).into(binding.tvCover)
@@ -134,7 +134,7 @@ class TvSeriesDetailsFragment : Fragment() {
 
         viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
-                //TODO trailerAdapter.submitList(listOfTrailers)
+                trailerAdapter.submitSeriesTrailers(listOfTrailers)
                 trailers = listOfTrailers
             }
         })

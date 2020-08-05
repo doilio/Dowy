@@ -3,10 +3,10 @@ package com.doiliomatsinhe.mymovies.adapter.trailer
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.databinding.TrailersItemBinding
+import com.doiliomatsinhe.mymovies.databinding.MovieTrailersItemBinding
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 
-class TrailerViewHolder(private val binding: TrailersItemBinding) :
+class MovieTrailerViewHolder(private val binding: MovieTrailersItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -19,11 +19,11 @@ class TrailerViewHolder(private val binding: TrailersItemBinding) :
     }
 
     companion object {
-        fun from(parent: ViewGroup): TrailerViewHolder {
+        fun from(parent: ViewGroup): MovieTrailerViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = TrailersItemBinding.inflate(inflater, parent, false)
+            val binding = MovieTrailersItemBinding.inflate(inflater, parent, false)
 
-            return TrailerViewHolder(
+            return MovieTrailerViewHolder(
                 binding
             )
         }
