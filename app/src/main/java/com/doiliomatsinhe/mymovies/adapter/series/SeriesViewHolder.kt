@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.series
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,7 +20,9 @@ class SeriesViewHolder(private val binding: SeriesItemBinding) :
         fun from(parent: ViewGroup): SeriesViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = SeriesItemBinding.inflate(inflater, parent, false)
-            return SeriesViewHolder(binding)
+            return SeriesViewHolder(
+                binding
+            )
         }
     }
 

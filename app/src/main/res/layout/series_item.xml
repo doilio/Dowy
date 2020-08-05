@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.SeriesClickListener" />
+            type="com.doiliomatsinhe.mymovies.adapter.series.SeriesClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,7 +22,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->clickListener.onClick(series)}"
-        app:cardElevation="1dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true">
 
         <ImageView
@@ -31,7 +32,7 @@
             android:layout_height="270dp"
             android:contentDescription="@string/series_poster"
             android:scaleType="centerCrop"
-            android:src="@drawable/series_poster" />
+            tools:src="@drawable/tv_poster" />
 
     </androidx.cardview.widget.CardView>
 

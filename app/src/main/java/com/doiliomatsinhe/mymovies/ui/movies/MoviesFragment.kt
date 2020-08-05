@@ -1,23 +1,23 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
-import com.doiliomatsinhe.mymovies.adapter.MovieAdapter
-import com.doiliomatsinhe.mymovies.adapter.MovieClickListener
-import com.doiliomatsinhe.mymovies.adapter.LoadStateAdapter
+import com.doiliomatsinhe.mymovies.adapter.movie.MovieAdapter
+import com.doiliomatsinhe.mymovies.adapter.movie.MovieClickListener
+import com.doiliomatsinhe.mymovies.adapter.loadstate.LoadStateAdapter
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentMoviesBinding
+import com.doiliomatsinhe.mymovies.ui.settings.SettingsActivity
 import com.doiliomatsinhe.mymovies.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class MoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
-    private lateinit var viewModel: MoviesViewModel
+    private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
 
     @Inject
@@ -36,6 +36,7 @@ class MoviesFragment : Fragment() {
 
     @Inject
     lateinit var repository: Repository
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,20 +54,23 @@ class MoviesFragment : Fragment() {
 
         initComponents()
 
-        lifecycleScope.launch {
-            viewModel.getMoviesList().collectLatest {
-                adapter.submitData(it)
-            }
-        }
+        fetchMovies()
 
     }
 
-    private fun initComponents() {
+    private fun fetchMovies() {
         val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
 
-        val factory = MoviesViewModelFactory(repository, category, language)
-        viewModel = ViewModelProvider(this, factory).get(MoviesViewModel::class.java)
+        lifecycleScope.launch {
+            viewModel.getMoviesList(category, language).collectLatest {
+                adapter.submitData(it)
+            }
+        }
+    }
+
+    private fun initComponents() {
+        setHasOptionsMenu(true)
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -76,9 +80,14 @@ class MoviesFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MovieAdapter(MovieClickListener {
-            Toast.makeText(activity, "${it.title} clicked!", Toast.LENGTH_SHORT).show()
-        }).apply {
+        adapter = MovieAdapter(
+            MovieClickListener {
+                findNavController().navigate(
+                    MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                        it
+                    )
+                )
+            }).apply {
             addLoadStateListener { loadState ->
                 // If list has items. Show
                 binding.movieList.isVisible = loadState.source.refresh is LoadState.NotLoading
@@ -107,5 +116,21 @@ class MoviesFragment : Fragment() {
 
         }
         binding.movieList.layoutManager = layoutManager
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settingsActivity -> openSettings()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun openSettings() {
+        startActivity(Intent(activity, SettingsActivity::class.java))
     }
 }

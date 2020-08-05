@@ -28,7 +28,12 @@
     <string name="movie_photo">Movie Photo</string>
     <string name="movie_cover">Movie Cover</string>
     <string name="movie_trailer">Movie Trailer</string>
+    <string name="series_trailer">Series Trailer</string>
     <string name="play_trailer">Play Trailer</string>
+    <string name="youtube_app_name">com.google.android.youtube</string>
+    <string name="share">Share</string>
+    <string name="share_using">Share using:</string>
+    <string name="sharing_failed">Sharing failed, Try again later!</string>
 
     <string-array name="language_entries">
         <item>@string/english</item>
@@ -56,4 +61,8 @@
         <item>popular</item>
         <item>top_rated</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_photo">Tv Series Photo</string>
+    <string name="tv_cover">Tv Series Cover</string>
 </resources>

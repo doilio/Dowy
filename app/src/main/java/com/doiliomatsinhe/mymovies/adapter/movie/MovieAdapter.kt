@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.movie
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -14,7 +14,9 @@ class MovieAdapter(private val clickListener: MovieClickListener) :
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MovieViewHolder.from(parent)
+        return MovieViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

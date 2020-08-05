@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.adapter
+package com.doiliomatsinhe.mymovies.adapter.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +18,9 @@ class MovieViewHolder(private val binding: MovieItemBinding) :
         fun from(parent: ViewGroup): MovieViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = MovieItemBinding.inflate(inflater, parent, false)
-            return MovieViewHolder(binding)
+            return MovieViewHolder(
+                binding
+            )
         }
     }
 

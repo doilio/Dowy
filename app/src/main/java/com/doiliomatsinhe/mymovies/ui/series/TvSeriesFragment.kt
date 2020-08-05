@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
-import com.doiliomatsinhe.mymovies.adapter.LoadStateAdapter
-import com.doiliomatsinhe.mymovies.adapter.SeriesAdapter
-import com.doiliomatsinhe.mymovies.adapter.SeriesClickListener
+import com.doiliomatsinhe.mymovies.adapter.loadstate.LoadStateAdapter
+import com.doiliomatsinhe.mymovies.adapter.series.SeriesAdapter
+import com.doiliomatsinhe.mymovies.adapter.series.SeriesClickListener
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesBinding
 import com.doiliomatsinhe.mymovies.utils.*
@@ -28,7 +29,7 @@ import javax.inject.Inject
 class TvSeriesFragment : Fragment() {
 
     private lateinit var binding: FragmentTvSeriesBinding
-    private lateinit var viewModel: TvSeriesViewModel
+    private val viewModel: TvSeriesViewModel by viewModels()
     private lateinit var adapter: SeriesAdapter
 
     @Inject
@@ -53,20 +54,21 @@ class TvSeriesFragment : Fragment() {
 
         initComponents()
 
+        fetchSeries()
+    }
+
+    private fun fetchSeries() {
+        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
+        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
+
         lifecycleScope.launch {
-            viewModel.getTvSeriesList().collectLatest {
+            viewModel.getTvSeriesList(category, language).collectLatest {
                 adapter.submitData(it)
             }
         }
     }
 
     private fun initComponents() {
-        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
-        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
-
-        val factory = TvSeriesViewModelFactory(repository, category, language)
-        viewModel = ViewModelProvider(this, factory).get(TvSeriesViewModel::class.java)
-
         binding.lifecycleOwner = viewLifecycleOwner
 
         initAdapter()
@@ -75,9 +77,14 @@ class TvSeriesFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = SeriesAdapter(SeriesClickListener {
-            Toast.makeText(activity, "${it.name} clicked!", Toast.LENGTH_SHORT).show()
-        }).apply {
+        adapter = SeriesAdapter(
+            SeriesClickListener {
+                findNavController().navigate(
+                    TvSeriesFragmentDirections.actionTvSeriesFragmentToTvSeriesDetailsFragment(
+                        it
+                    )
+                )
+            }).apply {
 
             addLoadStateListener { loadState ->
                 binding.seriesList.isVisible = loadState.source.refresh is LoadState.NotLoading

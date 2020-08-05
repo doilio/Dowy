@@ -1,6 +1,7 @@
 package com.doiliomatsinhe.mymovies.ui.series
 
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -9,10 +10,8 @@ import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.TvSeries
 import kotlinx.coroutines.flow.Flow
 
-class TvSeriesViewModel(
-    private val repository: Repository,
-    private val category: String?,
-    private val language: String?
+class TvSeriesViewModel @ViewModelInject constructor(
+    private val repository: Repository
 ) :
     ViewModel() {
 
@@ -20,7 +19,7 @@ class TvSeriesViewModel(
     private var currentSearchResult: Flow<PagingData<TvSeries>>? = null
 
 
-    fun getTvSeriesList(): Flow<PagingData<TvSeries>> {
+    fun getTvSeriesList(category: String?, language: String?): Flow<PagingData<TvSeries>> {
         val lastResult = currentSearchResult
         if (currentCategory == category && lastResult != null) {
             return lastResult
