@@ -73,21 +73,32 @@ fun ImageView.setTrailerImage(item: Any?) {
 }
 
 @BindingAdapter("reviewerName")
-fun TextView.setReviewerName(item: MovieReview?) {
-    item?.let {
-        this.text = it.author
+fun TextView.setReviewerName(item: Any?) {
+
+    when (item) {
+        is MovieReview -> text = item.author
+        is TvReview -> text = item.author
     }
 }
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("reviewerText")
-fun TextView.setReviewerText(item: MovieReview?) {
-    item?.let {
-        if (it.content.length > 1000) {
-            this.text = "${it.content.substring(0, 1000)}...\n\"click to read more\"."
-        } else {
-            this.text = it.content
-        }
+fun TextView.setReviewerText(item: Any?) {
 
+    when (item) {
+        is MovieReview -> {
+            if (item.content.length > 1000) {
+                this.text = "${item.content.substring(0, 1000)}...\n\"click to read more\"."
+            } else {
+                this.text = item.content
+            }
+        }
+        is TvReview -> {
+            if (item.content.length > 1000) {
+                this.text = "${item.content.substring(0, 1000)}...\n\"click to read more\"."
+            } else {
+                this.text = item.content
+            }
+        }
     }
 }

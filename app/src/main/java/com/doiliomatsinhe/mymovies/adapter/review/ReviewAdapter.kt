@@ -5,29 +5,105 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.MovieReview
+import com.doiliomatsinhe.mymovies.model.TvReview
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.ClassCastException
+
+const val MOVIE_VIEW_TYPE = 0
+const val SERIES_VIEW_TYPE = 1
+
 
 class ReviewAdapter(private val clickListener: ReviewClickListener) :
-    ListAdapter<MovieReview, RecyclerView.ViewHolder>(ReviewDiffUtilItemCallback()) {
+    ListAdapter<DataItem, RecyclerView.ViewHolder>(ReviewDiffUtilItemCallback()) {
+
+    val adapterScope = CoroutineScope(Dispatchers.Default)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ReviewViewHolder.from(parent)
+        return when (viewType) {
+            MOVIE_VIEW_TYPE -> MovieReviewViewHolder.from(parent)
+            SERIES_VIEW_TYPE -> SeriesReviewViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ReviewViewHolder).bind(getItem(position), clickListener)
+        when (holder) {
+            is MovieReviewViewHolder -> {
+                val movieReview = getItem(position) as DataItem.MovieReviewItem
+                holder.bind(movieReview.movieReview, clickListener)
+            }
+            is SeriesReviewViewHolder -> {
+                val seriesReview = getItem(position) as DataItem.SeriesReviewItem
+                holder.bind(seriesReview.seriesReview, clickListener)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DataItem.MovieReviewItem -> MOVIE_VIEW_TYPE
+            is DataItem.SeriesReviewItem -> SERIES_VIEW_TYPE
+        }
+    }
+
+    fun submitMovieReviewList(list: List<MovieReview>) {
+        adapterScope.launch {
+
+            val listOfReviews = list.map {
+                DataItem.MovieReviewItem(it)
+            }
+
+            withContext(Dispatchers.Main) {
+                submitList(listOfReviews)
+            }
+        }
+    }
+    fun submitSeriesReviewList(list: List<TvReview>) {
+        adapterScope.launch {
+
+            val listOfReviews = list.map {
+                DataItem.SeriesReviewItem(it)
+            }
+
+            withContext(Dispatchers.Main) {
+                submitList(listOfReviews)
+            }
+        }
     }
 }
 
-class ReviewDiffUtilItemCallback : DiffUtil.ItemCallback<MovieReview>() {
-    override fun areItemsTheSame(oldItem: MovieReview, newItem: MovieReview): Boolean {
+class ReviewDiffUtilItemCallback : DiffUtil.ItemCallback<DataItem>() {
+    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: MovieReview, newItem: MovieReview): Boolean {
+    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class ReviewClickListener(val clicklistener: (review: MovieReview) -> Unit) {
-    fun onClick(review: MovieReview) = clicklistener(review)
+class ReviewClickListener(val clickListener: (review: Any) -> Unit) {
+    fun onClick(review: Any) {
+        when (review) {
+            is MovieReview -> clickListener(review)
+            is TvReview -> clickListener(review)
+        }
+    }
+}
+
+sealed class DataItem {
+    data class MovieReviewItem(val movieReview: MovieReview) : DataItem() {
+        override val id: String
+            get() = movieReview.id
+    }
+
+    data class SeriesReviewItem(val seriesReview: TvReview) : DataItem() {
+        override val id: String
+            get() = seriesReview.id
+    }
+
+    abstract val id: String
 }

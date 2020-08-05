@@ -21,6 +21,7 @@ import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentMovieDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.MovieReview
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
@@ -88,7 +89,7 @@ class MovieDetailsFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val reviewAdapter =
             ReviewAdapter(ReviewClickListener {
-                openReview(it.url)
+                openReview(it as MovieReview)
             })
 
         // Set Chips
@@ -135,7 +136,7 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
-                    reviewAdapter.submitList(reviews)
+                    reviewAdapter.submitMovieReviewList(reviews)
                 } else {
                     binding.textView1sds3.visibility = View.GONE
                 }
@@ -156,8 +157,8 @@ class MovieDetailsFragment : Fragment() {
         startActivity(i)
     }
 
-    private fun openReview(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    private fun openReview(review: MovieReview) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(review.url))
             .addCategory(Intent.CATEGORY_BROWSABLE)
         startActivity(intent)
     }

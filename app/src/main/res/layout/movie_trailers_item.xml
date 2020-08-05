@@ -36,7 +36,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/trailer_image"
+                android:id="@+id/movie_trailer_image"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:contentDescription="@string/movie_trailer"
@@ -48,7 +48,7 @@
                 tools:src="@drawable/poster" />
 
             <TextView
-                android:id="@+id/trailer_text"
+                android:id="@+id/movie_trailer_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -59,20 +59,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trailer_image"
+                app:layout_constraintTop_toBottomOf="@+id/movie_trailer_image"
                 app:trailerName="@{trailer}"
                 tools:text="SPIDER-MAN: FAR FROM HOME - DELETED SCENE 'Peter &amp; MJ on the Plane' - On Blu-ray TUESDAY!" />
 
             <ImageView
-                android:id="@+id/trailer_play"
+                android:id="@+id/movie_trailer_play"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:contentDescription="@string/play_trailer"
                 android:src="@drawable/play_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/trailer_image"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_trailer_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/trailer_image" />
+                app:layout_constraintTop_toTopOf="@+id/movie_trailer_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

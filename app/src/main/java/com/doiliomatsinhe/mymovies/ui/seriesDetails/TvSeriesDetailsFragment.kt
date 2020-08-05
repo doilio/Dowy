@@ -20,6 +20,7 @@ import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesDetailsBinding
+import com.doiliomatsinhe.mymovies.model.TvReview
 import com.doiliomatsinhe.mymovies.model.TvSeries
 import com.doiliomatsinhe.mymovies.model.TvTrailer
 import com.doiliomatsinhe.mymovies.utils.Utils
@@ -95,7 +96,7 @@ class TvSeriesDetailsFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val reviewAdapter =
             ReviewAdapter(ReviewClickListener {
-                openReview(it.url)
+                openReview(it as TvReview)
             })
 
         // Set Chips
@@ -142,7 +143,7 @@ class TvSeriesDetailsFragment : Fragment() {
         viewModel.getTvReview(tvSeries.id).observe(viewLifecycleOwner, Observer {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
-                    //TODO reviewAdapter.submitList(reviews)
+                    reviewAdapter.submitSeriesReviewList(reviews)
                 } else {
                     binding.textView1sds3.visibility = View.GONE
                 }
@@ -162,8 +163,8 @@ class TvSeriesDetailsFragment : Fragment() {
         startActivity(i)
     }
 
-    private fun openReview(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    private fun openReview(review: TvReview) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(review.url))
             .addCategory(Intent.CATEGORY_BROWSABLE)
         startActivity(intent)
     }
