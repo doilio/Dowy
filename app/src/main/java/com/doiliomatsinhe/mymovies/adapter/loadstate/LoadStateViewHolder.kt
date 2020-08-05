@@ -24,6 +24,7 @@ class LoadStateViewHolder(
         binding.loadstateProgress.isVisible = loadState is LoadState.Loading
         binding.loadstateButton.isVisible = loadState !is LoadState.Loading
         binding.loadstateError.isVisible = loadState !is LoadState.Loading
+        binding.executePendingBindings()
     }
 
     companion object {

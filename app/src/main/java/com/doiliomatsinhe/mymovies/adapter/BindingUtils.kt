@@ -11,7 +11,7 @@ import com.doiliomatsinhe.mymovies.model.*
 fun ImageView.setMoviePoster(item: Movie?) {
 
     item?.let {
-        Glide.with(this.context).load(it.fullPosterPath).into(this)
+        Glide.with(this).load(it.fullPosterPath).into(this)
     }
 }
 
@@ -19,7 +19,7 @@ fun ImageView.setMoviePoster(item: Movie?) {
 fun ImageView.setSeriesPoster(item: TvSeries?) {
 
     item?.let {
-        Glide.with(this.context).load(it.fullPosterPath).into(this)
+        Glide.with(this).load(it.fullPosterPath).into(this)
     }
 }
 
@@ -28,7 +28,7 @@ fun ImageView.setCastImage(item: MovieCast?) {
 
     item?.let {
         if (!it.profile_path.isNullOrEmpty()) {
-            Glide.with(this.context).load(it.fullProfilePath).into(this)
+            Glide.with(this).load(it.fullProfilePath).into(this)
         }
 
     }
@@ -54,7 +54,7 @@ fun TextView.setTrailerName(item: MovieTrailer?) {
 fun ImageView.setTrailerImage(item: MovieTrailer?) {
 
     item?.let {
-        Glide.with(this.context).load(item.trailerImagePath).into(this)
+        Glide.with(this).load(item.trailerImagePath).into(this)
     }
 }
 

@@ -45,7 +45,6 @@ class TvSeriesDetailsFragment : Fragment() {
         val arguments = TvSeriesDetailsFragmentArgs.fromBundle(requireArguments())
         tvSeries = arguments.TvSeries
         setupActionBar(tvSeries)
-        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -200,6 +199,7 @@ class TvSeriesDetailsFragment : Fragment() {
 
     private fun setupActionBar(tvSeries: TvSeries) {
         ((activity as AppCompatActivity).supportActionBar)?.title = tvSeries.name
+        setHasOptionsMenu(true)
     }
 
 

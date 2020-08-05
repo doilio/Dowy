@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -30,7 +31,7 @@
             android:layout_height="270dp"
             android:contentDescription="@string/movie_poster"
             android:scaleType="centerCrop"
-            android:src="@drawable/poster"
+            tools:src="@drawable/poster"
             app:moviePoster="@{movie}" />
 
     </androidx.cardview.widget.CardView>

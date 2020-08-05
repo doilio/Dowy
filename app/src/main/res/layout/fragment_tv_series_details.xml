@@ -22,7 +22,7 @@
                 android:layout_height="260dp"
                 android:contentDescription="@string/tv_cover"
                 android:scaleType="centerCrop"
-                android:src="@drawable/tv_cover"
+                tools:src="@drawable/tv_cover"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/tv_photo"
-                    android:src="@drawable/tv_poster" />
+                    tools:src="@drawable/tv_poster" />
             </androidx.cardview.widget.CardView>
 
             <!--tv Details-->

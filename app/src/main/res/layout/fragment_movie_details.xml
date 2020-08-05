@@ -22,7 +22,7 @@
                 android:layout_height="260dp"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
-                android:src="@drawable/cover"
+                tools:src="@drawable/cover"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/movie_photo"
-                    android:src="@drawable/poster" />
+                    tools:src="@drawable/poster" />
             </androidx.cardview.widget.CardView>
 
             <!--Movie Details-->

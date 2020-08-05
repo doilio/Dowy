@@ -45,7 +45,6 @@ class MovieDetailsFragment : Fragment() {
         val arguments = MovieDetailsFragmentArgs.fromBundle(requireArguments())
         movie = arguments.Movie
         setupActionBar(movie)
-        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -194,6 +193,7 @@ class MovieDetailsFragment : Fragment() {
 
     private fun setupActionBar(movie: Movie) {
         ((activity as AppCompatActivity).supportActionBar)?.title = movie.title
+        setHasOptionsMenu(true)
     }
 
 }

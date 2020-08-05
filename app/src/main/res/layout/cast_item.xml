@@ -22,7 +22,7 @@
             android:layout_height="100dp"
             app:castImage="@{cast}"
             android:scaleType="centerCrop"
-            android:src="@drawable/tom_holland"
+            tools:src="@drawable/tom_holland"
             app:layout_constraintBottom_toTopOf="@+id/cast_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
