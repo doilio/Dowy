@@ -7,6 +7,12 @@ The App Makes a request to TMDB's [API](https://www.themoviedb.org/documentation
 
 And their respective Reviews, Credits, Casts, Trailers and Genres.
 
+
+**PS:** To test this code you will need to:
+1. Get an API Key from [TMDB](https://www.themoviedb.org/documentation/api)
+2. Create a file on the Utils package with: 
+`const val SECRET_KEY = "PLACE YOUR API KEY HERE"`
+
 ![1](https://user-images.githubusercontent.com/38020305/89446230-8bbf0d80-d754-11ea-91e1-1dd683d58985.png)
 ![2](https://user-images.githubusercontent.com/38020305/89446243-8f529480-d754-11ea-9ed4-c7dca96bc045.png)
 ![3](https://user-images.githubusercontent.com/38020305/89446249-9083c180-d754-11ea-9476-af1ead513a8c.png)
