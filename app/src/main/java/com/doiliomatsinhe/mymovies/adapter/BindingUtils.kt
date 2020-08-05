@@ -24,21 +24,33 @@ fun ImageView.setSeriesPoster(item: TvSeries?) {
 }
 
 @BindingAdapter("castImage")
-fun ImageView.setCastImage(item: MovieCast?) {
+fun ImageView.setCastImage(item: Any?) {
 
-    item?.let {
-        if (!it.profile_path.isNullOrEmpty()) {
-            Glide.with(this).load(it.fullProfilePath).into(this)
+    when(item){
+        is MovieCast? ->{
+            if (!item?.profile_path.isNullOrEmpty()) {
+                Glide.with(this).load(item?.fullProfilePath).into(this)
+            }
+
         }
-
+        is TvCast? -> {
+            if (!item?.profile_path.isNullOrEmpty()) {
+                Glide.with(this).load(item?.fullProfilePath).into(this)
+            }
+        }
     }
 }
 
 @BindingAdapter("castName")
-fun TextView.setCastName(item: MovieCast?) {
+fun TextView.setCastName(item: Any?) {
 
-    item?.let {
-        this.text = it.name
+    when (item) {
+        is MovieCast? -> {
+            this.text = item?.name
+        }
+        is TvCast? -> {
+            this.text = item?.name
+        }
     }
 }
 

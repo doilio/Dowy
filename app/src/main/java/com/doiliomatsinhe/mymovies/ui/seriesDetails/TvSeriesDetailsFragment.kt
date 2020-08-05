@@ -128,7 +128,7 @@ class TvSeriesDetailsFragment : Fragment() {
 
         viewModel.getTvCast(tvSeries.id).observe(viewLifecycleOwner, Observer {
             it?.let { castMembers ->
-                //TODO castAdapter.submitList(castMembers)
+                castAdapter.submitSeriesCastList(castMembers)
             }
         })
 

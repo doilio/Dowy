@@ -300,7 +300,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView13"
                         app:layout_constraintVertical_bias="0.0"
                         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/cast_item" />
+                        tools:listitem="@layout/movie_cast_item" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

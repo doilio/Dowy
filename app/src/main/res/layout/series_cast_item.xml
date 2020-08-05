@@ -7,7 +7,7 @@
 
         <variable
             name="cast"
-            type="com.doiliomatsinhe.mymovies.model.MovieCast" />
+            type="com.doiliomatsinhe.mymovies.model.TvCast" />
 
     </data>
 
@@ -17,21 +17,21 @@
         android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cast_photo"
+            android:id="@+id/series_cast_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:castImage="@{cast}"
             android:scaleType="centerCrop"
-            tools:src="@drawable/tom_holland"
-            app:layout_constraintBottom_toTopOf="@+id/cast_name"
+            app:castImage="@{cast}"
+            app:layout_constraintBottom_toTopOf="@+id/series_cast_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:src="@drawable/tom_holland" />
 
         <TextView
-            android:id="@+id/cast_name"
+            android:id="@+id/series_cast_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
@@ -40,9 +40,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cast_photo"
+            app:layout_constraintTop_toBottomOf="@+id/series_cast_photo"
             tools:text="Tom Holland" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

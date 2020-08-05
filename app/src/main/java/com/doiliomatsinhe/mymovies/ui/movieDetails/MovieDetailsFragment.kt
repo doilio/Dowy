@@ -121,7 +121,7 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { castMembers ->
-                castAdapter.submitList(castMembers)
+                castAdapter.submitMovieCastList(castMembers)
             }
         })
 

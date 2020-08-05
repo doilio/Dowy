@@ -3,10 +3,11 @@ package com.doiliomatsinhe.mymovies.adapter.cast
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.databinding.CastItemBinding
+import com.doiliomatsinhe.mymovies.databinding.MovieCastItemBinding
 import com.doiliomatsinhe.mymovies.model.MovieCast
 
-class CastViewHolder(private val binding: CastItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class MovieCastViewHolder(private val binding: MovieCastItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MovieCast) {
         binding.cast = item
@@ -15,10 +16,10 @@ class CastViewHolder(private val binding: CastItemBinding) : RecyclerView.ViewHo
     }
 
     companion object {
-        fun from(parent: ViewGroup): CastViewHolder {
+        fun from(parent: ViewGroup): MovieCastViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = CastItemBinding.inflate(inflater, parent, false)
-            return CastViewHolder(
+            val binding = MovieCastItemBinding.inflate(inflater, parent, false)
+            return MovieCastViewHolder(
                 binding
             )
         }
