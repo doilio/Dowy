@@ -16,7 +16,9 @@ class TvSeriesViewModel @ViewModelInject constructor(
     ViewModel() {
 
     private var currentCategory: String? = null
+    private var currentQuery: String? = null
     private var currentSearchResult: Flow<PagingData<TvSeries>>? = null
+    private var currentQueryResult: Flow<PagingData<TvSeries>>? = null
 
 
     fun getTvSeriesList(category: String?, language: String?): Flow<PagingData<TvSeries>> {
@@ -30,6 +32,21 @@ class TvSeriesViewModel @ViewModelInject constructor(
             repository.getSeriesResultStream(category, language)
                 .cachedIn(viewModelScope)
         currentSearchResult = newResult
+
+        return newResult
+    }
+
+    fun querySeriesList(query: String): Flow<PagingData<TvSeries>> {
+        val lastResult = currentQueryResult
+        if (currentQuery == query && lastResult != null) {
+            return lastResult
+        }
+
+        currentQuery = query
+        val newResult =
+            repository.getSeriesQueryStream(query)
+                .cachedIn(viewModelScope)
+        currentQueryResult = newResult
 
         return newResult
     }
