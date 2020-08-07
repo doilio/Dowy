@@ -1,9 +1,12 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -120,7 +123,58 @@ class MoviesFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
+
+        implementSearch(menu)
+
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun implementSearch(menu: Menu) {
+        val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu.findItem(R.id.ic_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                //searchView.setQuery("", false)
+                searchItem.collapseActionView()
+                query?.let {
+                    queryMovieList(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
+
+
+        val expandListener = object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                fetchMovies()
+                return true
+            }
+        }
+
+        val actionMenuItem = menu.findItem(R.id.ic_search)
+        actionMenuItem.setOnActionExpandListener(expandListener)
+    }
+
+    private fun queryMovieList(movieQuery: String) {
+        lifecycleScope.launch {
+            viewModel.queryMovieList(movieQuery).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

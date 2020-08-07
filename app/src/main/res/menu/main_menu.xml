@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/ic_search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:orderInCategory="1"
+        android:title="@string/search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item
         android:id="@+id/settingsActivity"
         android:orderInCategory="10"
         android:title="@string/settings"

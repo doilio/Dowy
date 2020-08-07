@@ -68,5 +68,20 @@ interface ApiService {
         @Path(TV_ID) tvId: Int,
         @Query(API_KEY) apiKey: String
     ): NetworkTvTrailer
+
+    @GET("search/movie")
+    suspend fun queryMovie(
+        @Query(QUERY) query: String,
+        @Query(API_KEY) apiKey: String,
+        @Query(PAGE) page: Int
+    ): NetworkMovie
+
+    @GET("search/tv")
+    suspend fun querySeries(
+        @Query(QUERY) query: String,
+        @Query(API_KEY) apiKey: String,
+        @Query(PAGE) page: Int
+    ): NetworkTvSeries
 }
+
 

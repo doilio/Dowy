@@ -3,8 +3,10 @@ package com.doiliomatsinhe.mymovies.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.doiliomatsinhe.mymovies.data.source.MovieQueryPagingSource
 import com.doiliomatsinhe.mymovies.data.source.MoviesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesPagingSource
+import com.doiliomatsinhe.mymovies.data.source.TvSeriesQueryPagingSource
 import com.doiliomatsinhe.mymovies.model.*
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.Result
@@ -13,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -36,6 +37,20 @@ class Repository @Inject constructor(
             }).flow
     }
 
+    fun getMovieQueryStream(query: String):
+            Flow<PagingData<Movie>> {
+        return Pager(config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false
+        ),
+            pagingSourceFactory = {
+                MovieQueryPagingSource(
+                    query,
+                    service
+                )
+            }).flow
+    }
+
     fun getSeriesResultStream(category: String?, language: String?):
             Flow<PagingData<TvSeries>> {
         return Pager(config = PagingConfig(
@@ -47,6 +62,21 @@ class Repository @Inject constructor(
                     service,
                     category,
                     language
+                )
+            }).flow
+
+    }
+
+    fun getSeriesQueryStream(query: String):
+            Flow<PagingData<TvSeries>> {
+        return Pager(config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false
+        ),
+            pagingSourceFactory = {
+                TvSeriesQueryPagingSource(
+                    query,
+                    service
                 )
             }).flow
 

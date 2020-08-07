@@ -1,12 +1,12 @@
 package com.doiliomatsinhe.mymovies.ui.series
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -69,6 +69,8 @@ class TvSeriesFragment : Fragment() {
     }
 
     private fun initComponents() {
+        setHasOptionsMenu(true)
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         initAdapter()
@@ -116,5 +118,62 @@ class TvSeriesFragment : Fragment() {
 
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+
+        implementSearch(menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun implementSearch(menu: Menu) {
+        val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu.findItem(R.id.ic_search)
+        val settingsItem = menu.findItem(R.id.settingsActivity)
+        settingsItem.isVisible = false
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                searchItem.collapseActionView()
+                query?.let {
+                    querySeriesList(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
+
+
+        val expandListener = object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                fetchSeries()
+                return true
+            }
+        }
+
+        val actionMenuItem = menu.findItem(R.id.ic_search)
+        actionMenuItem.setOnActionExpandListener(expandListener)
+    }
+
+    private fun querySeriesList(seriesQuery: String) {
+        lifecycleScope.launch {
+            viewModel.querySeriesList(seriesQuery).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 }
