@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.adapter.cast.CastAdapter
+import com.doiliomatsinhe.mymovies.adapter.cast.CastClickListener
 import com.doiliomatsinhe.mymovies.adapter.review.ReviewAdapter
 import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentMovieDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.MovieCast
 import com.doiliomatsinhe.mymovies.model.MovieReview
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
 import com.doiliomatsinhe.mymovies.utils.TEXT_PLAIN
@@ -66,7 +68,9 @@ class MovieDetailsFragment : Fragment() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerCast.layoutManager = layoutManager
-        val castAdapter = CastAdapter()
+        val castAdapter = CastAdapter(CastClickListener {
+            openCastMember(it as MovieCast)
+        })
 
         // Trailer Adapter
         binding.recyclerTrailer.hasFixedSize()
@@ -148,6 +152,10 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun openCastMember(movieCast: MovieCast) {
+        Toast.makeText(requireContext(), movieCast.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun openTrailer(it: MovieTrailer) {

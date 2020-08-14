@@ -9,8 +9,12 @@ import com.doiliomatsinhe.mymovies.model.TvCast
 class SeriesCastViewHolder(private val binding: SeriesCastItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: TvCast) {
+    fun bind(
+        item: TvCast,
+        clickListener: CastClickListener
+    ) {
         binding.cast = item
+        binding.clicklistener = clickListener
         binding.executePendingBindings()
     }
 

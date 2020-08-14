@@ -4,8 +4,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.adapter.movie.MovieViewHolder
-import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.model.MovieCast
 import com.doiliomatsinhe.mymovies.model.TvCast
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +15,7 @@ import java.lang.ClassCastException
 private const val MOVIE_VIEW_TYPE = 0
 private const val SERIES_VIEW_TYPE = 1
 
-class CastAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(CastDiffUtillCallback()) {
+class CastAdapter(private val clickListener: CastClickListener) : ListAdapter<DataItem, RecyclerView.ViewHolder>(CastDiffUtillCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
@@ -33,11 +31,11 @@ class CastAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(CastDiffUtill
         when (holder) {
             is MovieCastViewHolder -> {
                 val movieCast = getItem(position) as DataItem.MovieCastItem
-                holder.bind(movieCast.movieCast)
+                holder.bind(movieCast.movieCast, clickListener)
             }
             is SeriesCastViewHolder -> {
                 val seriesCast = getItem(position) as DataItem.SeriesCastItem
-                holder.bind(seriesCast.seriesCast)
+                holder.bind(seriesCast.seriesCast,clickListener)
             }
         }
     }
@@ -71,6 +69,15 @@ class CastAdapter : ListAdapter<DataItem, RecyclerView.ViewHolder>(CastDiffUtill
         }
     }
 
+}
+
+class CastClickListener(val clickListener: (cast: Any) -> Unit) {
+    fun onClick(cast: Any) {
+        when (cast) {
+            is MovieCast -> clickListener(cast)
+            is TvCast -> clickListener(cast)
+        }
+    }
 }
 
 class CastDiffUtillCallback : DiffUtil.ItemCallback<DataItem>() {
