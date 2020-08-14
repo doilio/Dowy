@@ -23,6 +23,7 @@ import com.doiliomatsinhe.mymovies.databinding.FragmentMovieDetailsBinding
 import com.doiliomatsinhe.mymovies.model.Movie
 import com.doiliomatsinhe.mymovies.model.MovieReview
 import com.doiliomatsinhe.mymovies.model.MovieTrailer
+import com.doiliomatsinhe.mymovies.utils.TEXT_PLAIN
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -128,7 +129,11 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
-                trailerAdapter.submitMovieTrailers(listOfTrailers)
+                if (listOfTrailers.isNotEmpty()) {
+                    trailerAdapter.submitMovieTrailers(listOfTrailers)
+                } else {
+                    binding.movieTrailerTitle.visibility = View.GONE
+                }
                 trailers = listOfTrailers
             }
         })
@@ -179,14 +184,21 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun shareDetails() {
-        if (trailers.isNotEmpty()) {
-            val intent = Intent(Intent.ACTION_SEND)
+        // Decide what to share
+        val intentExtra: String = if (trailers.isNotEmpty()) {
             val firstTrailer = "https://youtu.be/${trailers[0].key}"
-            intent.putExtra(Intent.EXTRA_TEXT, "Check out: $firstTrailer")
-            intent.type = "text/plain"
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-            }
+            "Check out: $firstTrailer"
+        } else {
+            "I recommend: **${movie.title}**\n\n${movie.overview}"
+        }
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = TEXT_PLAIN
+            putExtra(Intent.EXTRA_TEXT, intentExtra)
+        }
+
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
         } else {
             Toast.makeText(activity, getString(R.string.sharing_failed), Toast.LENGTH_SHORT).show()
         }
