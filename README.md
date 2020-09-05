@@ -1,12 +1,23 @@
 # My-Movies🎬
-🎬Application that displays a list of more than 10.000 Movies and TV Series using Modern Android Application Development tools and API's
+🎬Application that displays a list of more than 10.000 Movies and TV shows using Modern Android Application Development tools and API's
 
 The App Makes a request to TMDB's [API](https://www.themoviedb.org/documentation/api) to get:
-- List of Popular Movies.
-- List of High Rated Movies.
+  
+- A list of the current [`popular`](https://developers.themoviedb.org/3/movies/get-popular-movies) and [`top_rated`](https://developers.themoviedb.org/3/movies/get-top-rated-movies) movies on TMDb. `/movie/{category}`
+  - List of official genres for movies. [`/genre/movie/list`](https://developers.themoviedb.org/3/genres/get-movie-list)
+  - List of user reviews for a movie. [`/movie/{movie_id}/reviews`](https://developers.themoviedb.org/3/movies/get-movie-reviews)
+  - The cast and crew for a movie. [`/movie/{movie_id}/credits`](https://developers.themoviedb.org/3/movies/get-movie-credits)
+  - The videos(trailers, behind the Scenes, & bloopers) that have been added to a movie. [`/movie/{movie_id}/videos`](https://developers.themoviedb.org/3/movies/get-movie-videos)
+  - A specific movie. [`/search/movie`](https://developers.themoviedb.org/3/search/search-movies)
+  
+- A list of the current [`popular`](https://developers.themoviedb.org/3/tv/get-popular-tv-shows) and [`top_rated`](https://developers.themoviedb.org/3/tv/get-top-rated-tv) TV shows on TMDb. `/tv/{category}`
+  - List of official genres for TV shows. [`/genre/tv/list`](https://developers.themoviedb.org/3/genres/get-tv-list)
+  - List of user reviews for a TV show. [`/tv/{tv_id}/reviews`](https://developers.themoviedb.org/3/tv/get-tv-reviews)
+  - The cast and crew for a TV show. [`/tv/{tv_id}/credits`](https://developers.themoviedb.org/3/tv/get-tv-credits)
+  - The videos(trailers, behind the Scenes, & bloopers) that have been added to a TV Show. [`/tv/{tv_id}/videos`](https://developers.themoviedb.org/3/tv/get-tv-videos)
+  - A specific TV show. [`/search/tv`](https://developers.themoviedb.org/3/search/search-tv-shows)
 
-And their respective Reviews, Credits, Casts, Trailers and Genres.
-
+Base URL = `"https://api.themoviedb.org/3/"`
 
 **PS:** To test this code you will need to:
 1. Get an API Key from [TMDB](https://www.themoviedb.org/documentation/api)

@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="clicklistener"
+            type="com.doiliomatsinhe.mymovies.adapter.cast.CastClickListener" />
+
+        <variable
             name="cast"
             type="com.doiliomatsinhe.mymovies.model.TvCast" />
 
@@ -14,6 +18,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()-> clicklistener.onClick(cast)}"
         android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView

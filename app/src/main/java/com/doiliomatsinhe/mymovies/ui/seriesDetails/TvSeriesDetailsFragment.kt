@@ -15,14 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.adapter.cast.CastAdapter
+import com.doiliomatsinhe.mymovies.adapter.cast.CastClickListener
 import com.doiliomatsinhe.mymovies.adapter.review.ReviewAdapter
 import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesDetailsBinding
+import com.doiliomatsinhe.mymovies.model.TvCast
 import com.doiliomatsinhe.mymovies.model.TvReview
 import com.doiliomatsinhe.mymovies.model.TvSeries
 import com.doiliomatsinhe.mymovies.model.TvTrailer
+import com.doiliomatsinhe.mymovies.utils.TEXT_PLAIN
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,7 +71,9 @@ class TvSeriesDetailsFragment : Fragment() {
         )
 
         binding.recyclerCast.layoutManager = layoutManager
-        val castAdapter = CastAdapter()
+        val castAdapter = CastAdapter(CastClickListener {
+            openCastMember(it as TvCast)
+        })
 
         // Trailer Adapter
         binding.recyclerTrailer.hasFixedSize()
@@ -135,7 +140,11 @@ class TvSeriesDetailsFragment : Fragment() {
 
         viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, Observer {
             it?.let { listOfTrailers ->
-                trailerAdapter.submitSeriesTrailers(listOfTrailers)
+                if (listOfTrailers.isNotEmpty()) {
+                    trailerAdapter.submitSeriesTrailers(listOfTrailers)
+                } else {
+                    binding.seriesTrailerTitle.visibility = View.GONE
+                }
                 trailers = listOfTrailers
             }
         })
@@ -149,6 +158,10 @@ class TvSeriesDetailsFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun openCastMember(tvCast: TvCast) {
+        Toast.makeText(requireContext(), tvCast.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun openTrailer(it: TvTrailer) {
@@ -185,14 +198,21 @@ class TvSeriesDetailsFragment : Fragment() {
     }
 
     private fun shareDetails() {
-        if (trailers.isNotEmpty()) {
-            val intent = Intent(Intent.ACTION_SEND)
+        // Decide what to share
+        val intentExtra = if (trailers.isNotEmpty()) {
             val firstTrailer = "https://youtu.be/${trailers[0].key}"
-            intent.putExtra(Intent.EXTRA_TEXT, "Check out: $firstTrailer")
-            intent.type = "text/plain"
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-            }
+            "Check out: $firstTrailer"
+        } else {
+            "I recommend: **${tvSeries.name}**\n\n${tvSeries.overview}"
+        }
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = TEXT_PLAIN
+            putExtra(Intent.EXTRA_TEXT, intentExtra)
+        }
+
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
         } else {
             Toast.makeText(activity, getString(R.string.sharing_failed), Toast.LENGTH_SHORT).show()
         }
