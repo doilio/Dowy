@@ -143,7 +143,7 @@ class TvSeriesDetailsFragment : Fragment() {
                 if (listOfTrailers.isNotEmpty()) {
                     trailerAdapter.submitSeriesTrailers(listOfTrailers)
                 } else {
-                    binding.recyclerTrailer.visibility = View.GONE
+                    binding.seriesTrailerTitle.visibility = View.GONE
                 }
                 trailers = listOfTrailers
             }
