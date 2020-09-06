@@ -5,7 +5,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.doiliomatsinhe.mymovies.model.*
+import com.doiliomatsinhe.mymovies.model.movie.Movie
+import com.doiliomatsinhe.mymovies.model.movie.MovieCast
+import com.doiliomatsinhe.mymovies.model.movie.MovieReview
+import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
+import com.doiliomatsinhe.mymovies.model.tv.TvCast
+import com.doiliomatsinhe.mymovies.model.tv.TvReview
+import com.doiliomatsinhe.mymovies.model.tv.TvSeries
+import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
 
 @BindingAdapter("moviePoster")
 fun ImageView.setMoviePoster(item: Movie?) {

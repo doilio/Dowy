@@ -11,7 +11,7 @@
 
         <variable
             name="cast"
-            type="com.doiliomatsinhe.mymovies.model.MovieCast" />
+            type="com.doiliomatsinhe.mymovies.model.movie.MovieCast" />
 
     </data>
 

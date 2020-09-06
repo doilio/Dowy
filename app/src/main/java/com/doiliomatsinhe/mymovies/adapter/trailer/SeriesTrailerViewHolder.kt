@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.databinding.SeriesTrailersItemBinding
-import com.doiliomatsinhe.mymovies.model.TvTrailer
+import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
 
 class SeriesTrailerViewHolder(private val binding: SeriesTrailersItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

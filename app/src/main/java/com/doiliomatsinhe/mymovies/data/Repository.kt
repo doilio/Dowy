@@ -7,7 +7,8 @@ import com.doiliomatsinhe.mymovies.data.source.MovieQueryPagingSource
 import com.doiliomatsinhe.mymovies.data.source.MoviesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesQueryPagingSource
-import com.doiliomatsinhe.mymovies.model.*
+import com.doiliomatsinhe.mymovies.model.movie.*
+import com.doiliomatsinhe.mymovies.model.tv.*
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.Result
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY

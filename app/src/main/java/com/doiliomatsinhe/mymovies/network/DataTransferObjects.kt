@@ -1,6 +1,7 @@
 package com.doiliomatsinhe.mymovies.network
 
-import com.doiliomatsinhe.mymovies.model.*
+import com.doiliomatsinhe.mymovies.model.movie.*
+import com.doiliomatsinhe.mymovies.model.tv.*
 import com.google.gson.annotations.SerializedName
 
 data class NetworkMovie(

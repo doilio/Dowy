@@ -1,7 +1,7 @@
 package com.doiliomatsinhe.mymovies.data.source
 
 import androidx.paging.PagingSource
-import com.doiliomatsinhe.mymovies.model.TvSeries
+import com.doiliomatsinhe.mymovies.model.tv.TvSeries
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import com.doiliomatsinhe.mymovies.utils.SERIES_LIST_STARTING_PAGE

@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.model
+package com.doiliomatsinhe.mymovies.model.movie
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.model.MovieCast
-import com.doiliomatsinhe.mymovies.model.TvCast
+import com.doiliomatsinhe.mymovies.model.movie.MovieCast
+import com.doiliomatsinhe.mymovies.model.tv.TvCast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

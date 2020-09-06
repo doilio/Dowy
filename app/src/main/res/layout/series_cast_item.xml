@@ -11,7 +11,7 @@
 
         <variable
             name="cast"
-            type="com.doiliomatsinhe.mymovies.model.TvCast" />
+            type="com.doiliomatsinhe.mymovies.model.tv.TvCast" />
 
     </data>
 

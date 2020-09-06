@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.R
@@ -21,10 +22,10 @@ import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentTvSeriesDetailsBinding
-import com.doiliomatsinhe.mymovies.model.TvCast
-import com.doiliomatsinhe.mymovies.model.TvReview
-import com.doiliomatsinhe.mymovies.model.TvSeries
-import com.doiliomatsinhe.mymovies.model.TvTrailer
+import com.doiliomatsinhe.mymovies.model.tv.TvCast
+import com.doiliomatsinhe.mymovies.model.tv.TvReview
+import com.doiliomatsinhe.mymovies.model.tv.TvSeries
+import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
 import com.doiliomatsinhe.mymovies.utils.TEXT_PLAIN
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
@@ -161,6 +162,7 @@ class TvSeriesDetailsFragment : Fragment() {
     }
 
     private fun openCastMember(tvCast: TvCast) {
+        findNavController().navigate(TvSeriesDetailsFragmentDirections.actionTvSeriesDetailsFragmentToPersonFragment(tvCast.id))
         Toast.makeText(requireContext(), tvCast.name, Toast.LENGTH_SHORT).show()
     }
 

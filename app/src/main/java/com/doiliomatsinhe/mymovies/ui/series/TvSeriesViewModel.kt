@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doiliomatsinhe.mymovies.data.Repository
-import com.doiliomatsinhe.mymovies.model.TvSeries
+import com.doiliomatsinhe.mymovies.model.tv.TvSeries
 import kotlinx.coroutines.flow.Flow
 
 class TvSeriesViewModel @ViewModelInject constructor(

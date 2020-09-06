@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.model.MovieTrailer
-import com.doiliomatsinhe.mymovies.model.TvTrailer
+import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
+import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.movie.Movie
 import com.doiliomatsinhe.mymovies.utils.DATA_VIEWTYPE
 import com.doiliomatsinhe.mymovies.utils.LOADSTATE_VIEW_TYPE
 

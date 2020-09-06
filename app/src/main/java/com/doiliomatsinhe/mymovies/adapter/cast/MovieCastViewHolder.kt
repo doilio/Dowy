@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.databinding.MovieCastItemBinding
-import com.doiliomatsinhe.mymovies.model.MovieCast
+import com.doiliomatsinhe.mymovies.model.movie.MovieCast
 
 class MovieCastViewHolder(private val binding: MovieCastItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
