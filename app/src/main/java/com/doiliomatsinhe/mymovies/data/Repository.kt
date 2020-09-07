@@ -9,8 +9,11 @@ import com.doiliomatsinhe.mymovies.data.source.TvSeriesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesQueryPagingSource
 import com.doiliomatsinhe.mymovies.model.movie.*
 import com.doiliomatsinhe.mymovies.model.person.Person
+import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
+import com.doiliomatsinhe.mymovies.model.person.PersonTvCast
 import com.doiliomatsinhe.mymovies.model.tv.*
 import com.doiliomatsinhe.mymovies.network.ApiService
+import com.doiliomatsinhe.mymovies.network.NetworkPersonMovieCredit
 import com.doiliomatsinhe.mymovies.utils.Result
 import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import kotlinx.coroutines.Dispatchers
@@ -199,6 +202,36 @@ class Repository @Inject constructor(
     suspend fun getPerson(personId: Int): Person {
         return withContext(Dispatchers.IO) {
             service.getPerson(personId, SECRET_KEY)
+        }
+    }
+
+    suspend fun getPersonMovies(personId: Int): Result<List<PersonMovieCast>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val personCast = service.getPersonMovieCredit(personId, SECRET_KEY).cast
+                Result.Success(personCast)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+
+        }
+    }
+
+    suspend fun getPersonSeries(personId: Int): Result<List<PersonTvCast>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val personCast = service.getPersonSeriesCredit(personId, SECRET_KEY).cast
+                Result.Success(personCast)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+
         }
     }
 

@@ -162,7 +162,6 @@ class MovieDetailsFragment : Fragment() {
                 movieCast.name
             )
         )
-        Toast.makeText(requireContext(), movieCast.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun openTrailer(it: MovieTrailer) {

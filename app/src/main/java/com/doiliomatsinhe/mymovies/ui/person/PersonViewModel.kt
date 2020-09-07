@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
 import com.doiliomatsinhe.mymovies.model.person.Person
+import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
+import com.doiliomatsinhe.mymovies.model.person.PersonTvCast
+import com.doiliomatsinhe.mymovies.utils.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,5 +28,35 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
         }
         return person
     }
+
+    fun getPersonMovieList(personId: Int): LiveData<List<PersonMovieCast>> {
+        val personMovieCastList = MutableLiveData<List<PersonMovieCast>>()
+
+        uiScope.launch {
+            personMovieCastList.value =
+                when (val movieCastList = repository.getPersonMovies(personId)) {
+                    is Result.Success -> movieCastList.data
+                    is Result.Error -> null
+                }
+        }
+
+        return personMovieCastList
+
+    }
+
+//    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
+//        val personTvCastList = MutableLiveData<List<PersonTvCast>>()
+//
+//        uiScope.launch {
+//            personTvCastList.value =
+//                when (val tvCastList = repository.getPersonSeries(personId)) {
+//                    is Result.Success -> tvCastList.data
+//                    is Result.Error -> null
+//                }
+//        }
+//
+//        return personTvCastList
+//
+//    }
 
 }

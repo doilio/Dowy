@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.databinding.FragmentPersonBinding
 import com.doiliomatsinhe.mymovies.model.person.Person
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
@@ -42,6 +43,20 @@ class PersonFragment : Fragment() {
                 populateUI(person)
             }
         })
+
+        viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, Observer {
+            it?.let { listOfMovies ->
+                //TODO passar esta lista para o adapter
+                Timber.d("First Movie: ${listOfMovies[0].title}")
+            }
+        })
+
+//        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, Observer {
+//            it?.let { listOfSeries ->
+//                //TODO passar esta lista para o adapter
+//                Timber.d("First TV Series: ${listOfSeries[0].original_name}")
+//            }
+//        })
 
     }
 

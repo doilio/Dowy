@@ -89,6 +89,18 @@ interface ApiService {
         @Path(PERSON_ID) personId: Int,
         @Query(API_KEY) apiKey: String
     ): Person
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getPersonMovieCredit(
+        @Path(PERSON_ID) personId: Int,
+        @Query(API_KEY) apiKey: String
+    ): NetworkPersonMovieCredit
+
+    @GET("person/{person_id}/tv_credits")
+    suspend fun getPersonSeriesCredit(
+        @Path(PERSON_ID) personId: Int,
+        @Query(API_KEY) apiKey: String
+    ): NetworkPersonTvCredit
 }
 
 
