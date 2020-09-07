@@ -67,4 +67,10 @@
     <string name="tv_photo">Tv Series Photo</string>
     <string name="tv_cover">Tv Series Cover</string>
     <string name="search">Search</string>
+    <string name="name">Name</string>
+    <string name="known_for">Known for</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="place_of_birth">Place of Birth</string>
+    <string name="popularity">Popularity</string>
+    <string name="actor_image">Actor Image</string>
 </resources>

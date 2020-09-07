@@ -156,7 +156,12 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun openCastMember(movieCast: MovieCast) {
-        findNavController().navigate(MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(movieCast.id))
+        findNavController().navigate(
+            MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(
+                movieCast.id,
+                movieCast.name
+            )
+        )
         Toast.makeText(requireContext(), movieCast.name, Toast.LENGTH_SHORT).show()
     }
 

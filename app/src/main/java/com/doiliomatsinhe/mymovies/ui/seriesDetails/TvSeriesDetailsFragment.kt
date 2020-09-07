@@ -162,7 +162,12 @@ class TvSeriesDetailsFragment : Fragment() {
     }
 
     private fun openCastMember(tvCast: TvCast) {
-        findNavController().navigate(TvSeriesDetailsFragmentDirections.actionTvSeriesDetailsFragmentToPersonFragment(tvCast.id))
+        findNavController().navigate(
+            TvSeriesDetailsFragmentDirections.actionTvSeriesDetailsFragmentToPersonFragment(
+                tvCast.id,
+                tvCast.name
+            )
+        )
         Toast.makeText(requireContext(), tvCast.name, Toast.LENGTH_SHORT).show()
     }
 
