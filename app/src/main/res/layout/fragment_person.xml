@@ -194,35 +194,61 @@
                         android:id="@+id/title_biography"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/biography"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/text_biography"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
                         android:id="@+id/text_biography"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/imdb_logo"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title_biography"
                         tools:text="@string/biography_text" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imdb_logo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
                         android:clickable="true"
                         android:contentDescription="@string/imdb_icon"
                         android:focusable="true"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/text_biography"
-                        app:layout_constraintStart_toStartOf="@+id/text_biography"
+                        app:layout_constraintEnd_toStartOf="@+id/website_logo"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_biography"
-                        app:srcCompat="@drawable/imdb_icon" />
+                        app:srcCompat="@drawable/imdb_icon"
+                        tools:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/website_logo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="8dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/imdb_icon"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/imdb_logo"
+                        app:layout_constraintTop_toTopOf="@+id/imdb_logo"
+                        app:srcCompat="@drawable/website_logo"
+                        tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

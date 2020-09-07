@@ -16,8 +16,8 @@ data class Person(
     @SerializedName("place_of_birth") val place_of_birth: String,
     @SerializedName("profile_path") val profile_path: String,
     @SerializedName("adult") val adult: Boolean,
-    @SerializedName("imdb_id") val imdb_id: String,
-    @SerializedName("homepage") val homepage: String
+    @SerializedName("imdb_id") val imdb_id: String?,
+    @SerializedName("homepage") val homepage: String?
 ) {
     val fullProfilePath: String
         get() = "http://image.tmdb.org/t/p/w342$profile_path"

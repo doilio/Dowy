@@ -8,6 +8,7 @@ import com.doiliomatsinhe.mymovies.data.source.MoviesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesPagingSource
 import com.doiliomatsinhe.mymovies.data.source.TvSeriesQueryPagingSource
 import com.doiliomatsinhe.mymovies.model.movie.*
+import com.doiliomatsinhe.mymovies.model.person.Person
 import com.doiliomatsinhe.mymovies.model.tv.*
 import com.doiliomatsinhe.mymovies.network.ApiService
 import com.doiliomatsinhe.mymovies.utils.Result
@@ -192,6 +193,12 @@ class Repository @Inject constructor(
             } catch (exception: HttpException) {
                 Result.Error(exception)
             }
+        }
+    }
+
+    suspend fun getPerson(personId: Int): Person {
+        return withContext(Dispatchers.IO) {
+            service.getPerson(personId, SECRET_KEY)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.doiliomatsinhe.mymovies.network
 
+import com.doiliomatsinhe.mymovies.model.person.Person
 import com.doiliomatsinhe.mymovies.utils.*
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -82,6 +83,12 @@ interface ApiService {
         @Query(API_KEY) apiKey: String,
         @Query(PAGE) page: Int
     ): NetworkTvSeries
+
+    @GET("person/{person_id}")
+    suspend fun getPerson(
+        @Path(PERSON_ID) personId: Int,
+        @Query(API_KEY) apiKey: String
+    ): Person
 }
 
 
