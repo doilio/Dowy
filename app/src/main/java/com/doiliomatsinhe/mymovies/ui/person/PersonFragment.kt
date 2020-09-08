@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.doiliomatsinhe.mymovies.adapter.person.PersonItemsAdapter
+import com.doiliomatsinhe.mymovies.adapter.person.PersonMoviesAdapter
+import com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesAdapter
 import com.doiliomatsinhe.mymovies.databinding.FragmentPersonBinding
 import com.doiliomatsinhe.mymovies.model.person.Person
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,8 @@ class PersonFragment : Fragment() {
     private lateinit var binding: FragmentPersonBinding
     private val viewModel: PersonViewModel by viewModels()
     private lateinit var arguments: PersonFragmentArgs
-    private lateinit var adapter: PersonItemsAdapter
+    private lateinit var adapterMovies: PersonMoviesAdapter
+    private lateinit var adapterSeries: PersonSeriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,32 +51,42 @@ class PersonFragment : Fragment() {
 
         viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, Observer {
             it?.let { listOfMovies ->
-                //TODO passar esta lista para o adapter
-                if (listOfMovies.isNotEmpty()){
-                    adapter.submitPersonMovieList(listOfMovies)
-                }else{
+                if (listOfMovies.isNotEmpty()) {
+                    adapterMovies.submitList(listOfMovies)
+                    binding.titleMoviesCastIn.visibility = View.VISIBLE
+                } else {
                     Timber.d("Empty List")
                 }
             }
         })
 
-//        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, Observer {
-//            it?.let { listOfSeries ->
-//                //TODO passar esta lista para o adapter
-//                Timber.d("First TV Series: ${listOfSeries[0].original_name}")
-//            }
-//        })
+        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, Observer {
+            it?.let { listOfSeries ->
+                if (listOfSeries.isNotEmpty()) {
+                    adapterSeries.submitList(listOfSeries)
+                    binding.titleSeriesCastIn.visibility = View.VISIBLE
+                } else {
+                    Timber.d("Empty List")
+                }
+            }
+        })
 
     }
 
     private fun initComponents() {
         binding.lifecycleOwner = this
 
-        adapter = PersonItemsAdapter()
+        adapterMovies = PersonMoviesAdapter()
         binding.recyclerMoviesCastIn.hasFixedSize()
         binding.recyclerMoviesCastIn.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerMoviesCastIn.adapter = adapter
+        binding.recyclerMoviesCastIn.adapter = adapterMovies
+
+        adapterSeries = PersonSeriesAdapter()
+        binding.recyclerSeriesCastIn.hasFixedSize()
+        binding.recyclerSeriesCastIn.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerSeriesCastIn.adapter = adapterSeries
     }
 
     private fun populateUI(person: Person) {
@@ -87,8 +98,10 @@ class PersonFragment : Fragment() {
         binding.textPopularity.text = person.popularity.toString()
 
         // Biography
-        binding.textBiography.text = person.biography
-
+        if (person.biography.isNotEmpty()) {
+            binding.cardBiography.visibility = View.VISIBLE
+            binding.textBiography.text = person.biography
+        }
         // IMDB and Web Links
         setButtonVisibility(person)
 

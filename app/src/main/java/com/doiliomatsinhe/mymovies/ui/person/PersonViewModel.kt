@@ -44,19 +44,19 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
 
     }
 
-//    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
-//        val personTvCastList = MutableLiveData<List<PersonTvCast>>()
-//
-//        uiScope.launch {
-//            personTvCastList.value =
-//                when (val tvCastList = repository.getPersonSeries(personId)) {
-//                    is Result.Success -> tvCastList.data
-//                    is Result.Error -> null
-//                }
-//        }
-//
-//        return personTvCastList
-//
-//    }
+    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
+        val personTvCastList = MutableLiveData<List<PersonTvCast>>()
+
+        uiScope.launch {
+            personTvCastList.value =
+                when (val tvCastList = repository.getPersonSeries(personId)) {
+                    is Result.Success -> tvCastList.data
+                    is Result.Error -> null
+                }
+        }
+
+        return personTvCastList
+
+    }
 
 }

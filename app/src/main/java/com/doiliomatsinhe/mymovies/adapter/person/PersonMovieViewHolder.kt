@@ -11,6 +11,7 @@ class PersonMovieViewHolder(private val binding: PersonMovieItemBinding) :
 
     fun bind(item: PersonMovieCast?) {
         binding.movie = item
+        binding.executePendingBindings()
     }
 
     companion object {

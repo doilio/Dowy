@@ -1,6 +1,7 @@
 package com.doiliomatsinhe.mymovies.adapter
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -10,10 +11,12 @@ import com.doiliomatsinhe.mymovies.model.movie.MovieCast
 import com.doiliomatsinhe.mymovies.model.movie.MovieReview
 import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
 import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
+import com.doiliomatsinhe.mymovies.model.person.PersonTvCast
 import com.doiliomatsinhe.mymovies.model.tv.TvCast
 import com.doiliomatsinhe.mymovies.model.tv.TvReview
 import com.doiliomatsinhe.mymovies.model.tv.TvSeries
 import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
+import java.lang.ClassCastException
 
 @BindingAdapter("moviePoster")
 fun ImageView.setMoviePoster(item: Movie?) {
@@ -111,23 +114,45 @@ fun TextView.setReviewerText(item: Any?) {
     }
 }
 
-@BindingAdapter("movieImage")
-fun ImageView.setMovieImage(item: PersonMovieCast?) {
+@BindingAdapter("itemImage")
+fun ImageView.setItemImage(item: Any?) {
 
-    item?.let {
-        Glide.with(this).load(it.fullProfilePath).into(this)
+    when (item) {
+        is PersonMovieCast -> {
+            Glide.with(this).load(item.fullProfilePath).into(this)
+        }
+        is PersonTvCast -> {
+            Glide.with(this).load(item.fullProfilePath).into(this)
+        }
+        else -> throw ClassCastException("Unknown Class")
     }
+
 
 }
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("characterName")
-fun TextView.setCharacterName(item: PersonMovieCast?) {
+fun TextView.setCharacterName(item: Any?) {
 
-    item?.let {
-        if (it.character.isNotEmpty()){
-            this.text = "as\n${it.character}"
+    when (item) {
+        is PersonMovieCast -> {
+            if (item.character.isNotEmpty()) {
+                this.text = "as\n${item.character}"
+                this.visibility = View.VISIBLE
+            } else {
+                this.visibility = View.GONE
+            }
+
         }
-
+        is PersonTvCast -> {
+            if (item.character.isNotEmpty()) {
+                this.text = "as\n${item.character}"
+                this.visibility = View.VISIBLE
+            } else {
+                this.visibility = View.GONE
+            }
+        }
+        else -> throw ClassCastException("Unknown Class")
     }
+
 }

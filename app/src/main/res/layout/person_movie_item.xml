@@ -34,7 +34,7 @@
                 android:layout_height="290dp"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
-                app:movieImage="@{movie}"
+                app:itemImage="@{movie}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
