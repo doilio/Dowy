@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.doiliomatsinhe.mymovies.model.person.PersonMovieCast" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,6 +34,7 @@
                 android:layout_height="290dp"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
+                app:movieImage="@{movie}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
+                app:characterName="@{movie}"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="16sp"

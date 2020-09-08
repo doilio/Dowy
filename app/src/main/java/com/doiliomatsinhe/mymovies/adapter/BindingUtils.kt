@@ -9,6 +9,7 @@ import com.doiliomatsinhe.mymovies.model.movie.Movie
 import com.doiliomatsinhe.mymovies.model.movie.MovieCast
 import com.doiliomatsinhe.mymovies.model.movie.MovieReview
 import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
+import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
 import com.doiliomatsinhe.mymovies.model.tv.TvCast
 import com.doiliomatsinhe.mymovies.model.tv.TvReview
 import com.doiliomatsinhe.mymovies.model.tv.TvSeries
@@ -107,5 +108,26 @@ fun TextView.setReviewerText(item: Any?) {
                 this.text = item.content
             }
         }
+    }
+}
+
+@BindingAdapter("movieImage")
+fun ImageView.setMovieImage(item: PersonMovieCast?) {
+
+    item?.let {
+        Glide.with(this).load(it.fullProfilePath).into(this)
+    }
+
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("characterName")
+fun TextView.setCharacterName(item: PersonMovieCast?) {
+
+    item?.let {
+        if (it.character.isNotEmpty()){
+            this.text = "as\n${it.character}"
+        }
+
     }
 }

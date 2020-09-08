@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.doiliomatsinhe.mymovies.adapter.person.PersonItemsAdapter
 import com.doiliomatsinhe.mymovies.databinding.FragmentPersonBinding
 import com.doiliomatsinhe.mymovies.model.person.Person
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +23,7 @@ class PersonFragment : Fragment() {
     private lateinit var binding: FragmentPersonBinding
     private val viewModel: PersonViewModel by viewModels()
     private lateinit var arguments: PersonFragmentArgs
+    private lateinit var adapter: PersonItemsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +40,7 @@ class PersonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lifecycleOwner = this
+        initComponents()
 
         viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, Observer {
             it?.let { person ->
@@ -47,7 +51,11 @@ class PersonFragment : Fragment() {
         viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, Observer {
             it?.let { listOfMovies ->
                 //TODO passar esta lista para o adapter
-                Timber.d("First Movie: ${listOfMovies[0].title}")
+                if (listOfMovies.isNotEmpty()){
+                    adapter.submitPersonMovieList(listOfMovies)
+                }else{
+                    Timber.d("Empty List")
+                }
             }
         })
 
@@ -58,6 +66,16 @@ class PersonFragment : Fragment() {
 //            }
 //        })
 
+    }
+
+    private fun initComponents() {
+        binding.lifecycleOwner = this
+
+        adapter = PersonItemsAdapter()
+        binding.recyclerMoviesCastIn.hasFixedSize()
+        binding.recyclerMoviesCastIn.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerMoviesCastIn.adapter = adapter
     }
 
     private fun populateUI(person: Person) {
