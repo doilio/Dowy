@@ -14,10 +14,10 @@
         <action
             android:id="@+id/action_moviesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"  />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -31,7 +31,11 @@
         tools:layout="@layout/fragment_tv_series">
         <action
             android:id="@+id/action_tvSeriesFragment_to_tvSeriesDetailsFragment"
-            app:destination="@id/tvSeriesDetailsFragment" />
+            app:destination="@id/tvSeriesDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -42,7 +46,11 @@
             app:argType="com.doiliomatsinhe.mymovies.model.movie.Movie" />
         <action
             android:id="@+id/action_detailsFragment_to_personFragment"
-            app:destination="@id/personFragment" />
+            app:destination="@id/personFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/tvSeriesDetailsFragment"
@@ -53,7 +61,11 @@
             app:argType="com.doiliomatsinhe.mymovies.model.tv.TvSeries" />
         <action
             android:id="@+id/action_tvSeriesDetailsFragment_to_personFragment"
-            app:destination="@id/personFragment" />
+            app:destination="@id/personFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/personFragment"
@@ -65,5 +77,23 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_personFragment_to_tvSeriesDetailsFragment"
+            app:destination="@id/tvSeriesDetailsFragment"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_personFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

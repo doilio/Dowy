@@ -9,6 +9,10 @@
             name="series"
             type="com.doiliomatsinhe.mymovies.model.person.PersonTvCast" />
 
+        <variable
+            name="clicklistener"
+            type="com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesClickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,6 +24,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> clicklistener.onClick(series)}"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintStart_toStartOf="parent"

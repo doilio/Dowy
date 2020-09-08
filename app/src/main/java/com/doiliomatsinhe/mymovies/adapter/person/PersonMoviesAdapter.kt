@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
 
-class PersonMoviesAdapter :
+class PersonMoviesAdapter(val clickListener: PersonMovieClickListener) :
     ListAdapter<PersonMovieCast, RecyclerView.ViewHolder>(PersonMovieDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -14,7 +14,7 @@ class PersonMoviesAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as PersonMovieViewHolder).bind(getItem(position))
+        (holder as PersonMovieViewHolder).bind(getItem(position), clickListener)
     }
 
 }
@@ -28,4 +28,9 @@ class PersonMovieDiffUtilCallback : DiffUtil.ItemCallback<PersonMovieCast>() {
         return oldItem == newItem
     }
 
+}
+
+class PersonMovieClickListener(private val clickListener: (movie: PersonMovieCast) -> Unit) {
+
+    fun onClick(movie: PersonMovieCast) = clickListener(movie)
 }

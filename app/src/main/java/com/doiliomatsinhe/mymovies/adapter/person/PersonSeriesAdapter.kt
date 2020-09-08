@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.person.PersonTvCast
 
 
-class PersonSeriesAdapter :
+class PersonSeriesAdapter(val clickListener: PersonSeriesClickListener) :
     ListAdapter<PersonTvCast, RecyclerView.ViewHolder>(PersonSeriesDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -15,7 +15,7 @@ class PersonSeriesAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as PersonSeriesViewHolder).bind(getItem(position))
+        (holder as PersonSeriesViewHolder).bind(getItem(position), clickListener)
     }
 
 }
@@ -29,4 +29,8 @@ class PersonSeriesDiffUtilCallback : DiffUtil.ItemCallback<PersonTvCast>() {
         return oldItem == newItem
     }
 
+}
+
+class PersonSeriesClickListener(val clicklistener: (series: PersonTvCast) -> Unit) {
+    fun onClick(series: PersonTvCast) = clicklistener(series)
 }

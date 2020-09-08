@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.doiliomatsinhe.mymovies.adapter.person.PersonMovieClickListener
 import com.doiliomatsinhe.mymovies.adapter.person.PersonMoviesAdapter
 import com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesAdapter
+import com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentPersonBinding
+import com.doiliomatsinhe.mymovies.model.movie.Movie
 import com.doiliomatsinhe.mymovies.model.person.Person
+import com.doiliomatsinhe.mymovies.model.tv.TvSeries
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -76,13 +81,43 @@ class PersonFragment : Fragment() {
     private fun initComponents() {
         binding.lifecycleOwner = this
 
-        adapterMovies = PersonMoviesAdapter()
+        adapterMovies = PersonMoviesAdapter(PersonMovieClickListener {
+            val movie = Movie(
+                it.popularity,
+                it.vote_count,
+                it.video,
+                it.poster_path,
+                it.id,
+                it.adult,
+                it.backdrop_path,
+                it.original_language,
+                it.original_title,
+                it.genre_ids,
+                it.title,
+                it.vote_average,
+                it.overview,
+                it.release_date
+            )
+            findNavController().navigate(
+                PersonFragmentDirections.actionPersonFragmentToDetailsFragment(
+                    movie
+                )
+            )
+        })
+
         binding.recyclerMoviesCastIn.hasFixedSize()
         binding.recyclerMoviesCastIn.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerMoviesCastIn.adapter = adapterMovies
 
-        adapterSeries = PersonSeriesAdapter()
+        adapterSeries = PersonSeriesAdapter(PersonSeriesClickListener {
+            val tvSeries = TvSeries(
+                it.original_name, it.genre_ids, it.name, it.popularity,
+                it.origin_country, it.vote_count, it.first_air_date, it.backdrop_path,
+                it.original_language, it.id, it.vote_average, it.overview, it.poster_path
+            )
+            findNavController().navigate(PersonFragmentDirections.actionPersonFragmentToTvSeriesDetailsFragment(tvSeries))
+        })
         binding.recyclerSeriesCastIn.hasFixedSize()
         binding.recyclerSeriesCastIn.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

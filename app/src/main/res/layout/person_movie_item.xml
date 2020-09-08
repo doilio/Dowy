@@ -8,6 +8,10 @@
         <variable
             name="movie"
             type="com.doiliomatsinhe.mymovies.model.person.PersonMovieCast" />
+
+        <variable
+            name="clickListener"
+            type="com.doiliomatsinhe.mymovies.adapter.person.PersonMovieClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,6 +23,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()-> clickListener.onClick(movie)}"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +51,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                app:characterName="@{movie}"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
+                app:characterName="@{movie}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

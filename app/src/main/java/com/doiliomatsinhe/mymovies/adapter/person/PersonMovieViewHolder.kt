@@ -9,8 +9,9 @@ import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
 class PersonMovieViewHolder(private val binding: PersonMovieItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: PersonMovieCast?) {
+    fun bind(item: PersonMovieCast?, clickListener: PersonMovieClickListener) {
         binding.movie = item
+        binding.clickListener = clickListener
         binding.executePendingBindings()
     }
 

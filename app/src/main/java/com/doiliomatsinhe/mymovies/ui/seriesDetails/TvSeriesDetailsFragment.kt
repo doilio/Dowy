@@ -168,7 +168,6 @@ class TvSeriesDetailsFragment : Fragment() {
                 tvCast.name
             )
         )
-        Toast.makeText(requireContext(), tvCast.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun openTrailer(it: TvTrailer) {

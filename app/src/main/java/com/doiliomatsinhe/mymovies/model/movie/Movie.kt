@@ -13,7 +13,7 @@ data class Movie(
     @SerializedName("poster_path") val poster_path: String,
     @SerializedName("id") val id: Int,
     @SerializedName("adult") val adult: Boolean,
-    @SerializedName("backdrop_path") val backdrop_path: String,
+    @SerializedName("backdrop_path") val backdrop_path: String?,
     @SerializedName("original_language") val original_language: String,
     @SerializedName("original_title") val original_title: String,
     @SerializedName("genre_ids") val genre_ids: List<Int>,

@@ -17,7 +17,7 @@ data class PersonMovieCast(
     @SerializedName("original_title") val original_title: String,
     @SerializedName("popularity") val popularity: Double,
     @SerializedName("id") val id: Int,
-    @SerializedName("backdrop_path") val backdrop_path: String,
+    @SerializedName("backdrop_path") val backdrop_path: String? ="",
     @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val poster_path: String
 ) {
