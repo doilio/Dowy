@@ -14,10 +14,10 @@
         <action
             android:id="@+id/action_moviesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"  />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -28,10 +28,14 @@
         android:id="@+id/tvSeriesFragment"
         android:name="com.doiliomatsinhe.mymovies.ui.series.TvSeriesFragment"
         android:label="@string/tv_series"
-        tools:layout="@layout/fragment_tv_series" >
+        tools:layout="@layout/fragment_tv_series">
         <action
             android:id="@+id/action_tvSeriesFragment_to_tvSeriesDetailsFragment"
-            app:destination="@id/tvSeriesDetailsFragment" />
+            app:destination="@id/tvSeriesDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -39,7 +43,14 @@
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="Movie"
-            app:argType="com.doiliomatsinhe.mymovies.model.Movie" />
+            app:argType="com.doiliomatsinhe.mymovies.model.movie.Movie" />
+        <action
+            android:id="@+id/action_detailsFragment_to_personFragment"
+            app:destination="@id/personFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/tvSeriesDetailsFragment"
@@ -47,6 +58,42 @@
         tools:layout="@layout/fragment_tv_series_details">
         <argument
             android:name="TvSeries"
-            app:argType="com.doiliomatsinhe.mymovies.model.TvSeries" />
+            app:argType="com.doiliomatsinhe.mymovies.model.tv.TvSeries" />
+        <action
+            android:id="@+id/action_tvSeriesDetailsFragment_to_personFragment"
+            app:destination="@id/personFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/personFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.person.PersonFragment"
+        tools:layout="@layout/fragment_person" >
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_personFragment_to_tvSeriesDetailsFragment"
+            app:destination="@id/tvSeriesDetailsFragment"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_personFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

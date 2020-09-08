@@ -1,8 +1,8 @@
-package com.doiliomatsinhe.mymovies.model
+package com.doiliomatsinhe.mymovies.model.movie
 
 import com.google.gson.annotations.SerializedName
 
-data class TvTrailer(
+data class MovieTrailer(
 
     @SerializedName("id") val id: String,
     @SerializedName("iso_639_1") val iso_639_1: String,
@@ -12,7 +12,7 @@ data class TvTrailer(
     @SerializedName("site") val site: String,
     @SerializedName("size") val size: Int,
     @SerializedName("type") val type: String
-){
+) {
     val trailerImagePath: String
         get() = "https://img.youtube.com/vi/$key/hqdefault.jpg"
 }

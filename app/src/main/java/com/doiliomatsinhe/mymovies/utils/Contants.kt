@@ -18,3 +18,4 @@ const val LOADSTATE_VIEW_TYPE = 0
 const val DATA_VIEWTYPE = 1
 const val MOVIES_LIST_STARTING_PAGE = 1
 const val SERIES_LIST_STARTING_PAGE = 1
+const val PERSON_ID = "person_id"

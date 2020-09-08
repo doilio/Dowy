@@ -1,13 +1,12 @@
 package com.doiliomatsinhe.mymovies.ui.movies
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doiliomatsinhe.mymovies.data.Repository
-import com.doiliomatsinhe.mymovies.model.Movie
+import com.doiliomatsinhe.mymovies.model.movie.Movie
 import kotlinx.coroutines.flow.Flow
 
 class MoviesViewModel @ViewModelInject constructor(

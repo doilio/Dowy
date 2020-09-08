@@ -7,7 +7,7 @@
 
         <variable
             name="series"
-            type="com.doiliomatsinhe.mymovies.model.TvSeries" />
+            type="com.doiliomatsinhe.mymovies.model.tv.TvSeries" />
 
         <variable
             name="clickListener"

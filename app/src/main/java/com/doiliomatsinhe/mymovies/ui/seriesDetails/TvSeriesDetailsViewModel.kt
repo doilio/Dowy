@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.doiliomatsinhe.mymovies.data.Repository
-import com.doiliomatsinhe.mymovies.model.*
+import com.doiliomatsinhe.mymovies.model.tv.TvCast
+import com.doiliomatsinhe.mymovies.model.tv.TvGenres
+import com.doiliomatsinhe.mymovies.model.tv.TvReview
+import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
 import com.doiliomatsinhe.mymovies.utils.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

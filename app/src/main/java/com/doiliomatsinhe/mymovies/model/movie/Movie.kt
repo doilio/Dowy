@@ -1,25 +1,26 @@
-package com.doiliomatsinhe.mymovies.model
+package com.doiliomatsinhe.mymovies.model.movie
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TvSeries(
+data class Movie(
 
-    @SerializedName("original_name") val original_name: String,
-    @SerializedName("genre_ids") val genre_ids: List<Int>,
-    @SerializedName("name") val name: String,
     @SerializedName("popularity") val popularity: Double,
-    @SerializedName("origin_country") val origin_country: List<String>,
     @SerializedName("vote_count") val vote_count: Int,
-    @SerializedName("first_air_date") val first_air_date: String,
+    @SerializedName("video") val video: Boolean,
+    @SerializedName("poster_path") val poster_path: String,
+    @SerializedName("id") val id: Int,
+    @SerializedName("adult") val adult: Boolean,
     @SerializedName("backdrop_path") val backdrop_path: String?,
     @SerializedName("original_language") val original_language: String,
-    @SerializedName("id") val id: Int,
+    @SerializedName("original_title") val original_title: String,
+    @SerializedName("genre_ids") val genre_ids: List<Int>,
+    @SerializedName("title") val title: String,
     @SerializedName("vote_average") val vote_average: Double,
     @SerializedName("overview") val overview: String,
-    @SerializedName("poster_path") val poster_path: String
+    @SerializedName("release_date") val release_date: String
 ) : Parcelable {
     val fullPosterPath: String
         get() = "http://image.tmdb.org/t/p/w342$poster_path"

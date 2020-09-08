@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.databinding.SeriesCastItemBinding
-import com.doiliomatsinhe.mymovies.model.TvCast
+import com.doiliomatsinhe.mymovies.model.tv.TvCast
 
 class SeriesCastViewHolder(private val binding: SeriesCastItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

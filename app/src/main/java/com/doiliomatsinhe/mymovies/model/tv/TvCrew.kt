@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.mymovies.model
+package com.doiliomatsinhe.mymovies.model.tv
 
 import com.google.gson.annotations.SerializedName
 

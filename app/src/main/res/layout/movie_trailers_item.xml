@@ -7,7 +7,7 @@
 
         <variable
             name="trailer"
-            type="com.doiliomatsinhe.mymovies.model.MovieTrailer" />
+            type="com.doiliomatsinhe.mymovies.model.movie.MovieTrailer" />
 
         <variable
             name="clickListener"

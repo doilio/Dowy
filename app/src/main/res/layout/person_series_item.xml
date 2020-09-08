@@ -6,26 +6,25 @@
     <data>
 
         <variable
-            name="trailer"
-            type="com.doiliomatsinhe.mymovies.model.tv.TvTrailer" />
+            name="series"
+            type="com.doiliomatsinhe.mymovies.model.person.PersonTvCast" />
 
         <variable
-            name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener" />
+            name="clicklistener"
+            type="com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesClickListener" />
 
     </data>
 
-
     <androidx.cardview.widget.CardView
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()-> clickListener.onCLick(trailer)}"
+        android:onClick="@{() -> clicklistener.onClick(series)}"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,44 +35,37 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/series_trailer_image"
+                android:id="@+id/image_series_cover"
                 android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:contentDescription="@string/series_trailer"
+                android:layout_height="290dp"
+                android:contentDescription="@string/series_poster"
                 android:scaleType="centerCrop"
+                app:itemImage="@{series}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:trailerImage="@{trailer}"
-                tools:src="@drawable/poster" />
+                tools:src="@drawable/tv_poster" />
 
             <TextView
-                android:id="@+id/series_trailer_text"
-                android:layout_width="match_parent"
+                android:id="@+id/text_series_character"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
+                app:characterName="@{series}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/series_trailer_image"
-                app:trailerName="@{trailer}"
-                tools:text="SPIDER-MAN: FAR FROM HOME - DELETED SCENE 'Peter &amp; MJ on the Plane' - On Blu-ray TUESDAY!" />
+                app:layout_constraintTop_toBottomOf="@+id/image_series_cover"
+                tools:text="as\nRick Sanchez" />
 
-            <ImageView
-                android:id="@+id/series_trailer_play"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/play_trailer"
-                android:src="@drawable/play_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/series_trailer_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/series_trailer_image" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+
 </layout>

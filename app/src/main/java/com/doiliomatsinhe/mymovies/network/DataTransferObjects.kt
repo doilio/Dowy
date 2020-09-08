@@ -1,6 +1,11 @@
 package com.doiliomatsinhe.mymovies.network
 
-import com.doiliomatsinhe.mymovies.model.*
+import com.doiliomatsinhe.mymovies.model.movie.*
+import com.doiliomatsinhe.mymovies.model.person.PersonMovieCast
+import com.doiliomatsinhe.mymovies.model.person.PersonMovieCrew
+import com.doiliomatsinhe.mymovies.model.person.PersonTvCast
+import com.doiliomatsinhe.mymovies.model.person.PersonTvCrew
+import com.doiliomatsinhe.mymovies.model.tv.*
 import com.google.gson.annotations.SerializedName
 
 data class NetworkMovie(
@@ -71,4 +76,18 @@ data class NetworkTvTrailer(
 data class NetworkTvGenres(
 
     @SerializedName("genres") val genres: List<TvGenres>
+)
+
+data class NetworkPersonMovieCredit(
+
+    @SerializedName("cast") val cast: List<PersonMovieCast>,
+    @SerializedName("crew") val crew: List<PersonMovieCrew>,
+    @SerializedName("id") val id: Int
+)
+
+data class NetworkPersonTvCredit(
+
+    @SerializedName("cast") val cast: List<PersonTvCast>,
+    @SerializedName("crew") val crew: List<PersonTvCrew>,
+    @SerializedName("id") val id: Int
 )

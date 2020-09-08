@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.doiliomatsinhe.mymovies.R
@@ -21,10 +22,10 @@ import com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerAdapter
 import com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener
 import com.doiliomatsinhe.mymovies.databinding.FragmentMovieDetailsBinding
-import com.doiliomatsinhe.mymovies.model.Movie
-import com.doiliomatsinhe.mymovies.model.MovieCast
-import com.doiliomatsinhe.mymovies.model.MovieReview
-import com.doiliomatsinhe.mymovies.model.MovieTrailer
+import com.doiliomatsinhe.mymovies.model.movie.Movie
+import com.doiliomatsinhe.mymovies.model.movie.MovieCast
+import com.doiliomatsinhe.mymovies.model.movie.MovieReview
+import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
 import com.doiliomatsinhe.mymovies.utils.TEXT_PLAIN
 import com.doiliomatsinhe.mymovies.utils.Utils
 import com.google.android.material.chip.Chip
@@ -155,7 +156,12 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun openCastMember(movieCast: MovieCast) {
-        Toast.makeText(requireContext(), movieCast.name, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(
+                movieCast.id,
+                movieCast.name
+            )
+        )
     }
 
     private fun openTrailer(it: MovieTrailer) {
