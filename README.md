@@ -16,6 +16,10 @@ The App Makes a request to TMDB's [API](https://www.themoviedb.org/documentation
   - The cast and crew for a TV show. [`/tv/{tv_id}/credits`](https://developers.themoviedb.org/3/tv/get-tv-credits)
   - The videos(trailers, behind the Scenes, & bloopers) that have been added to a TV Show. [`/tv/{tv_id}/videos`](https://developers.themoviedb.org/3/tv/get-tv-videos)
   - A specific TV show. [`/search/tv`](https://developers.themoviedb.org/3/search/search-tv-shows)
+  
+- Primary person details by id. [`/person/{person_id}`](https://developers.themoviedb.org/3/people/get-person-details)
+  - Movie credits for a person. [`/person/{person_id}/movie_credits`](https://developers.themoviedb.org/3/people/get-person-movie-credits)
+  - TV show credits for a person. [`/person/{person_id}/tv_credits`](https://developers.themoviedb.org/3/people/get-person-tv-credits)
 
 Base URL = `"https://api.themoviedb.org/3/"`
 
