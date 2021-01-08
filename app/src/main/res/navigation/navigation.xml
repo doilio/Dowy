@@ -96,4 +96,8 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.doiliomatsinhe.mymovies.ui.about.AboutFragment"
+        android:label="About" />
 </navigation>

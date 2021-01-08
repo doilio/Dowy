@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.doiliomatsinhe.mymovies.R
@@ -181,7 +182,10 @@ class MoviesFragment : Fragment() {
         when (item.itemId) {
             R.id.settingsActivity -> openSettings()
         }
-        return super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 
     private fun openSettings() {

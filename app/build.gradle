@@ -94,4 +94,7 @@ dependencies {
 
     // CircleImageView
     implementation "de.hdodenhof:circleimageview:$circle_image_version"
+
+    // About page
+    implementation "com.github.medyo:android-about-page:$about_version"
 }

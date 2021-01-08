@@ -37,6 +37,22 @@
     <string name="share_using">Share using:</string>
     <string name="sharing_failed">Sharing failed, Try again later!</string>
 
+    <!--About Page-->
+    <string name="about_app_link" translatable="false">com.doiliomatsinhe.mymovies</string>
+    <string name="about_descricao">O My Movies é um aplicativo que ajuda você a encontrar os filmes e séries mais bem avaliados e populares para assistir. \n\nEste produto usa a API TMDb, mas não é endossado ou certificado por TMDb</string>
+    <string name="dev_email" translatable="false">doiliomatsinhe@gmail.com</string>
+    <string name="dev_facebook_page" translatable="false">doilio.matsinhe</string>
+    <string name="dev_github_page" translatable="false">doilio</string>
+    <string name="dev_instagram_page" translatable="false">doiliomatsinhe</string>
+    <string name="facebook" translatable="false">Facebook</string>
+    <string name="instagram" translatable="false">Instagram</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="envie_email">Envie um e-mail</string>
+    <string name="redes_sociais">Redes Sociais</string>
+    <string name="about_fale_conosco">Entre em contato</string>
+    <string name="playstore_page">Avalie na Play Store</string>
+    <!--About Page-->
+
     <string-array name="language_entries">
         <item>@string/english</item>
         <item>@string/portugues</item>
@@ -80,4 +96,5 @@
     <string name="movies_cast_in">Movies Cast In</string>
     <string name="tv_shows_cast_in">TV Shows Cast In</string>
     <string name="first_aired_date">First Aired Date</string>
+    <string name="about">About</string>
 </resources>
