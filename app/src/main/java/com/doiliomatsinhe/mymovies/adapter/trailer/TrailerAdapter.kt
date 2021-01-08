@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.movie.MovieTrailer
 import com.doiliomatsinhe.mymovies.model.tv.TvTrailer
+import com.doiliomatsinhe.mymovies.utils.MOVIE_VIEW_TYPE
+import com.doiliomatsinhe.mymovies.utils.SERIES_VIEW_TYPE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ClassCastException
-
-private const val MOVIE_VIEW_TYPE = 0
-private const val SERIES_VIEW_TYPE = 1
 
 class TrailerAdapter(private val clickListener: TrailerClickListener) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(TrailerDiffUtilCallbak()) {

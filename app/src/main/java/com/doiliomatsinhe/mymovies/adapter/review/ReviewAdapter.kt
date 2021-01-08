@@ -6,20 +6,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.doiliomatsinhe.mymovies.model.movie.MovieReview
 import com.doiliomatsinhe.mymovies.model.tv.TvReview
+import com.doiliomatsinhe.mymovies.utils.MOVIE_VIEW_TYPE
+import com.doiliomatsinhe.mymovies.utils.SERIES_VIEW_TYPE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ClassCastException
 
-const val MOVIE_VIEW_TYPE = 0
-const val SERIES_VIEW_TYPE = 1
-
-
 class ReviewAdapter(private val clickListener: ReviewClickListener) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(ReviewDiffUtilItemCallback()) {
 
-    val adapterScope = CoroutineScope(Dispatchers.Default)
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             MOVIE_VIEW_TYPE -> MovieReviewViewHolder.from(parent)

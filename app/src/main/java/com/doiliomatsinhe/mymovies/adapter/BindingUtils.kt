@@ -98,15 +98,15 @@ fun TextView.setReviewerText(item: Any?) {
 
     when (item) {
         is MovieReview -> {
-            if (item.content.length > 1000) {
-                this.text = "${item.content.substring(0, 1000)}...\n\"click to read more\"."
+            if (item.content.length > 400) {
+                this.text = "${item.content.substring(0, 400)}...\nClick to read more."
             } else {
                 this.text = item.content
             }
         }
         is TvReview -> {
-            if (item.content.length > 1000) {
-                this.text = "${item.content.substring(0, 1000)}...\n\"click to read more\"."
+            if (item.content.length > 400) {
+                this.text = "${item.content.substring(0, 400)}...\nClick to read more."
             } else {
                 this.text = item.content
             }

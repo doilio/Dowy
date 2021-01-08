@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/movie_cover"
                 android:layout_width="0dp"
-                android:layout_height="260dp"
+                android:layout_height="230dp"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/cover"
@@ -277,7 +277,7 @@
                     <!--android:paddingTop="16dp"-->
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/text_cast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -297,7 +297,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView13"
+                        app:layout_constraintTop_toBottomOf="@+id/text_cast"
                         app:layout_constraintVertical_bias="0.0"
                         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/movie_cast_item" />

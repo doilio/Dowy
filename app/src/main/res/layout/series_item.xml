@@ -29,7 +29,7 @@
             android:id="@+id/series_image"
             seriesPoster="@{series}"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="290dp"
             android:contentDescription="@string/series_poster"
             android:scaleType="centerCrop"
             tools:src="@drawable/tv_poster" />

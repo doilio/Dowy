@@ -81,6 +81,7 @@ class MovieDetailsFragment : Fragment() {
         })
 
         Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
+        Timber.d(movie.fullBackDropPath)
         Glide.with(this).load(movie.fullPosterPath).into(binding.moviePoster)
         binding.movieTitleText.text = movie.title
         binding.languageText.text = movie.original_language
@@ -127,7 +128,12 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, {
             it?.let { castMembers ->
-                castAdapter.submitMovieCastList(castMembers)
+                if(castMembers.isNotEmpty()){
+                    castAdapter.submitMovieCastList(castMembers)
+                }else{
+                    binding.textCast.visibility = View.GONE
+                }
+
             }
         })
 
