@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -43,7 +42,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
@@ -99,7 +98,7 @@ class MovieDetailsFragment : Fragment() {
             })
 
         // Set Chips
-        viewModel.listOfGenres.observe(viewLifecycleOwner, Observer { listOfGenres ->
+        viewModel.listOfGenres.observe(viewLifecycleOwner, { listOfGenres ->
             listOfGenres?.let {
 
                 for (elem in movie.genre_ids) {
@@ -126,13 +125,13 @@ class MovieDetailsFragment : Fragment() {
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
 
-        viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, Observer {
+        viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, {
             it?.let { castMembers ->
                 castAdapter.submitMovieCastList(castMembers)
             }
         })
 
-        viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, Observer {
+        viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, {
             it?.let { listOfTrailers ->
                 if (listOfTrailers.isNotEmpty()) {
                     trailerAdapter.submitMovieTrailers(listOfTrailers)
@@ -143,7 +142,7 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
-        viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, Observer {
+        viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
                     reviewAdapter.submitMovieReviewList(reviews)

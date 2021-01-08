@@ -2,16 +2,16 @@
 buildscript {
     ext {
         circle_image_version = "3.1.0"
-        constraintlayout_version = "1.1.3"
-        coroutines_version = "1.3.7"
+        constraintlayout_version = "2.0.4"
+        coroutines_version = "1.4.1"
         glide_version = "4.11.0"
         hilt_version = "2.28-alpha"
         hilt_ext_version = "1.0.0-alpha02"
-        interceptor_version = "4.1.0"
-        kotlin_version = "1.3.72"
+        interceptor_version = "4.9.0"
+        kotlin_version = "1.4.21"
         lifecycle_version = "2.2.0"
-        nav_version = "2.3.0"
-        paging_version = "3.0.0-alpha03"
+        nav_version = "2.3.2"
+        paging_version = "3.0.0-alpha11"
         preference_version = "1.1.1"
         retrofit_version = "2.9.0"
         timber_version = "4.7.1"
@@ -22,7 +22,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath "com.android.tools.build:gradle:4.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

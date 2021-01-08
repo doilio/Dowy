@@ -3,6 +3,7 @@
     <string name="movies">Movies</string>
     <string name="tv_series">TV Series</string>
     <string name="favorites">Favorites</string>
+    <string name="coming_soon">Coming soon</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="series_poster">Series Poster</string>
     <string name="settings">Settings</string>

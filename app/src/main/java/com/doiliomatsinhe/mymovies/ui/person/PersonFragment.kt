@@ -9,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.adapter.person.PersonMovieClickListener
 import com.doiliomatsinhe.mymovies.adapter.person.PersonMoviesAdapter
 import com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesAdapter
@@ -37,7 +35,7 @@ class PersonFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPersonBinding.inflate(inflater, container, false)
         arguments = PersonFragmentArgs.fromBundle(requireArguments())
@@ -51,13 +49,13 @@ class PersonFragment : Fragment() {
 
         initComponents()
 
-        viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, Observer {
+        viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, {
             it?.let { person ->
                 populateUI(person)
             }
         })
 
-        viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, Observer {
+        viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, {
             it?.let { listOfMovies ->
                 if (listOfMovies.isNotEmpty()) {
                     adapterMovies.submitList(listOfMovies)
@@ -68,7 +66,7 @@ class PersonFragment : Fragment() {
             }
         })
 
-        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, Observer {
+        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, {
             it?.let { listOfSeries ->
                 if (listOfSeries.isNotEmpty()) {
                     adapterSeries.submitList(listOfSeries)

@@ -11,7 +11,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/favorites"
+        android:text="@string/coming_soon"
         android:textSize="24sp" />
 
 </FrameLayout>
