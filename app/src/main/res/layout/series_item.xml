@@ -7,11 +7,11 @@
 
         <variable
             name="series"
-            type="com.doiliomatsinhe.mymovies.model.tv.TvSeries" />
+            type="com.dowy.android.model.tv.TvSeries" />
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.series.SeriesClickListener" />
+            type="com.dowy.android.adapter.series.SeriesClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView

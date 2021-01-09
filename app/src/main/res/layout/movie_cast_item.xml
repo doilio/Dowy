@@ -7,11 +7,11 @@
 
         <variable
             name="clicklistener"
-            type="com.doiliomatsinhe.mymovies.adapter.cast.CastClickListener" />
+            type="com.dowy.android.adapter.cast.CastClickListener" />
 
         <variable
             name="cast"
-            type="com.doiliomatsinhe.mymovies.model.movie.MovieCast" />
+            type="com.dowy.android.model.movie.MovieCast" />
 
     </data>
 

@@ -7,11 +7,11 @@
 
         <variable
             name="series"
-            type="com.doiliomatsinhe.mymovies.model.person.PersonTvCast" />
+            type="com.dowy.android.model.person.PersonTvCast" />
 
         <variable
             name="clicklistener"
-            type="com.doiliomatsinhe.mymovies.adapter.person.PersonSeriesClickListener" />
+            type="com.dowy.android.adapter.person.PersonSeriesClickListener" />
 
     </data>
 

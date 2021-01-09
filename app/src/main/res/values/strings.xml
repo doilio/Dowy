@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">My Movies</string>
+    <string name="app_name" translatable="false">Dowy</string>
     <string name="movies">Movies</string>
     <string name="tv_series">TV Series</string>
     <string name="favorites">Favorites</string>
@@ -46,8 +46,8 @@
     <string name="sharing_failed">Sharing failed, Try again later!</string>
 
     <!--About Page-->
-    <string name="about_app_link" translatable="false">com.doiliomatsinhe.mymovies</string>
-    <string name="about_descricao">My Movies is an application that helps you find the best rated and most popular movies and series to watch. \n\nThis product uses the TMDb API, but is not endorsed or certified by TMDb</string>
+    <string name="about_app_link" translatable="false">com.dowy.android</string>
+    <string name="about_descricao">Dowy is an application that helps you find the best rated and most popular movies and series to watch. \n\nThis product uses the TMDb API, but is not endorsed or certified by TMDb</string>
     <string name="dev_email" translatable="false">doiliomatsinhe@gmail.com</string>
     <string name="dev_facebook_page" translatable="false">doilio.matsinhe</string>
     <string name="dev_github_page" translatable="false">doilio</string>

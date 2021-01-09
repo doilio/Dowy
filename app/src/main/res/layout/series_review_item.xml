@@ -7,11 +7,11 @@
 
         <variable
             name="review"
-            type="com.doiliomatsinhe.mymovies.model.tv.TvReview" />
+            type="com.dowy.android.model.tv.TvReview" />
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.review.ReviewClickListener" />
+            type="com.dowy.android.adapter.review.ReviewClickListener" />
 
     </data>
 
