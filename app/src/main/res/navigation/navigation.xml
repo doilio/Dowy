@@ -99,5 +99,5 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.dowy.android.ui.about.AboutFragment"
-        android:label="About" />
+        android:label="@string/about" />
 </navigation>
