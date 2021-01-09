@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         android:order="10"
-        android:title="Display">
+        android:title="@string/display">
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/theme_entries"
@@ -11,12 +11,12 @@
             android:icon="@drawable/ic_baseline_brightness_medium_24"
             android:key="night_mode_list"
             android:summary="@string/light"
-            android:title="Theme"
+            android:title="@string/theme"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
     <PreferenceCategory
         android:order="20"
-        android:title="Contents">
+        android:title="@string/contents">
         <ListPreference
             android:defaultValue="popular"
             android:entries="@array/category_entries"
@@ -24,7 +24,7 @@
             android:icon="@drawable/ic_baseline_category_24"
             android:key="category_list"
             android:summary="@string/popular"
-            android:title="Category"
+            android:title="@string/category"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:defaultValue="en-US"
@@ -33,7 +33,7 @@
             android:icon="@drawable/ic_baseline_translate_24"
             android:key="language_list"
             android:summary="@string/english"
-            android:title="Language"
+            android:title="@string/language"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </PreferenceScreen>

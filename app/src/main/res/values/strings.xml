@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Movies</string>
+    <string name="app_name" translatable="false">My Movies</string>
     <string name="movies">Movies</string>
     <string name="tv_series">TV Series</string>
     <string name="favorites">Favorites</string>
@@ -8,21 +8,29 @@
     <string name="series_poster">Series Poster</string>
     <string name="settings">Settings</string>
     <!--Preference Entries-->
-    <string name="english">English</string>
-    <string name="portugues">Português</string>
+    <string name="english" translatable="false">English</string>
+    <string name="portuguese" translatable="false">Português</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="russian" translatable="false">Pусский</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="turkish" translatable="false">Türkçe</string>
+    <string name="chinese" translatable="false">中文</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="popular">Popular</string>
+    <string name="popular" translatable="false">Popular</string>
     <string name="top_rated">Top Rated</string>
     <!--Preference Entries-->
-    <string name="loading_error">Oops!\nError loading data</string>
+    <string name="loading_error">Oops! Error loading data</string>
     <string name="retry">Retry</string>
     <string name="rating">Rating</string>
     <string name="language">Language</string>
     <string name="release_date">Release Date</string>
     <string name="overview">Overview</string>
     <string name="cast">Cast</string>
-    <string name="trailers">Trailers</string>
+    <string name="trailers" translatable="false">Trailers</string>
     <string name="reviews">Reviews</string>
     <string name="rating_image">Rating Image</string>
     <string name="release_date_image">Release Date Image</string>
@@ -32,14 +40,14 @@
     <string name="movie_trailer">Movie Trailer</string>
     <string name="series_trailer">Series Trailer</string>
     <string name="play_trailer">Play Trailer</string>
-    <string name="youtube_app_name">com.google.android.youtube</string>
+    <string name="youtube_app_name" translatable="false">com.google.android.youtube</string>
     <string name="share">Share</string>
     <string name="share_using">Share using:</string>
     <string name="sharing_failed">Sharing failed, Try again later!</string>
 
     <!--About Page-->
     <string name="about_app_link" translatable="false">com.doiliomatsinhe.mymovies</string>
-    <string name="about_descricao">O My Movies é um aplicativo que ajuda você a encontrar os filmes e séries mais bem avaliados e populares para assistir. \n\nEste produto usa a API TMDb, mas não é endossado ou certificado por TMDb</string>
+    <string name="about_descricao">My Movies is an application that helps you find the best rated and most popular movies and series to watch. \n\nThis product uses the TMDb API, but is not endorsed or certified by TMDb</string>
     <string name="dev_email" translatable="false">doiliomatsinhe@gmail.com</string>
     <string name="dev_facebook_page" translatable="false">doilio.matsinhe</string>
     <string name="dev_github_page" translatable="false">doilio</string>
@@ -47,20 +55,36 @@
     <string name="facebook" translatable="false">Facebook</string>
     <string name="instagram" translatable="false">Instagram</string>
     <string name="github" translatable="false">GitHub</string>
-    <string name="envie_email">Envie um e-mail</string>
-    <string name="redes_sociais">Redes Sociais</string>
-    <string name="about_fale_conosco">Entre em contato</string>
-    <string name="playstore_page">Avalie na Play Store</string>
+    <string name="envie_email">Send an e-mail</string>
+    <string name="redes_sociais">Social networks</string>
+    <string name="about_fale_conosco">Contact-me</string>
+    <string name="playstore_page">Rate on Play Store</string>
     <!--About Page-->
 
     <string-array name="language_entries">
         <item>@string/english</item>
-        <item>@string/portugues</item>
+        <item>@string/portuguese</item>
+        <item>@string/spanish</item>
+        <item>@string/french</item>
+        <item>@string/german</item>
+        <item>@string/russian</item>
+        <item>@string/polish</item>
+        <item>@string/italian</item>
+        <item>@string/turkish</item>
+        <item>@string/chinese</item>
     </string-array>
 
     <string-array name="language_values">
         <item>en-US</item>
         <item>pt-PT</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>ru</item>
+        <item>pl</item>
+        <item>it</item>
+        <item>tr</item>
+        <item>zh</item>
     </string-array>
 
     <string-array name="theme_entries">
@@ -92,9 +116,13 @@
     <string name="actor_image">Actor Image</string>
     <string name="imdb_icon">IMDB Icon</string>
     <string name="biography">Biography</string>
-    <string name="biography_text"><![CDATA[Thomas \"Tom\" Stanley Holland is an English actor and dancer. He is best known for playing the title role in Billy Elliot the Musical at the Victoria Palace Theatre, London, as well as for starring in the 2012 film The Impossible. In 2015, Holland was cast as Peter Parker / Spider-Man in the Marvel Cinematic Universe and has appeared as the character in five films: Captain America: Civil War (2016), Spider-Man: Homecoming (2017), Avengers: Infinity War (2018), Avengers: Endgame (2019), and Spider-Man: Far From Home (2019).\n\nA graduate of the BRIT School in London, Holland previously appeared on stage in the title role of Billy Elliot the Musical in London\'s West End in 2008, and his other films include In the Heart of the Sea (2015), and The Current War (2017). In 2017, Holland received the BAFTA Rising Star Award.]]></string>
+    <string name="biography_text" translatable="false"><![CDATA[Thomas \"Tom\" Stanley Holland is an English actor and dancer. He is best known for playing the title role in Billy Elliot the Musical at the Victoria Palace Theatre, London, as well as for starring in the 2012 film The Impossible. In 2015, Holland was cast as Peter Parker / Spider-Man in the Marvel Cinematic Universe and has appeared as the character in five films: Captain America: Civil War (2016), Spider-Man: Homecoming (2017), Avengers: Infinity War (2018), Avengers: Endgame (2019), and Spider-Man: Far From Home (2019).\n\nA graduate of the BRIT School in London, Holland previously appeared on stage in the title role of Billy Elliot the Musical in London\'s West End in 2008, and his other films include In the Heart of the Sea (2015), and The Current War (2017). In 2017, Holland received the BAFTA Rising Star Award.]]></string>
     <string name="movies_cast_in">Movies Cast In</string>
     <string name="tv_shows_cast_in">TV Shows Cast In</string>
     <string name="first_aired_date">First Aired Date</string>
     <string name="about">About</string>
+    <string name="theme">Theme</string>
+    <string name="category">Category</string>
+    <string name="display">Display</string>
+    <string name="contents">Contents</string>
 </resources>
