@@ -97,4 +97,7 @@ dependencies {
 
     // About page
     implementation "com.github.medyo:android-about-page:$about_version"
+
+    // Play Core Library
+    implementation "com.google.android.play:core:$play_version"
 }

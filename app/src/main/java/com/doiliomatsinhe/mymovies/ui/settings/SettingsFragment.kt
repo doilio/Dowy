@@ -9,6 +9,7 @@ import com.doiliomatsinhe.mymovies.R
 import com.doiliomatsinhe.mymovies.utils.CATEGORY_KEY
 import com.doiliomatsinhe.mymovies.utils.LANGUAGE_KEY
 import com.doiliomatsinhe.mymovies.utils.NIGHT_MODE_KEY
+import com.doiliomatsinhe.mymovies.utils.NIGHT_MODE_ON
 import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -28,7 +29,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val languageList: ListPreference? = findPreference(LANGUAGE_KEY)
 
         nightModeList?.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue == "2") {
+            if (newValue == NIGHT_MODE_ON) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -41,7 +42,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Timber.d("Preference not altered")
             } else {
                 Timber.d("Preference altered")
-                //uiScope.launch { invalidateCurrentData() }
 
             }
             true

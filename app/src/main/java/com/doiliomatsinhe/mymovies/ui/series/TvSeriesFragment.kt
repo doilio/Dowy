@@ -123,6 +123,9 @@ class TvSeriesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
 
+        val menuItem = menu.findItem(R.id.aboutFragment)
+        menuItem.isVisible = false
+
         implementSearch(menu)
 
         super.onCreateOptionsMenu(menu, inflater)
