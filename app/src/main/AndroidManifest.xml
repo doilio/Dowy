@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.doiliomatsinhe.mymovies">
+    package="com.dowy.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.doiliomatsinhe.MyApplication"
+        android:name="com.dowy.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,11 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name="com.dowy.android.ui.settings.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.dowy.android.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.dowy.android.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

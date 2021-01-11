@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.movies.MoviesFragment"
+        android:name="com.dowy.android.ui.movies.MoviesFragment"
         android:label="@string/movies"
         tools:layout="@layout/fragment_movies">
         <action
@@ -21,12 +21,12 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.favorites.FavoritesFragment"
+        android:name="com.dowy.android.ui.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/tvSeriesFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.series.TvSeriesFragment"
+        android:name="com.dowy.android.ui.series.TvSeriesFragment"
         android:label="@string/tv_series"
         tools:layout="@layout/fragment_tv_series">
         <action
@@ -39,11 +39,11 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.movieDetails.MovieDetailsFragment"
+        android:name="com.dowy.android.ui.movieDetails.MovieDetailsFragment"
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="Movie"
-            app:argType="com.doiliomatsinhe.mymovies.model.movie.Movie" />
+            app:argType="com.dowy.android.model.movie.Movie" />
         <action
             android:id="@+id/action_detailsFragment_to_personFragment"
             app:destination="@id/personFragment"
@@ -54,11 +54,11 @@
     </fragment>
     <fragment
         android:id="@+id/tvSeriesDetailsFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.seriesDetails.TvSeriesDetailsFragment"
+        android:name="com.dowy.android.ui.seriesDetails.TvSeriesDetailsFragment"
         tools:layout="@layout/fragment_tv_series_details">
         <argument
             android:name="TvSeries"
-            app:argType="com.doiliomatsinhe.mymovies.model.tv.TvSeries" />
+            app:argType="com.dowy.android.model.tv.TvSeries" />
         <action
             android:id="@+id/action_tvSeriesDetailsFragment_to_personFragment"
             app:destination="@id/personFragment"
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.person.PersonFragment"
+        android:name="com.dowy.android.ui.person.PersonFragment"
         tools:layout="@layout/fragment_person" >
         <argument
             android:name="personId"
@@ -98,6 +98,6 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.doiliomatsinhe.mymovies.ui.about.AboutFragment"
-        android:label="About" />
+        android:name="com.dowy.android.ui.about.AboutFragment"
+        android:label="@string/about" />
 </navigation>

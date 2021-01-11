@@ -7,11 +7,11 @@
 
         <variable
             name="trailer"
-            type="com.doiliomatsinhe.mymovies.model.tv.TvTrailer" />
+            type="com.dowy.android.model.tv.TvTrailer" />
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.trailer.TrailerClickListener" />
+            type="com.dowy.android.adapter.trailer.TrailerClickListener" />
 
     </data>
 

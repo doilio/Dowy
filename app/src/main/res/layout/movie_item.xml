@@ -7,11 +7,11 @@
 
         <variable
             name="movie"
-            type="com.doiliomatsinhe.mymovies.model.movie.Movie" />
+            type="com.dowy.android.model.movie.Movie" />
 
         <variable
             name="clickListener"
-            type="com.doiliomatsinhe.mymovies.adapter.movie.MovieClickListener" />
+            type="com.dowy.android.adapter.movie.MovieClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
