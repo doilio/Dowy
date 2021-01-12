@@ -3,6 +3,7 @@ package com.dowy.android.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.doiliomatsinhe.mymovies.utils.SECRET_KEY
 import com.dowy.android.data.source.MovieQueryPagingSource
 import com.dowy.android.data.source.MoviesPagingSource
 import com.dowy.android.data.source.TvSeriesPagingSource
@@ -14,7 +15,6 @@ import com.dowy.android.model.person.PersonTvCast
 import com.dowy.android.model.tv.*
 import com.dowy.android.network.ApiService
 import com.dowy.android.utils.Result
-import com.dowy.android.utils.SECRET_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

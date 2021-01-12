@@ -24,3 +24,4 @@ const val SERIES_LIST_STARTING_PAGE = 1
 const val PERSON_ID = "person_id"
 const val MOVIE_VIEW_TYPE = 0
 const val SERIES_VIEW_TYPE = 1
+const val FOOTER_VIEW_TYPE = 2

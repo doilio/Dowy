@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.moviesFragment, R.id.tvSeriesFragment, R.id.favoritesFragment
+                R.id.mainMoviesFragment, R.id.tvSeriesFragment, R.id.favoritesFragment
             )
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.moviesFragment -> navView.visibility = View.VISIBLE
+                R.id.mainMoviesFragment -> navView.visibility = View.VISIBLE
                 R.id.tvSeriesFragment -> navView.visibility = View.VISIBLE
                 R.id.favoritesFragment -> navView.visibility = View.VISIBLE
                 else -> navView.visibility = View.GONE

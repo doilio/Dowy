@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="193dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardElevation="2dp"
-    app:cardPreventCornerOverlap="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/movie_image"
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:contentDescription="@string/movie_poster"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/poster" />
+    <data>
 
-</androidx.cardview.widget.CardView>
+        <variable
+            name="movie"
+            type="com.dowy.android.model.movie.Movie" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true">
+
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:contentDescription="@string/movie_poster"
+            android:scaleType="centerCrop"
+            app:moviePoster="@{movie}"
+            tools:src="@drawable/poster" />
+
+    </androidx.cardview.widget.CardView>
+</layout>
