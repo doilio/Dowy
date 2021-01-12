@@ -86,6 +86,64 @@ class Repository @Inject constructor(
 
     }
 
+
+    suspend fun getPopularMovies(language: String?): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val popularMovies = service.getPopular(SECRET_KEY, language, 1).results
+                Result.Success(popularMovies)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getTopRated(language: String?): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val topRatedMovies = service.getTopRated(SECRET_KEY, language, 1).results
+                Result.Success(topRatedMovies)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getNowPlayingMovies(language: String?): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val nowPlayingMovies = service.getNowPlaying(SECRET_KEY, language, 1).results
+                Result.Success(nowPlayingMovies)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+    suspend fun getUpcomingMovies(language: String?): Result<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val upcomingMovies = service.getUpcoming(SECRET_KEY, language, 1).results
+                Result.Success(upcomingMovies)
+
+            } catch (exception: IOException) {
+                Result.Error(exception)
+            } catch (exception: HttpException) {
+                Result.Error(exception)
+            }
+        }
+    }
+
+
     suspend fun getMovieReviews(movieId: Int): Result<List<MovieReview>> {
         return withContext(Dispatchers.IO) {
             try {

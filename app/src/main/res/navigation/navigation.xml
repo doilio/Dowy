@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/moviesFragment">
+    app:startDestination="@id/mainMoviesFragment">
 
 
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.dowy.android.ui.movies.MoviesFragment"
-        android:label="@string/movies"
         tools:layout="@layout/fragment_movies">
         <action
             android:id="@+id/action_moviesFragment_to_detailsFragment"
@@ -17,7 +16,7 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"  />
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -100,4 +99,17 @@
         android:id="@+id/aboutFragment"
         android:name="com.dowy.android.ui.about.AboutFragment"
         android:label="@string/about" />
+    <fragment
+        android:id="@+id/mainMoviesFragment"
+        android:name="com.dowy.android.ui.main.MainMoviesFragment"
+        android:label="@string/movies"
+        tools:layout="@layout/fragment_main_movies">
+
+        <action
+            android:id="@+id/action_mainMoviesFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+        <action
+            android:id="@+id/action_mainMoviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

@@ -125,4 +125,6 @@
     <string name="category">Category</string>
     <string name="display">Display</string>
     <string name="contents">Contents</string>
+    <string name="now_playing" translatable="false">Now Playing</string>
+    <string name="upcoming" translatable="false">Upcoming</string>
 </resources>

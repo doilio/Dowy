@@ -16,6 +16,38 @@ interface ApiService {
         @Query(PAGE) page: Int
     ): NetworkMovie
 
+    @GET("movie/popular")
+    suspend fun getPopular(
+        @Query(API_KEY) apiKey: String,
+        @Query(LANGUAGE) language: String?,
+        @Query(PAGE) page: Int,
+        @Query(REGION) region: String =""
+    ): NetworkMovie
+
+    @GET("movie/top_rated")
+    suspend fun getTopRated(
+        @Query(API_KEY) apiKey: String,
+        @Query(LANGUAGE) language: String?,
+        @Query(PAGE) page: Int,
+        @Query(REGION) region: String=""
+    ): NetworkMovie
+
+    @GET("movie/upcoming")
+    suspend fun getUpcoming(
+        @Query(API_KEY) apiKey: String,
+        @Query(LANGUAGE) language: String?,
+        @Query(PAGE) page: Int,
+        @Query(REGION) region: String="us"
+    ): NetworkMovie
+
+    @GET("movie/now_playing")
+    suspend fun getNowPlaying(
+        @Query(API_KEY) apiKey: String,
+        @Query(LANGUAGE) language: String?,
+        @Query(PAGE) page: Int,
+        @Query(REGION) region: String=""
+    ): NetworkMovie
+
     @GET("genre/movie/list")
     suspend fun getMovieGenres(
         @Query(API_KEY) apiKey: String
