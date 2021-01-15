@@ -63,7 +63,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun fetchMovies() {
-        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
+        val category = sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
 
         lifecycleScope.launch {

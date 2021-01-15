@@ -19,12 +19,22 @@
         android:title="@string/contents">
         <ListPreference
             android:defaultValue="popular"
-            android:entries="@array/category_entries"
-            android:entryValues="@array/category_values"
-            android:icon="@drawable/ic_baseline_category_24"
-            android:key="category_list"
+            android:entries="@array/movie_entries"
+            android:entryValues="@array/movie_values"
+            android:icon="@drawable/ic_baseline_movie_24"
+            android:key="movie_list"
             android:summary="@string/popular"
-            android:title="@string/category"
+            android:title="@string/movies"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="popular"
+            android:entries="@array/tv_entries"
+            android:entryValues="@array/tv_values"
+            android:icon="@drawable/ic_baseline_live_tv_24"
+            android:key="tv_list"
+            android:summary="@string/popular"
+            android:title="@string/tv_series"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:defaultValue="en-US"

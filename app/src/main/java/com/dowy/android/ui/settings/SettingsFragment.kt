@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.dowy.android.R
-import com.dowy.android.utils.CATEGORY_KEY
-import com.dowy.android.utils.LANGUAGE_KEY
-import com.dowy.android.utils.NIGHT_MODE_KEY
-import com.dowy.android.utils.NIGHT_MODE_ON
+import com.dowy.android.utils.*
 import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -25,7 +22,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
         val nightModeList: ListPreference? = findPreference(NIGHT_MODE_KEY)
-        val categoryList: ListPreference? = findPreference(CATEGORY_KEY)
+        val movieList: ListPreference? = findPreference(MOVIE_KEY)
+        val tvList: ListPreference? = findPreference(TV_KEY)
         val languageList: ListPreference? = findPreference(LANGUAGE_KEY)
 
         nightModeList?.setOnPreferenceChangeListener { _, newValue ->
@@ -37,12 +35,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        categoryList?.setOnPreferenceChangeListener { _, newValue ->
-            if (categoryList.value == newValue) {
+        movieList?.setOnPreferenceChangeListener { _, newValue ->
+            if (movieList.value == newValue) {
                 Timber.d("Preference not altered")
             } else {
                 Timber.d("Preference altered")
+            }
+            true
+        }
 
+        tvList?.setOnPreferenceChangeListener { _, newValue ->
+            if (tvList.value == newValue) {
+                Timber.d("Preference not altered")
+            } else {
+                Timber.d("Preference altered")
             }
             true
         }
@@ -52,11 +58,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Timber.d("Preference not altered")
             } else {
                 Timber.d("Preference altered")
-
             }
             true
         }
-
 
     }
 

@@ -8,9 +8,12 @@
     <string name="settings">Configurações</string>
     <string name="light">Claro</string>
     <string name="dark">Escuro</string>
-    <string name="top_rated">Mais votado</string>
+    <string name="popular">Populares</string>
+    <string name="top_rated">Melhor Classificação</string>
     <string name="upcoming">Brevemente</string>
     <string name="now_playing">Em Exibição</string>
+    <string name="airing_today">Emitidas Hoje</string>
+    <string name="on_the_air">Na TV</string>
     <string name="loading_error">Oops! Erro ao carregar dados</string>
     <string name="retry">Tentar novamente</string>
     <string name="rating">Avaliação</string>
