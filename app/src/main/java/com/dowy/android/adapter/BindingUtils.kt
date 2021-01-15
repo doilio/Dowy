@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.dowy.android.R
 import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.movie.MovieCast
 import com.dowy.android.model.movie.MovieReview
@@ -22,7 +23,7 @@ import java.lang.ClassCastException
 fun ImageView.setMoviePoster(item: Movie?) {
 
     item?.let {
-        Glide.with(this).load(it.fullPosterPath).into(this)
+        Glide.with(this).load(it.fullPosterPath).error(R.drawable.no_image).into(this)
     }
 }
 
@@ -30,7 +31,7 @@ fun ImageView.setMoviePoster(item: Movie?) {
 fun ImageView.setSeriesPoster(item: TvSeries?) {
 
     item?.let {
-        Glide.with(this).load(it.fullPosterPath).into(this)
+        Glide.with(this).load(it.fullPosterPath).error(R.drawable.no_image).into(this)
     }
 }
 

@@ -80,9 +80,9 @@ class MovieDetailsFragment : Fragment() {
             openTrailer(it as MovieTrailer)
         })
 
-        Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
+        Glide.with(this).load(movie.fullBackDropPath).error(R.drawable.no_image).into(binding.movieCover)
         Timber.d(movie.fullBackDropPath)
-        Glide.with(this).load(movie.fullPosterPath).into(binding.moviePoster)
+        Glide.with(this).load(movie.fullPosterPath).error(R.drawable.no_image_portrait1).into(binding.moviePoster)
         binding.movieTitleText.text = movie.title
         binding.languageText.text = movie.original_language
         binding.releaseDateText.text = movie.release_date

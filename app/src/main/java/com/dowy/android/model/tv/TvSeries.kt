@@ -19,7 +19,7 @@ data class TvSeries(
     @SerializedName("id") val id: Int,
     @SerializedName("vote_average") val vote_average: Double,
     @SerializedName("overview") val overview: String,
-    @SerializedName("poster_path") val poster_path: String
+    @SerializedName("poster_path") val poster_path: String?
 ) : Parcelable {
     val fullPosterPath: String
         get() = "http://image.tmdb.org/t/p/w342$poster_path"

@@ -10,14 +10,14 @@ data class PersonTvCast(
     @SerializedName("genre_ids") val genre_ids: List<Int>,
     @SerializedName("character") val character: String,
     @SerializedName("name") val name: String,
-    @SerializedName("poster_path") val poster_path: String,
+    @SerializedName("poster_path") val poster_path: String?,
     @SerializedName("vote_count") val vote_count: Int,
     @SerializedName("vote_average") val vote_average: Double,
     @SerializedName("popularity") val popularity: Double,
     @SerializedName("episode_count") val episode_count: Int,
     @SerializedName("original_language") val original_language: String,
     @SerializedName("first_air_date") val first_air_date: String,
-    @SerializedName("backdrop_path") val backdrop_path: String,
+    @SerializedName("backdrop_path") val backdrop_path: String?,
     @SerializedName("overview") val overview: String,
     @SerializedName("origin_country") val origin_country: List<String>
 ) {

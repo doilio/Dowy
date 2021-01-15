@@ -9,7 +9,9 @@
     <string name="light">Claro</string>
     <string name="dark">Escuro</string>
     <string name="top_rated">Mais votado</string>
-    <string name="loading_error">Ops! Erro ao carregar dados</string>
+    <string name="upcoming">Brevemente</string>
+    <string name="now_playing">Em Exibição</string>
+    <string name="loading_error">Oops! Erro ao carregar dados</string>
     <string name="retry">Tentar novamente</string>
     <string name="rating">Avaliação</string>
     <string name="language">Língua</string>

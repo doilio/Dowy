@@ -22,6 +22,8 @@
     <string name="dark">Dark</string>
     <string name="popular" translatable="false">Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
     <!--Preference Entries-->
     <string name="loading_error">Oops! Error loading data</string>
     <string name="retry">Retry</string>
@@ -99,11 +101,15 @@
     <string-array name="category_entries">
         <item>@string/popular</item>
         <item>@string/top_rated</item>
+        <item>@string/upcoming</item>
+        <item>@string/now_playing</item>
     </string-array>
 
     <string-array name="category_values">
         <item>popular</item>
         <item>top_rated</item>
+        <item>upcoming</item>
+        <item>now_playing</item>
     </string-array>
     <string name="tv_photo">Tv Series Photo</string>
     <string name="tv_cover">Tv Series Cover</string>
