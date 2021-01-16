@@ -27,14 +27,15 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/actor_image"
                         android:layout_width="0dp"
-                        android:layout_height="250dp"
+                        android:layout_height="0dp"
                         android:contentDescription="@string/actor_image"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +67,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/known_for"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_known_for"
@@ -78,7 +78,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/birthdate"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_birthdate"
@@ -90,7 +89,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/place_of_birth"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_place_of_birth"
@@ -102,7 +100,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/popularity"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_popularity"
@@ -163,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="33dp"
                         app:layout_constraintBottom_toBottomOf="@+id/actor_image"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline"

@@ -41,7 +41,13 @@ constructor(private val repository: Repository) :
 
         uiScope.launch {
             reviewList.value = when (val movieReviews = repository.getMovieReviews(movieId)) {
-                is Result.Success -> movieReviews.data
+                is Result.Success -> {
+                    if (movieReviews.data.size > 3) {
+                        movieReviews.data.subList(0, 3)
+                    } else {
+                        movieReviews.data
+                    }
+                }
                 is Result.Error -> null
             }
         }

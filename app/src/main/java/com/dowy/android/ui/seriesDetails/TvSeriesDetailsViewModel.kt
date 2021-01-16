@@ -40,7 +40,13 @@ constructor(private val repository: Repository) : ViewModel() {
 
         uiScope.launch {
             reviewList.value = when (val tvReviews = repository.getTvReviews(tvId)) {
-                is Result.Success -> tvReviews.data
+                is Result.Success -> {
+                    if (tvReviews.data.size > 3) {
+                        tvReviews.data.subList(0, 3)
+                    } else {
+                        tvReviews.data
+                    }
+                }
                 is Result.Error -> null
             }
         }

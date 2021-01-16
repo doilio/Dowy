@@ -19,7 +19,6 @@ import com.dowy.android.R
 import com.dowy.android.adapter.movie.MovieAdapter
 import com.dowy.android.adapter.movie.MovieClickListener
 import com.dowy.android.adapter.loadstate.LoadStateAdapter
-import com.dowy.android.data.Repository
 import com.dowy.android.databinding.FragmentMoviesBinding
 import com.dowy.android.ui.settings.SettingsActivity
 import com.dowy.android.utils.*
@@ -37,10 +36,6 @@ class MoviesFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreference: SharedPreferences
-
-    @Inject
-    lateinit var repository: Repository
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

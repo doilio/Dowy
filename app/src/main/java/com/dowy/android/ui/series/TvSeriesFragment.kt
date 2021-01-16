@@ -17,7 +17,6 @@ import com.dowy.android.R
 import com.dowy.android.adapter.loadstate.LoadStateAdapter
 import com.dowy.android.adapter.series.SeriesAdapter
 import com.dowy.android.adapter.series.SeriesClickListener
-import com.dowy.android.data.Repository
 import com.dowy.android.databinding.FragmentTvSeriesBinding
 import com.dowy.android.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,9 +33,6 @@ class TvSeriesFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreference: SharedPreferences
-
-    @Inject
-    lateinit var repository: Repository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -123,8 +119,8 @@ class TvSeriesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
 
-        val menuItem = menu.findItem(R.id.aboutFragment)
-        menuItem.isVisible = false
+        menu.findItem(R.id.aboutFragment).isVisible = false
+        menu.findItem(R.id.settingsActivity).isVisible = false
 
         implementSearch(menu)
 
@@ -134,8 +130,6 @@ class TvSeriesFragment : Fragment() {
     private fun implementSearch(menu: Menu) {
         val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu.findItem(R.id.ic_search)
-        val settingsItem = menu.findItem(R.id.settingsActivity)
-        settingsItem.isVisible = false
         val searchView = searchItem.actionView as SearchView
 
         searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
