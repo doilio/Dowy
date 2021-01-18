@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.dowy.android.R
 import com.dowy.android.adapter.person.PersonMovieClickListener
 import com.dowy.android.adapter.person.PersonMoviesAdapter
 import com.dowy.android.adapter.person.PersonSeriesAdapter
@@ -21,7 +22,6 @@ import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.person.Person
 import com.dowy.android.model.tv.TvSeries
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
@@ -59,9 +59,9 @@ class PersonFragment : Fragment() {
             it?.let { listOfMovies ->
                 if (listOfMovies.isNotEmpty()) {
                     adapterMovies.submitList(listOfMovies)
-                    binding.titleMoviesCastIn.visibility = View.VISIBLE
                 } else {
-                    Timber.d("Empty List")
+                    binding.recyclerMoviesCastIn.visibility = View.GONE
+                    binding.moviesCastInError.visibility = View.VISIBLE
                 }
             }
         })
@@ -70,9 +70,9 @@ class PersonFragment : Fragment() {
             it?.let { listOfSeries ->
                 if (listOfSeries.isNotEmpty()) {
                     adapterSeries.submitList(listOfSeries)
-                    binding.titleSeriesCastIn.visibility = View.VISIBLE
                 } else {
-                    Timber.d("Empty List")
+                    binding.recyclerSeriesCastIn.visibility = View.GONE
+                    binding.tvCastInError.visibility = View.VISIBLE
                 }
             }
         })
@@ -119,18 +119,40 @@ class PersonFragment : Fragment() {
     }
 
     private fun populateUI(person: Person) {
-        Glide.with(this).load(person.fullProfilePath).into(binding.actorImage)
-        binding.textName.text = person.name
-        binding.textKnownFor.text = person.known_for_department
-        binding.textBirthdate.text = person.birthday
-        binding.textPlaceOfBirth.text = person.place_of_birth
-        binding.textPopularity.text = person.popularity.toString()
+        Glide.with(this).load(person.fullProfilePath).error(R.drawable.no_image_portrait1)
+            .into(binding.actorImage)
 
-        // Biography
-        if (person.biography.isNotEmpty()) {
-            binding.cardBiography.visibility = View.VISIBLE
-            binding.textBiography.text = person.biography
+        person.name.let {
+            binding.textName.text = it ?: "-"
         }
+
+        person.known_for_department.let {
+            binding.textKnownFor.text = it ?: "-"
+        }
+
+        person.birthday.let {
+            binding.textBirthdate.text = it ?: "-"
+        }
+
+        person.place_of_birth.let {
+            binding.textPlaceOfBirth.text = it ?: "-"
+        }
+
+        person.popularity.let { popularity ->
+            popularity.toString().let {
+                binding.textPopularity.text = if (it.isNotEmpty()) it else "-"
+            }
+        }
+
+        person.biography?.let {
+            if (it.isNotEmpty()) {
+                binding.textBiography.text = person.biography
+            } else {
+                binding.textBiography.visibility = View.GONE
+                binding.textBiographyError.visibility = View.VISIBLE
+            }
+        }
+
         // IMDB and Web Links
         setButtonVisibility(person)
 

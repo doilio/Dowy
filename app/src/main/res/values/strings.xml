@@ -20,8 +20,12 @@
     <string name="chinese" translatable="false">中文</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="popular" translatable="false">Popular</string>
+    <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="on_the_air">On TV</string>
     <!--Preference Entries-->
     <string name="loading_error">Oops! Error loading data</string>
     <string name="retry">Retry</string>
@@ -96,15 +100,34 @@
         <item>2</item>
     </string-array>
 
-    <string-array name="category_entries">
+    <string-array name="movie_entries">
         <item>@string/popular</item>
+        <item>@string/now_playing</item>
+        <item>@string/upcoming</item>
         <item>@string/top_rated</item>
     </string-array>
 
-    <string-array name="category_values">
+    <string-array name="movie_values">
         <item>popular</item>
+        <item>now_playing</item>
+        <item>upcoming</item>
         <item>top_rated</item>
     </string-array>
+
+    <string-array name="tv_entries">
+        <item>@string/popular</item>
+        <item>@string/airing_today</item>
+        <item>@string/on_the_air</item>
+        <item>@string/top_rated</item>
+    </string-array>
+
+    <string-array name="tv_values">
+        <item>popular</item>
+        <item>airing_today</item>
+        <item>on_the_air</item>
+        <item>top_rated</item>
+    </string-array>
+
     <string name="tv_photo">Tv Series Photo</string>
     <string name="tv_cover">Tv Series Cover</string>
     <string name="search">Search</string>
@@ -125,4 +148,11 @@
     <string name="category">Category</string>
     <string name="display">Display</string>
     <string name="contents">Contents</string>
+    <string name="list_of_cast_members_error">The list of cast members is currently unavailable.</string>
+    <string name="overview_error">Overview is currently unavailable.</string>
+    <string name="list_of_trailers_error">The list of trailers is currently unavailable.</string>
+    <string name="list_of_reviews_error">The list of reviews is currently unavailable.</string>
+    <string name="list_of_movies_cast_in_is_currently_unavailable">List of movies cast in is currently unavailable.</string>
+    <string name="list_of_tv_shows_cast_in_is_currently_unavailable">List of TV shows cast in is currently unavailable.</string>
+    <string name="biography_is_currently_not_available">Biography is currently not available.</string>
 </resources>

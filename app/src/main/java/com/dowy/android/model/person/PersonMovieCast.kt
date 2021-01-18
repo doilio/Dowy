@@ -19,7 +19,7 @@ data class PersonMovieCast(
     @SerializedName("id") val id: Int,
     @SerializedName("backdrop_path") val backdrop_path: String? ="",
     @SerializedName("overview") val overview: String,
-    @SerializedName("poster_path") val poster_path: String
+    @SerializedName("poster_path") val poster_path: String?
 ) {
     val fullProfilePath: String
         get() = "http://image.tmdb.org/t/p/w342$poster_path"

@@ -44,7 +44,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:trailerImage="@{trailer}"
+                app:loadImage="@{trailer.trailerImagePath}"
                 tools:src="@drawable/poster" />
 
             <TextView
@@ -60,7 +60,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_trailer_image"
-                app:trailerName="@{trailer}"
+                android:text="@{trailer.name}"
                 tools:text="SPIDER-MAN: FAR FROM HOME - DELETED SCENE 'Peter &amp; MJ on the Plane' - On Blu-ray TUESDAY!" />
 
             <ImageView

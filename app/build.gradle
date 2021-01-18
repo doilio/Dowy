@@ -100,4 +100,8 @@ dependencies {
 
     // Play Core Library
     implementation "com.google.android.play:core:$play_version"
+
+    // Admob
+    implementation "com.google.android.gms:play-services-ads:$admob_version"
+
 }

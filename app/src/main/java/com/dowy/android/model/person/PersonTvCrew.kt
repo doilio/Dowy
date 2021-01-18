@@ -15,10 +15,10 @@ data class PersonTvCrew (
     @SerializedName("genre_ids") val genre_ids : List<Int>,
     @SerializedName("name") val name : String,
     @SerializedName("first_air_date") val first_air_date : String,
-    @SerializedName("backdrop_path") val backdrop_path : String,
+    @SerializedName("backdrop_path") val backdrop_path : String?,
     @SerializedName("popularity") val popularity : Double,
     @SerializedName("vote_count") val vote_count : Int,
     @SerializedName("vote_average") val vote_average : Float,
-    @SerializedName("poster_path") val poster_path : String,
+    @SerializedName("poster_path") val poster_path : String?,
     @SerializedName("credit_id") val credit_id : String
 )

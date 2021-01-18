@@ -26,46 +26,34 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{() -> clicklistener.onClick(series)}"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardPreventCornerOverlap="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/image_series_cover"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="290dp"
                 android:contentDescription="@string/series_poster"
                 android:scaleType="centerCrop"
-                app:itemImage="@{series}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:itemImage="@{series.fullProfilePath}"
                 tools:src="@drawable/tv_poster" />
 
             <TextView
                 android:id="@+id/text_series_character"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:gravity="center"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                app:characterName="@{series}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_series_cover"
+                app:characterName="@{series.character}"
                 tools:text="as\nRick Sanchez" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 </layout>

@@ -27,12 +27,10 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()-> clickListener.onClick(review)}"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:cardPreventCornerOverlap="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp">
@@ -42,21 +40,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:reviewerName="@{review}"
+                android:text="@{review.author}"
                 tools:text="Reviewer name" />
 
             <TextView
                 android:id="@+id/review_text"
-                reviewerText="@{review}"
-                android:layout_width="0dp"
+                reviewerText="@{review.content}"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/review_name"
                 tools:text="Reviewer Text is going to come here Doilio Abel Matsinhe said this this and that ...." />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

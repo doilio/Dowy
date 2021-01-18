@@ -80,9 +80,14 @@ class MovieDetailsFragment : Fragment() {
             openTrailer(it as MovieTrailer)
         })
 
-        Glide.with(this).load(movie.fullBackDropPath).into(binding.movieCover)
+        binding.movieCover?.let {
+            Glide.with(this).load(movie.fullBackDropPath).error(R.drawable.no_image).into(
+                it
+            )
+        }
         Timber.d(movie.fullBackDropPath)
-        Glide.with(this).load(movie.fullPosterPath).into(binding.moviePoster)
+        Glide.with(this).load(movie.fullPosterPath).error(R.drawable.no_image_portrait1)
+            .into(binding.moviePoster)
         binding.movieTitleText.text = movie.title
         binding.languageText.text = movie.original_language
         binding.releaseDateText.text = movie.release_date
@@ -128,12 +133,12 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, {
             it?.let { castMembers ->
-                if(castMembers.isNotEmpty()){
+                if (castMembers.isNotEmpty()) {
                     castAdapter.submitMovieCastList(castMembers)
-                }else{
-                    binding.textCast.visibility = View.GONE
+                } else {
+                    binding.castError.visibility = View.VISIBLE
+                    binding.recyclerCast.visibility = View.GONE
                 }
-
             }
         })
 
@@ -142,7 +147,8 @@ class MovieDetailsFragment : Fragment() {
                 if (listOfTrailers.isNotEmpty()) {
                     trailerAdapter.submitMovieTrailers(listOfTrailers)
                 } else {
-                    binding.movieTrailerTitle.visibility = View.GONE
+                    binding.trailerError.visibility = View.VISIBLE
+                    binding.recyclerTrailer.visibility = View.GONE
                 }
                 trailers = listOfTrailers
             }
@@ -153,7 +159,8 @@ class MovieDetailsFragment : Fragment() {
                 if (reviews.isNotEmpty()) {
                     reviewAdapter.submitMovieReviewList(reviews)
                 } else {
-                    binding.textView1sds3.visibility = View.GONE
+                    binding.reviewError.visibility = View.VISIBLE
+                    binding.recyclerReview.visibility = View.GONE
                 }
             }
         })

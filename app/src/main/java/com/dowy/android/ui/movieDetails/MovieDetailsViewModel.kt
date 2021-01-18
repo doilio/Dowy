@@ -22,6 +22,12 @@ constructor(private val repository: Repository) :
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    // In-Memory Caching
+    private var currentMovieCastResult: MutableLiveData<List<MovieCast>>? = null
+    private var currentMovieTrailersResult: MutableLiveData<List<MovieTrailer>>? = null
+    private var currentMovieReviewResult: MutableLiveData<List<MovieReview>>? = null
+    private var currentMovieId: Int? = null
+
     private val _listOfGenres = MutableLiveData<List<MovieGenres>>()
     val listOfGenres: LiveData<List<MovieGenres>>
         get() = _listOfGenres
@@ -39,11 +45,24 @@ constructor(private val repository: Repository) :
     fun getMovieReview(movieId: Int): LiveData<List<MovieReview>> {
         val reviewList = MutableLiveData<List<MovieReview>>()
 
+        val lastResult = currentMovieReviewResult
+        if (movieId == currentMovieId && lastResult != null) {
+            return lastResult
+        }
+
+        currentMovieId = movieId
         uiScope.launch {
             reviewList.value = when (val movieReviews = repository.getMovieReviews(movieId)) {
-                is Result.Success -> movieReviews.data
+                is Result.Success -> {
+                    if (movieReviews.data.size > 3) {
+                        movieReviews.data.subList(0, 3)
+                    } else {
+                        movieReviews.data
+                    }
+                }
                 is Result.Error -> null
             }
+            currentMovieReviewResult = reviewList
         }
         return reviewList
     }
@@ -51,11 +70,18 @@ constructor(private val repository: Repository) :
     fun getMovieTrailers(movieId: Int): LiveData<List<MovieTrailer>> {
         val trailers = MutableLiveData<List<MovieTrailer>>()
 
+        val lastResult = currentMovieTrailersResult
+        if (movieId == currentMovieId && lastResult != null) {
+            return lastResult
+        }
+
+        currentMovieId = movieId
         uiScope.launch {
             trailers.value = when (val result = repository.getMovieTrailer(movieId)) {
                 is Result.Success -> result.data
                 is Result.Error -> null
             }
+            currentMovieTrailersResult = trailers
         }
         return trailers
     }
@@ -63,11 +89,18 @@ constructor(private val repository: Repository) :
     fun getMovieCast(movieId: Int): LiveData<List<MovieCast>> {
         val castMembers = MutableLiveData<List<MovieCast>>()
 
+        val lastResult = currentMovieCastResult
+        if (movieId == currentMovieId && lastResult != null) {
+            return lastResult
+        }
+
+        currentMovieId = movieId
         uiScope.launch {
             castMembers.value = when (val result = repository.getMovieCast(movieId)) {
                 is Result.Success -> result.data.filter { it.profile_path != null }
                 is Result.Error -> null
             }
+            currentMovieCastResult = castMembers
         }
         return castMembers
     }

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,13 +20,15 @@ import com.dowy.android.R
 import com.dowy.android.adapter.movie.MovieAdapter
 import com.dowy.android.adapter.movie.MovieClickListener
 import com.dowy.android.adapter.loadstate.LoadStateAdapter
-import com.dowy.android.data.Repository
 import com.dowy.android.databinding.FragmentMoviesBinding
 import com.dowy.android.ui.settings.SettingsActivity
 import com.dowy.android.utils.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,14 +36,11 @@ class MoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
     private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var interstitialAd: InterstitialAd
     private lateinit var adapter: MovieAdapter
 
     @Inject
     lateinit var sharedPreference: SharedPreferences
-
-    @Inject
-    lateinit var repository: Repository
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +49,20 @@ class MoviesFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
-
+        setupActionBar()
         return binding.root
+    }
+
+    private fun setupActionBar() {
+        val title = when (sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)) {
+            "popular" -> getString(R.string.popular)
+            "now_playing" -> getString(R.string.now_playing)
+            "upcoming" -> getString(R.string.upcoming)
+            "top_rated" -> getString(R.string.top_rated)
+            else -> getString(R.string.movies)
+        }
+        ((activity as AppCompatActivity).supportActionBar)?.title = title
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,8 +75,9 @@ class MoviesFragment : Fragment() {
     }
 
     private fun fetchMovies() {
-        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
+        val category = sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
+        Timber.d("Category $category")
 
         lifecycleScope.launch {
             viewModel.getMoviesList(category, language).collectLatest {
@@ -81,11 +94,23 @@ class MoviesFragment : Fragment() {
         initAdapter()
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
+        // Initialize Ad
+        interstitialAd = InterstitialAd(requireContext())
+        interstitialAd.adUnitId = "ca-app-pub-3005109827350902/9253618425"
+        interstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     private fun initAdapter() {
         adapter = MovieAdapter(
             MovieClickListener {
+
+                // If Ad is ready to be displayed, then display it
+                if (interstitialAd.isLoaded) {
+                    interstitialAd.show()
+                } else {
+                    Timber.d("Ad wasn't loaded yet!")
+                }
+
                 findNavController().navigate(
                     MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                         it
@@ -134,6 +159,7 @@ class MoviesFragment : Fragment() {
         val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu.findItem(R.id.ic_search)
         val searchView = searchItem.actionView as SearchView
+        searchView.maxWidth = Int.MAX_VALUE
 
         searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
 

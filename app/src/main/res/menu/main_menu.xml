@@ -10,14 +10,14 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:id="@+id/aboutFragment"
-        android:orderInCategory="11"
-        android:title="@string/about"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/settingsActivity"
         android:orderInCategory="10"
         android:title="@string/settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/aboutFragment"
+        android:orderInCategory="11"
+        android:title="@string/about"
         app:showAsAction="never" />
 
 </menu>

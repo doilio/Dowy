@@ -12,29 +12,28 @@
         android:layout_height="wrap_content"
         tools:context=".ui.person.PersonFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/actor_image"
                         android:layout_width="0dp"
-                        android:layout_height="250dp"
+                        android:layout_height="0dp"
                         android:contentDescription="@string/actor_image"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +65,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/known_for"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_known_for"
@@ -78,7 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/birthdate"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_birthdate"
@@ -90,7 +87,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/place_of_birth"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_place_of_birth"
@@ -102,7 +98,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:text="@string/popularity"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_popularity"
@@ -163,13 +158,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="33dp"
                         app:layout_constraintBottom_toBottomOf="@+id/actor_image"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
                         tools:text="14.712" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,15 +171,13 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_biography"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:visibility="gone"
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardView"
-                tools:visibility="visible">
+                app:layout_constraintTop_toBottomOf="@id/cardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -196,31 +188,39 @@
                         android:id="@+id/title_biography"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/biography"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_biography"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
+                        android:id="@+id/text_biography_error"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_biography"
+                        android:text="@string/biography_is_currently_not_available" />
+
+                    <TextView
                         android:id="@+id/text_biography"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:layout_constraintBottom_toTopOf="@+id/imdb_logo"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/title_biography"
+                        app:layout_constraintTop_toBottomOf="@+id/text_biography_error"
                         tools:text="@string/biography_text" />
 
                     <ImageView
                         android:id="@+id/imdb_logo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
                         android:contentDescription="@string/imdb_icon"
@@ -264,20 +264,24 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/movies_cast_in"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/movies_cast_in_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_biography"
-                tools:visibility="visible" />
+                android:text="@string/list_of_movies_cast_in_is_currently_unavailable" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_movies_cast_in"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_movies_cast_in"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_movie_item"
                 tools:orientation="horizontal" />
@@ -290,27 +294,29 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/tv_shows_cast_in"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_cast_in_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_movies_cast_in"
-                tools:visibility="visible" />
+                android:text="@string/list_of_tv_shows_cast_in_is_currently_unavailable" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_series_cast_in"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_series_cast_in"
+                android:visibility="visible"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_series_item"
                 tools:orientation="horizontal" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </layout>

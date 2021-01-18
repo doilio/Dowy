@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -17,12 +18,14 @@ import com.dowy.android.R
 import com.dowy.android.adapter.loadstate.LoadStateAdapter
 import com.dowy.android.adapter.series.SeriesAdapter
 import com.dowy.android.adapter.series.SeriesClickListener
-import com.dowy.android.data.Repository
 import com.dowy.android.databinding.FragmentTvSeriesBinding
 import com.dowy.android.utils.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,23 +33,32 @@ class TvSeriesFragment : Fragment() {
 
     private lateinit var binding: FragmentTvSeriesBinding
     private val viewModel: TvSeriesViewModel by viewModels()
+    private lateinit var interstitialAd: InterstitialAd
     private lateinit var adapter: SeriesAdapter
 
     @Inject
     lateinit var sharedPreference: SharedPreferences
-
-    @Inject
-    lateinit var repository: Repository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
         binding = FragmentTvSeriesBinding.inflate(inflater, container, false)
-
+        setupActionBar()
         return binding.root
+    }
+
+    private fun setupActionBar() {
+        val title = when (sharedPreference.getString(TV_KEY, DEFAULT_CATEGORY)) {
+            "popular" -> getString(R.string.popular)
+            "airing_today" -> getString(R.string.airing_today)
+            "on_the_air" -> getString(R.string.on_the_air)
+            "top_rated" -> getString(R.string.top_rated)
+            else -> getString(R.string.tv_series)
+        }
+        ((activity as AppCompatActivity).supportActionBar)?.title = title
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +70,7 @@ class TvSeriesFragment : Fragment() {
     }
 
     private fun fetchSeries() {
-        val category = sharedPreference.getString(CATEGORY_KEY, DEFAULT_CATEGORY)
+        val category = sharedPreference.getString(TV_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
 
         lifecycleScope.launch {
@@ -76,11 +88,22 @@ class TvSeriesFragment : Fragment() {
         initAdapter()
 
         binding.buttonRetry.setOnClickListener { adapter.retry() }
+
+        // Initialize Ad
+        interstitialAd = InterstitialAd(requireContext())
+        interstitialAd.adUnitId = "ca-app-pub-3005109827350902/9795494153"
+        interstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     private fun initAdapter() {
         adapter = SeriesAdapter(
             SeriesClickListener {
+                // If Ad is ready to be displayed, then display it
+                if (interstitialAd.isLoaded) {
+                    interstitialAd.show()
+                } else {
+                    Timber.d("Ad wasn't loaded yet!")
+                }
                 findNavController().navigate(
                     TvSeriesFragmentDirections.actionTvSeriesFragmentToTvSeriesDetailsFragment(
                         it
@@ -123,8 +146,8 @@ class TvSeriesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
 
-        val menuItem = menu.findItem(R.id.aboutFragment)
-        menuItem.isVisible = false
+        menu.findItem(R.id.aboutFragment).isVisible = false
+        menu.findItem(R.id.settingsActivity).isVisible = false
 
         implementSearch(menu)
 
@@ -134,9 +157,8 @@ class TvSeriesFragment : Fragment() {
     private fun implementSearch(menu: Menu) {
         val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu.findItem(R.id.ic_search)
-        val settingsItem = menu.findItem(R.id.settingsActivity)
-        settingsItem.isVisible = false
         val searchView = searchItem.actionView as SearchView
+        searchView.maxWidth = Int.MAX_VALUE
 
         searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
 

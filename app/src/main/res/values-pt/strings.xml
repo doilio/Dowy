@@ -8,8 +8,13 @@
     <string name="settings">Configurações</string>
     <string name="light">Claro</string>
     <string name="dark">Escuro</string>
-    <string name="top_rated">Mais votado</string>
-    <string name="loading_error">Ops! Erro ao carregar dados</string>
+    <string name="popular">Populares</string>
+    <string name="top_rated">Melhor Classificação</string>
+    <string name="upcoming">Brevemente</string>
+    <string name="now_playing">Em Exibição</string>
+    <string name="airing_today">Emitidas Hoje</string>
+    <string name="on_the_air">Na TV</string>
+    <string name="loading_error">Oops! Erro ao carregar dados</string>
     <string name="retry">Tentar novamente</string>
     <string name="rating">Avaliação</string>
     <string name="language">Língua</string>
@@ -52,4 +57,11 @@
     <string name="category">Categoria</string>
     <string name="display">Tela</string>
     <string name="contents">Conteúdo</string>
+    <string name="list_of_cast_members_error">A lista de membros do elenco não está disponível no momento.</string>
+    <string name="overview_error">A visão geral não está disponível no momento.</string>
+    <string name="list_of_trailers_error">A lista de trailers não está disponível no momento.</string>
+    <string name="list_of_reviews_error">A lista de avaliações não está disponível no momento.</string>
+    <string name="list_of_movies_cast_in_is_currently_unavailable">A lista de filmes escalados não está disponível no momento.</string>
+    <string name="list_of_tv_shows_cast_in_is_currently_unavailable">A lista de programas de TV escalados está indisponível no momento.</string>
+    <string name="biography_is_currently_not_available">A biografia não está disponível no momento.</string>
 </resources>

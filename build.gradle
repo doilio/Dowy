@@ -2,6 +2,7 @@
 buildscript {
     ext {
         about_version = "1.3.1"
+        admob_version = "19.6.0"
         circle_image_version = "3.1.0"
         constraintlayout_version = "2.0.4"
         coroutines_version = "1.4.1"
