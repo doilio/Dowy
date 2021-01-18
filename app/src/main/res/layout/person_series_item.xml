@@ -54,10 +54,6 @@
                 android:textSize="16sp"
                 app:characterName="@{series.character}"
                 tools:text="as\nRick Sanchez" />
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
-
 </layout>

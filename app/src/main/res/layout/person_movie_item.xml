@@ -54,8 +54,5 @@
                 app:characterName="@{movie.character}"
                 tools:text="as\nSpiderMan - Peter Parker" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
-
 </layout>

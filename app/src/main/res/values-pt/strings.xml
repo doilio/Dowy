@@ -61,4 +61,6 @@
     <string name="overview_error">A visão geral não está disponível no momento.</string>
     <string name="list_of_trailers_error">A lista de trailers não está disponível no momento.</string>
     <string name="list_of_reviews_error">A lista de avaliações não está disponível no momento.</string>
+    <string name="list_of_movies_cast_in_is_currently_unavailable">A lista de filmes escalados não está disponível no momento.</string>
+    <string name="list_of_tv_shows_cast_in_is_currently_unavailable">A lista de programas de TV escalados está indisponível no momento.</string>
 </resources>
