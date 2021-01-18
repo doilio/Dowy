@@ -148,4 +148,8 @@
     <string name="category">Category</string>
     <string name="display">Display</string>
     <string name="contents">Contents</string>
+    <string name="list_of_cast_members_error">The list of cast members is currently unavailable.</string>
+    <string name="overview_error">Overview is currently unavailable.</string>
+    <string name="list_of_trailers_error">The list of trailers is currently unavailable.</string>
+    <string name="list_of_reviews_error">The list of reviews is currently unavailable.</string>
 </resources>

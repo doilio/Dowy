@@ -57,4 +57,8 @@
     <string name="category">Categoria</string>
     <string name="display">Tela</string>
     <string name="contents">Conteúdo</string>
+    <string name="list_of_cast_members_error">A lista de membros do elenco não está disponível no momento.</string>
+    <string name="overview_error">A visão geral não está disponível no momento.</string>
+    <string name="list_of_trailers_error">A lista de trailers não está disponível no momento.</string>
+    <string name="list_of_reviews_error">A lista de avaliações não está disponível no momento.</string>
 </resources>

@@ -129,6 +129,7 @@ class MoviesFragment : Fragment() {
         val manager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu.findItem(R.id.ic_search)
         val searchView = searchItem.actionView as SearchView
+        searchView.maxWidth = Int.MAX_VALUE
 
         searchView.setSearchableInfo(manager.getSearchableInfo(requireActivity().componentName))
 
