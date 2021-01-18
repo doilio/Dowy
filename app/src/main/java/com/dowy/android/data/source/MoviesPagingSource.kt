@@ -3,11 +3,15 @@ package com.dowy.android.data.source
 import androidx.paging.PagingSource
 import com.dowy.android.model.movie.Movie
 import com.dowy.android.network.ApiService
+import com.dowy.android.utils.CALENDAR_PATTERN
 import com.dowy.android.utils.MOVIES_LIST_STARTING_PAGE
 import com.dowy.android.utils.SECRET_KEY
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 import java.io.InvalidObjectException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MoviesPagingSource(
     private val service: ApiService,
@@ -23,7 +27,14 @@ class MoviesPagingSource(
             } else {
                 throw InvalidObjectException("Category and Language should not be null!")
             }
-            val movies = response.results
+
+            val movies = if (category == "upcoming") {
+                response.results.filter {
+                    it.release_date >= getCurrentDate()
+                }
+            } else {
+                response.results
+            }
             LoadResult.Page(
                 data = movies,
                 prevKey = if (page == MOVIES_LIST_STARTING_PAGE) null else page - 1,
@@ -34,5 +45,13 @@ class MoviesPagingSource(
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
+    }
+
+    private fun getCurrentDate(): String {
+        val calendar = Calendar.getInstance()
+        val date = calendar.time
+        val sdf = SimpleDateFormat(CALENDAR_PATTERN, Locale.getDefault())
+        Timber.d("Current Date: ${sdf.format(date)}")
+        return sdf.format(date)
     }
 }

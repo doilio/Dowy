@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import com.dowy.android.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,8 +46,20 @@ class MoviesFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
-
+        setupActionBar()
         return binding.root
+    }
+
+    private fun setupActionBar() {
+        val title = when (sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)) {
+            "popular" -> getString(R.string.popular)
+            "now_playing" -> getString(R.string.now_playing)
+            "upcoming" -> getString(R.string.upcoming)
+            "top_rated" -> getString(R.string.top_rated)
+            else -> getString(R.string.movies)
+        }
+        ((activity as AppCompatActivity).supportActionBar)?.title = title
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +74,7 @@ class MoviesFragment : Fragment() {
     private fun fetchMovies() {
         val category = sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)
         val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
+        Timber.d("Category $category")
 
         lifecycleScope.launch {
             viewModel.getMoviesList(category, language).collectLatest {

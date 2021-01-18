@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -39,10 +40,21 @@ class TvSeriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
         binding = FragmentTvSeriesBinding.inflate(inflater, container, false)
-
+        setupActionBar()
         return binding.root
+    }
+
+    private fun setupActionBar() {
+        val title = when (sharedPreference.getString(TV_KEY, DEFAULT_CATEGORY)) {
+            "popular" -> getString(R.string.popular)
+            "airing_today" -> getString(R.string.airing_today)
+            "on_the_air" -> getString(R.string.on_the_air)
+            "top_rated" -> getString(R.string.top_rated)
+            else -> getString(R.string.tv_series)
+        }
+        ((activity as AppCompatActivity).supportActionBar)?.title = title
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

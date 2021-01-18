@@ -154,4 +154,5 @@
     <string name="list_of_reviews_error">The list of reviews is currently unavailable.</string>
     <string name="list_of_movies_cast_in_is_currently_unavailable">List of movies cast in is currently unavailable.</string>
     <string name="list_of_tv_shows_cast_in_is_currently_unavailable">List of TV shows cast in is currently unavailable.</string>
+    <string name="biography_is_currently_not_available">Biography is currently not available.</string>
 </resources>

@@ -121,19 +121,38 @@ class PersonFragment : Fragment() {
     private fun populateUI(person: Person) {
         Glide.with(this).load(person.fullProfilePath).error(R.drawable.no_image_portrait1)
             .into(binding.actorImage)
-        binding.textName.text = person.name
-        binding.textKnownFor.text = person.known_for_department
-        binding.textBirthdate.text = person.birthday
-        binding.textPlaceOfBirth.text = person.place_of_birth
-        binding.textPopularity.text = person.popularity.toString()
 
-        // Biography
-        if (person.biography.isNotEmpty()) {
-            binding.textBiography.text = person.biography
-        } else {
-            binding.textBiography.visibility = View.GONE
-            binding.textBiographyError.visibility = View.VISIBLE
+        person.name.let {
+            binding.textName.text = it ?: "-"
         }
+
+        person.known_for_department.let {
+            binding.textKnownFor.text = it ?: "-"
+        }
+
+        person.birthday.let {
+            binding.textBirthdate.text = it ?: "-"
+        }
+
+        person.place_of_birth.let {
+            binding.textPlaceOfBirth.text = it ?: "-"
+        }
+
+        person.popularity.let { popularity ->
+            popularity.toString().let {
+                binding.textPopularity.text = if (it.isNotEmpty()) it else "-"
+            }
+        }
+
+        person.biography?.let {
+            if (it.isNotEmpty()) {
+                binding.textBiography.text = person.biography
+            } else {
+                binding.textBiography.visibility = View.GONE
+                binding.textBiographyError.visibility = View.VISIBLE
+            }
+        }
+
         // IMDB and Web Links
         setButtonVisibility(person)
 
