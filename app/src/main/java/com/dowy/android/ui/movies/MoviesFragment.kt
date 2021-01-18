@@ -23,6 +23,8 @@ import com.dowy.android.adapter.loadstate.LoadStateAdapter
 import com.dowy.android.databinding.FragmentMoviesBinding
 import com.dowy.android.ui.settings.SettingsActivity
 import com.dowy.android.utils.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
     private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var interstitialAd: InterstitialAd
     private lateinit var adapter: MovieAdapter
 
     @Inject
@@ -91,11 +94,23 @@ class MoviesFragment : Fragment() {
         initAdapter()
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
+        // Initialize Ad
+        interstitialAd = InterstitialAd(requireContext())
+        interstitialAd.adUnitId = "ca-app-pub-3005109827350902/9253618425"
+        interstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     private fun initAdapter() {
         adapter = MovieAdapter(
             MovieClickListener {
+
+                // If Ad is ready to be displayed, then display it
+                if (interstitialAd.isLoaded) {
+                    interstitialAd.show()
+                } else {
+                    Timber.d("Ad wasn't loaded yet!")
+                }
+
                 findNavController().navigate(
                     MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
                         it

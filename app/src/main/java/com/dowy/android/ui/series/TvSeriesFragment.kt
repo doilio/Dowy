@@ -20,9 +20,12 @@ import com.dowy.android.adapter.series.SeriesAdapter
 import com.dowy.android.adapter.series.SeriesClickListener
 import com.dowy.android.databinding.FragmentTvSeriesBinding
 import com.dowy.android.utils.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +33,7 @@ class TvSeriesFragment : Fragment() {
 
     private lateinit var binding: FragmentTvSeriesBinding
     private val viewModel: TvSeriesViewModel by viewModels()
+    private lateinit var interstitialAd: InterstitialAd
     private lateinit var adapter: SeriesAdapter
 
     @Inject
@@ -84,11 +88,22 @@ class TvSeriesFragment : Fragment() {
         initAdapter()
 
         binding.buttonRetry.setOnClickListener { adapter.retry() }
+
+        // Initialize Ad
+        interstitialAd = InterstitialAd(requireContext())
+        interstitialAd.adUnitId = "ca-app-pub-3005109827350902/9795494153"
+        interstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     private fun initAdapter() {
         adapter = SeriesAdapter(
             SeriesClickListener {
+                // If Ad is ready to be displayed, then display it
+                if (interstitialAd.isLoaded) {
+                    interstitialAd.show()
+                } else {
+                    Timber.d("Ad wasn't loaded yet!")
+                }
                 findNavController().navigate(
                     TvSeriesFragmentDirections.actionTvSeriesFragmentToTvSeriesDetailsFragment(
                         it

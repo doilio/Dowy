@@ -51,7 +51,6 @@ class MoviesPagingSource(
         val calendar = Calendar.getInstance()
         val date = calendar.time
         val sdf = SimpleDateFormat(CALENDAR_PATTERN, Locale.getDefault())
-        Timber.d("Current Date: ${sdf.format(date)}")
         return sdf.format(date)
     }
 }

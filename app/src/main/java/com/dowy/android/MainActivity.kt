@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.dowy.android.utils.NIGHT_MODE_KEY
 import com.dowy.android.utils.NIGHT_MODE_OFF
 import com.dowy.android.utils.NIGHT_MODE_ON
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        // Init Admob
+        MobileAds.initialize(this)
 
         setNightMode()
 
