@@ -88,8 +88,12 @@ class TvSeriesDetailsFragment : Fragment() {
             openTrailer(it as TvTrailer)
         })
 
-        Glide.with(this).load(tvSeries.fullBackDropPath).error(R.drawable.no_image).into(binding.tvCover)
-        Glide.with(this).load(tvSeries.fullPosterPath).error(R.drawable.no_image_portrait1).into(binding.tvPoster)
+        binding.tvCover?.let {
+            Glide.with(this).load(tvSeries.fullBackDropPath)
+                .error(R.drawable.no_image).into(it)
+        }
+        Glide.with(this).load(tvSeries.fullPosterPath).error(R.drawable.no_image_portrait1)
+            .into(binding.tvPoster)
         binding.tvTitleText.text = tvSeries.name
         binding.languageText.text = tvSeries.original_language
         binding.releaseDateText.text = tvSeries.first_air_date

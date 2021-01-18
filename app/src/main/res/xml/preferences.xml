@@ -26,7 +26,6 @@
             android:summary="@string/popular"
             android:title="@string/movies"
             app:useSimpleSummaryProvider="true" />
-
         <ListPreference
             android:defaultValue="popular"
             android:entries="@array/tv_entries"

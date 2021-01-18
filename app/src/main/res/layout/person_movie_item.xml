@@ -25,44 +25,35 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()-> clickListener.onClick(movie)}"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardPreventCornerOverlap="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/image_movie_cover"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="290dp"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
-                app:itemImage="@{movie}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:itemImage="@{movie.fullProfilePath}"
                 tools:src="@drawable/poster" />
 
             <TextView
                 android:id="@+id/text_movie_character"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="3"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                app:characterName="@{movie}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_movie_cover"
+                app:characterName="@{movie.character}"
                 tools:text="as\nSpiderMan - Peter Parker" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

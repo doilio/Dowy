@@ -28,10 +28,10 @@
         <ImageView
             android:id="@+id/movie_image"
             android:layout_width="match_parent"
-            android:layout_height="290dp"
+            android:layout_height="@dimen/image_height"
             android:contentDescription="@string/movie_poster"
             android:scaleType="centerCrop"
-            app:moviePoster="@{movie}"
+            app:poster="@{movie.fullPosterPath}"
             tools:src="@drawable/poster" />
 
     </androidx.cardview.widget.CardView>
