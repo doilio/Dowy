@@ -97,7 +97,13 @@ class TvSeriesDetailsFragment : Fragment() {
         binding.languageText.text = tvSeries.original_language
         binding.releaseDateText.text = tvSeries.first_air_date
         binding.ratingText.text = tvSeries.vote_average.toString()
-        binding.overviewText.text = tvSeries.overview
+
+        if (tvSeries.overview.isNotEmpty()) {
+            binding.overviewText.text = tvSeries.overview
+        } else {
+            binding.overviewText.visibility = View.GONE
+            binding.overviewError.visibility = View.VISIBLE
+        }
 
         // Reviews Adapter
         binding.recyclerReview.hasFixedSize()

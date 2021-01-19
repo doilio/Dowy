@@ -287,7 +287,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/list_of_trailers_error"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_trailer"
@@ -296,7 +296,6 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="true"
                     android:orientation="horizontal"
-                    android:visibility="gone"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/series_trailers_item" />
 
@@ -319,7 +318,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/list_of_reviews_error"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_review"

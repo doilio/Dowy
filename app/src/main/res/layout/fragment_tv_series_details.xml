@@ -350,7 +350,6 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="true"
                     android:orientation="horizontal"
-                    android:visibility="visible"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/series_trailers_item" />
             </LinearLayout>

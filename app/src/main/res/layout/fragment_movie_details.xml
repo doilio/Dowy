@@ -350,7 +350,6 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="true"
                     android:orientation="horizontal"
-                    android:visibility="visible"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/movie_trailers_item" />
             </LinearLayout>
@@ -389,7 +388,6 @@
                     android:id="@+id/recycler_review"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible"
                     tools:itemCount="3"
                     tools:listitem="@layout/movie_review_item" />
             </LinearLayout>

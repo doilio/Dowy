@@ -29,7 +29,6 @@ import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
@@ -85,7 +84,6 @@ class MovieDetailsFragment : Fragment() {
                 it
             )
         }
-        Timber.d(movie.fullBackDropPath)
         Glide.with(this).load(movie.fullPosterPath).error(R.drawable.no_image_portrait1)
             .into(binding.moviePoster)
         binding.movieTitleText.text = movie.title
@@ -186,7 +184,6 @@ class MovieDetailsFragment : Fragment() {
         val i = Intent(Intent.ACTION_VIEW).apply {
             addCategory(Intent.CATEGORY_BROWSABLE)
             data = Uri.parse("https://www.youtube.com/watch?v=${it.key}")
-            Timber.d("https://www.youtube.com/watch?v=${it.key}")
         }
         if (Utils.isAppInstalled(requireContext(), getString(R.string.youtube_app_name))) {
             i.`package` = getString(R.string.youtube_app_name)
