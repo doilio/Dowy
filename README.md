@@ -3,14 +3,14 @@
 
 The App Makes a request to TMDB's [API](https://www.themoviedb.org/documentation/api) to get:
   
-- A list of the current [`popular`](https://developers.themoviedb.org/3/movies/get-popular-movies) and [`top_rated`](https://developers.themoviedb.org/3/movies/get-top-rated-movies) movies on TMDb. `/movie/{category}`
+- A list of the current [`popular`](https://developers.themoviedb.org/3/movies/get-popular-movies), [`now_playing`](https://developers.themoviedb.org/3/movies/get-now-playing), [`upcoming`](https://developers.themoviedb.org/3/movies/get-upcoming), and [`top_rated`](https://developers.themoviedb.org/3/movies/get-top-rated-movies) movies on TMDb. `/movie/{category}`
   - List of official genres for movies. [`/genre/movie/list`](https://developers.themoviedb.org/3/genres/get-movie-list)
   - List of user reviews for a movie. [`/movie/{movie_id}/reviews`](https://developers.themoviedb.org/3/movies/get-movie-reviews)
   - The cast and crew for a movie. [`/movie/{movie_id}/credits`](https://developers.themoviedb.org/3/movies/get-movie-credits)
   - The videos(trailers, behind the Scenes, & bloopers) that have been added to a movie. [`/movie/{movie_id}/videos`](https://developers.themoviedb.org/3/movies/get-movie-videos)
   - A specific movie. [`/search/movie`](https://developers.themoviedb.org/3/search/search-movies)
   
-- A list of the current [`popular`](https://developers.themoviedb.org/3/tv/get-popular-tv-shows) and [`top_rated`](https://developers.themoviedb.org/3/tv/get-top-rated-tv) TV shows on TMDb. `/tv/{category}`
+- A list of the current [`popular`](https://developers.themoviedb.org/3/tv/get-popular-tv-shows), [`airing_today`](https://developers.themoviedb.org/3/tv/get-tv-airing-today), [`on_the_air`](https://developers.themoviedb.org/3/tv/get-tv-on-the-air), and [`top_rated`](https://developers.themoviedb.org/3/tv/get-top-rated-tv) TV shows on TMDb. `/tv/{category}`
   - List of official genres for TV shows. [`/genre/tv/list`](https://developers.themoviedb.org/3/genres/get-tv-list)
   - List of user reviews for a TV show. [`/tv/{tv_id}/reviews`](https://developers.themoviedb.org/3/tv/get-tv-reviews)
   - The cast and crew for a TV show. [`/tv/{tv_id}/credits`](https://developers.themoviedb.org/3/tv/get-tv-credits)
@@ -28,13 +28,15 @@ Base URL = `"https://api.themoviedb.org/3/"`
 2. Create a file on the Utils package with: 
 `const val SECRET_KEY = "PLACE YOUR API KEY HERE"`
 
-![one](https://user-images.githubusercontent.com/38020305/92302032-1c158b80-ef69-11ea-9441-725334e2a3fd.jpg)
-![two](https://user-images.githubusercontent.com/38020305/92302035-1f107c00-ef69-11ea-947c-58402ebb3e51.jpg)
+![dowy_light](https://user-images.githubusercontent.com/38020305/105013821-4f544500-5a48-11eb-99bd-ecaf6d420df9.jpg)
+![dowy_dark](https://user-images.githubusercontent.com/38020305/105013807-4bc0be00-5a48-11eb-997c-709c887e9408.jpg)
 
 
 
 ## Built With
 
+* [Admob](https://developers.google.com/admob) - Google AdMob is a mobile advertising platform that you can use to generate revenue from your app.
+* [Android About Page](https://github.com/medyo/android-about-page) - A library to generate beautiful About Pages with less effort.
 * [Android Jetpack](https://developer.android.com/jetpack/?gclid=Cj0KCQjwhJrqBRDZARIsALhp1WQBmjQ4WUpnRT4ETGGR1T_rQG8VU3Ta_kVwiznZASR5y4fgPDRYFqkaAhtfEALw_wcB) - Suite of libraries, tools, and guidance to help developers write high-quality apps easier.
   * [Android KTX](https://developer.android.com/kotlin/ktx)
   * [Databinding](https://developer.android.com/jetpack/androidx/releases/databinding)
@@ -45,6 +47,7 @@ Base URL = `"https://api.themoviedb.org/3/"`
   * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView) - A fast circular ImageView perfect for profile images.
 * [Glide](https://github.com/bumptech/glide) - A fast and efficient open source media management and image loading framework for Android.
+* [Google Play Core](https://developer.android.com/guide/playcore) - Offers a runtime interface with the Google Play Store.
 * [GSON](https://github.com/google/gson) - Java library that can be used to convert Java Objects into their JSON representation.
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Library that provides a standard way to incorporate Dagger dependency injection into an Android application.
 * [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) - Concurrency design pattern used on Android to simplify code that executes asynchronously.
