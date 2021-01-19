@@ -20,7 +20,7 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/poster" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.movieDetails.MovieDetailsFragment">
@@ -329,6 +329,6 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/movie_review_item" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
     </LinearLayout>
 </layout>

@@ -13,7 +13,7 @@ buildscript {
         kotlin_version = "1.4.21"
         lifecycle_version = "2.2.0"
         nav_version = "2.3.2"
-        paging_version = "3.0.0-alpha11"
+        paging_version = "3.0.0-alpha12"
         play_version = "1.9.0"
         preference_version = "1.1.1"
         retrofit_version = "2.9.0"

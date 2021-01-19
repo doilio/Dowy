@@ -20,7 +20,7 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/tv_poster" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.seriesDetails.TvSeriesDetailsFragment">
@@ -329,6 +329,6 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/series_review_item" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
     </LinearLayout>
 </layout>

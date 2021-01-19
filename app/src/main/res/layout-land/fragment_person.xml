@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/tom_holland" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".ui.person.PersonFragment">
@@ -311,6 +311,6 @@
                     tools:listitem="@layout/person_series_item"
                     tools:orientation="horizontal" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
     </LinearLayout>
 </layout>

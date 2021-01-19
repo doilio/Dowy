@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.seriesDetails.TvSeriesDetailsFragment">
@@ -254,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:visibility="gone"
-                        tools:text="@string/overview_error" />
+                        android:text="@string/overview_error" />
 
                     <TextView
                         android:id="@+id/overview_text"
@@ -394,6 +394,6 @@
                     tools:listitem="@layout/series_review_item" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </layout>

@@ -92,7 +92,13 @@ class MovieDetailsFragment : Fragment() {
         binding.languageText.text = movie.original_language
         binding.releaseDateText.text = movie.release_date
         binding.ratingText.text = movie.vote_average.toString()
-        binding.overviewText.text = movie.overview
+
+        if (movie.overview.isNotEmpty()) {
+            binding.overviewText.text = movie.overview
+        } else {
+            binding.overviewText.visibility = View.GONE
+            binding.overviewError.visibility = View.VISIBLE
+        }
 
         // Reviews Adapter
         binding.recyclerReview.hasFixedSize()
