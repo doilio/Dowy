@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/tv_cover"
                 android:layout_width="0dp"
-                android:layout_height="230dp"
+                android:layout_height="@dimen/cover_height"
                 android:contentDescription="@string/tv_cover"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="190dp"
+                android:layout_height="@dimen/card_height"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@android:color/transparent"
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_begin="136dp" />
+                        app:layout_constraintGuide_begin="@dimen/guideline_space" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chip_group"

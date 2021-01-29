@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="image_height">290dp</dimen>
+    <dimen name="cover_height">230dp</dimen>
+    <dimen name="card_height">190dp</dimen>
+    <dimen name="guideline_space">136dp</dimen>
+    <dimen name="person_image_height">250dp</dimen>
 </resources>

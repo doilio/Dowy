@@ -10,20 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:context=".ui.movieDetails.MovieDetailsFragment">
 
         <ImageView
             android:id="@+id/movie_poster"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="0.30"
             android:contentDescription="@string/movie_photo"
             android:scaleType="centerCrop"
             tools:src="@drawable/poster" />
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            tools:context=".ui.movieDetails.MovieDetailsFragment">
+            android:layout_weight="0.70">
 
             <LinearLayout
                 android:layout_width="match_parent"

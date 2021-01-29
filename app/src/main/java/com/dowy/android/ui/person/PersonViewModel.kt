@@ -19,12 +19,25 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var currentPersonId: Int? = null
+
+    // In Memory Caching
+    private var personMovieResult: MutableLiveData<List<PersonMovieCast>>? = null
+    private var personSeriesResult: MutableLiveData<List<PersonTvCast>>? = null
+    private var personResult: MutableLiveData<Person>? = null
 
     fun getPerson(personId: Int): LiveData<Person> {
         val person = MutableLiveData<Person>()
 
+        val lastResult = personResult
+        if (personId == currentPersonId && lastResult != null) {
+            return lastResult
+        }
+
+        currentPersonId = personId
         uiScope.launch {
             person.value = repository.getPerson(personId)
+            personResult = person
         }
         return person
     }
@@ -32,12 +45,19 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
     fun getPersonMovieList(personId: Int): LiveData<List<PersonMovieCast>> {
         val personMovieCastList = MutableLiveData<List<PersonMovieCast>>()
 
+        val lastResult = personMovieResult
+        if (currentPersonId == personId && lastResult != null) {
+            return lastResult
+        }
+
+        currentPersonId = personId
         uiScope.launch {
             personMovieCastList.value =
                 when (val movieCastList = repository.getPersonMovies(personId)) {
                     is Result.Success -> movieCastList.data
                     is Result.Error -> null
                 }
+            personMovieResult = personMovieCastList
         }
 
         return personMovieCastList
@@ -47,12 +67,19 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
     fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
         val personTvCastList = MutableLiveData<List<PersonTvCast>>()
 
+        val lastResult = personSeriesResult
+        if (currentPersonId == personId && lastResult != null) {
+            return lastResult
+        }
+
+        currentPersonId = personId
         uiScope.launch {
             personTvCastList.value =
                 when (val tvCastList = repository.getPersonSeries(personId)) {
                     is Result.Success -> tvCastList.data
                     is Result.Error -> null
                 }
+            personSeriesResult = personTvCastList
         }
 
         return personTvCastList

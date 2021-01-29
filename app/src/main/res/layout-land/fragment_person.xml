@@ -10,24 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:context=".ui.person.PersonFragment">
 
         <ImageView
             android:id="@+id/actor_image"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="0.30"
             android:contentDescription="@string/actor_image"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/tom_holland" />
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".ui.person.PersonFragment">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.70">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,17 +36,13 @@
                     android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardElevation="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:cardElevation="2dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp">
-
 
                         <TextView
                             android:id="@+id/title_name"
@@ -195,11 +189,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:text="@string/biography_is_currently_not_available"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/title_biography"
-                            android:text="@string/biography_is_currently_not_available" />
+                            app:layout_constraintTop_toBottomOf="@+id/title_biography" />
 
                         <TextView
                             android:id="@+id/text_biography"

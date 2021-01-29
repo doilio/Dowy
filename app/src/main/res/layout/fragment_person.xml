@@ -23,149 +23,110 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/actor_image"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="@dimen/person_image_height"
+                        android:layout_weight="@integer/person_image_weight"
                         android:contentDescription="@string/actor_image"
                         android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         tools:src="@drawable/tom_holland" />
 
-                    <TextView
-                        android:id="@+id/title_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/name"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_name"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
-                        app:layout_constraintVertical_chainStyle="packed" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.4" />
-
-                    <TextView
-                        android:id="@+id/title_known_for"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/known_for"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_known_for"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/text_name" />
-
-                    <TextView
-                        android:id="@+id/title_birthdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/birthdate"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_birthdate"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/text_known_for" />
-
-                    <TextView
-                        android:id="@+id/title_place_of_birth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/place_of_birth"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_place_of_birth"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/text_birthdate" />
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/popularity"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/text_popularity"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth" />
-
-                    <TextView
-                        android:id="@+id/text_name"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/title_known_for"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/title_name"
-                        tools:text="Tom Holland" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/person_layout_weight"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/text_known_for"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/title_birthdate"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/title_known_for"
-                        tools:text="Acting" />
+                        <TextView
+                            android:id="@+id/title_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/name"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/text_birthdate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/title_place_of_birth"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/title_birthdate"
-                        tools:text="1996-06-01" />
+                        <TextView
+                            android:id="@+id/text_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            tools:text="Tom Holland" />
 
-                    <TextView
-                        android:id="@+id/text_place_of_birth"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView5"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/title_place_of_birth"
-                        tools:text="Kingston upon Thames, Surrey, England, UK" />
+                        <TextView
+                            android:id="@+id/title_known_for"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/known_for"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/text_popularity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="33dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/actor_image"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5"
-                        tools:text="14.712" />
+                        <TextView
+                            android:id="@+id/text_known_for"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            tools:text="Acting" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/title_birthdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/birthdate"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_birthdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            tools:text="1996-06-01" />
+
+                        <TextView
+                            android:id="@+id/title_place_of_birth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/place_of_birth"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_place_of_birth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            tools:text="Kingston upon Thames, Surrey, England, UK" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/popularity"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_popularity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            tools:text="14.712" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -174,10 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardView">
+                app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -200,11 +158,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:text="@string/biography_is_currently_not_available"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/title_biography"
-                        android:text="@string/biography_is_currently_not_available" />
+                        app:layout_constraintTop_toBottomOf="@+id/title_biography" />
 
                     <TextView
                         android:id="@+id/text_biography"
@@ -270,18 +228,18 @@
                 android:id="@+id/movies_cast_in_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                android:text="@string/list_of_movies_cast_in_is_currently_unavailable" />
+                android:text="@string/list_of_movies_cast_in_is_currently_unavailable"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_movies_cast_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="8dp"
+                android:visibility="visible"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_movie_item"
                 tools:orientation="horizontal" />
@@ -300,12 +258,12 @@
                 android:id="@+id/tv_cast_in_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                android:text="@string/list_of_tv_shows_cast_in_is_currently_unavailable" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/list_of_tv_shows_cast_in_is_currently_unavailable"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_series_cast_in"

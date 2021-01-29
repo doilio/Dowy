@@ -1,5 +1,6 @@
 package com.dowy.android.di
 
+import com.dowy.android.BuildConfig
 import com.dowy.android.utils.BASE_URL
 import com.dowy.android.network.ApiService
 import dagger.Module
@@ -20,17 +21,20 @@ object NetworkModule {
     @Singleton
     fun provideApiService(): ApiService {
 
-        val logger = HttpLoggingInterceptor()
-        logger.level = HttpLoggingInterceptor.Level.BASIC
-
         val client = OkHttpClient.Builder()
-            .addInterceptor(logger)
-            .build()
+
+        // Only show the logs in debug versions
+        if(BuildConfig.DEBUG){
+            val logger = HttpLoggingInterceptor()
+            logger.level = HttpLoggingInterceptor.Level.BASIC
+
+                client.addInterceptor(logger)
+        }
 
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
-            .client(client)
+            .client(client.build())
             .build()
             .create(ApiService::class.java)
     }
