@@ -26,20 +26,27 @@ constructor(private val repository: Repository) :
     private var currentMovieCastResult: MutableLiveData<List<MovieCast>>? = null
     private var currentMovieTrailersResult: MutableLiveData<List<MovieTrailer>>? = null
     private var currentMovieReviewResult: MutableLiveData<List<MovieReview>>? = null
+    private var currentMovieGenreResult: MutableLiveData<List<MovieGenres>>? = null
     private var currentMovieId: Int? = null
+    private var currentLanguage: String? = null
 
-    private val _listOfGenres = MutableLiveData<List<MovieGenres>>()
-    val listOfGenres: LiveData<List<MovieGenres>>
-        get() = _listOfGenres
+    fun getMovieGenre(language: String): LiveData<List<MovieGenres>> {
+        val genreList = MutableLiveData<List<MovieGenres>>()
 
+        val lastResult = currentMovieGenreResult
+        if (language == currentLanguage && lastResult != null) {
+            return lastResult
+        }
 
-    init {
+        currentLanguage = language
         uiScope.launch {
-            _listOfGenres.value = when (val movieGenres = repository.getMovieGenres()) {
+            genreList.value = when (val movieGenres = repository.getMovieGenres(language)) {
                 is Result.Success -> movieGenres.data
                 is Result.Error -> null
             }
+            currentMovieGenreResult = genreList
         }
+        return genreList
     }
 
     fun getMovieReview(movieId: Int): LiveData<List<MovieReview>> {
@@ -67,17 +74,17 @@ constructor(private val repository: Repository) :
         return reviewList
     }
 
-    fun getMovieTrailers(movieId: Int): LiveData<List<MovieTrailer>> {
+    fun getMovieTrailers(movieId: Int, language: String): LiveData<List<MovieTrailer>> {
         val trailers = MutableLiveData<List<MovieTrailer>>()
 
         val lastResult = currentMovieTrailersResult
-        if (movieId == currentMovieId && lastResult != null) {
+        if (movieId == currentMovieId && language == currentLanguage && lastResult != null) {
             return lastResult
         }
 
         currentMovieId = movieId
         uiScope.launch {
-            trailers.value = when (val result = repository.getMovieTrailer(movieId)) {
+            trailers.value = when (val result = repository.getMovieTrailer(movieId, language)) {
                 is Result.Success -> result.data
                 is Result.Error -> null
             }

@@ -33,9 +33,8 @@ class AboutFragment : Fragment() {
         launchInAppReviewFlow()
         val visible = sharedPreferences.getString(NIGHT_MODE_KEY, NIGHT_MODE_OFF) == NIGHT_MODE_ON
 
-        return AboutPage(context)
+        val aboutPage = AboutPage(context)
             .isRTL(false)
-            //.setImage(R.drawable.guide_icon)
             .enableDarkMode(visible)
             .setDescription(getString(R.string.about_descricao))
             .addEmail(getString(R.string.dev_email), getString(R.string.envie_email))
@@ -49,7 +48,14 @@ class AboutFragment : Fragment() {
             .addGitHub(getString(R.string.dev_github_page), getString(R.string.github))
             .addFacebook(getString(R.string.dev_facebook_page), getString(R.string.facebook))
             .addItem(createCopyright())
-            .create()
+
+        return if (resources.getBoolean(R.bool.is_tablet)) {
+            aboutPage
+                .setImage(R.drawable.guide_icon)
+                .create()
+        } else {
+            aboutPage.create()
+        }
     }
 
     private fun launchInAppReviewFlow() {

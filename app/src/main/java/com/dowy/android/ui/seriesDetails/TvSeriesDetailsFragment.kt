@@ -1,6 +1,7 @@
 package com.dowy.android.ui.seriesDetails
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
@@ -25,15 +26,20 @@ import com.dowy.android.model.tv.TvCast
 import com.dowy.android.model.tv.TvReview
 import com.dowy.android.model.tv.TvSeries
 import com.dowy.android.model.tv.TvTrailer
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TvSeriesDetailsFragment : Fragment() {
 
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentTvSeriesDetailsBinding
     private lateinit var tvSeries: TvSeries
     private val viewModel: TvSeriesDetailsViewModel by viewModels()
@@ -115,28 +121,30 @@ class TvSeriesDetailsFragment : Fragment() {
             })
 
         // Set Chips
-        viewModel.listOfGenres.observe(viewLifecycleOwner, { listOfGenres ->
-            listOfGenres?.let {
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getTvGenre(language).observe(viewLifecycleOwner, { listOfGenres ->
+                listOfGenres?.let {
 
-                for (elem in tvSeries.genre_ids) {
-                    val filteredListOfGenres = listOfGenres.filter { it.id == elem }
-                    for (item in filteredListOfGenres) {
-                        val chip = Chip(requireContext())
-                        chip.setChipBackgroundColorResource(android.R.color.transparent)
-                        chip.chipStrokeColor = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                android.R.color.darker_gray
+                    for (elem in tvSeries.genre_ids) {
+                        val filteredListOfGenres = listOfGenres.filter { it.id == elem }
+                        for (item in filteredListOfGenres) {
+                            val chip = Chip(requireContext())
+                            chip.setChipBackgroundColorResource(android.R.color.transparent)
+                            chip.chipStrokeColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    android.R.color.darker_gray
+                                )
                             )
-                        )
-                        chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
+                            chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
 
-                        chip.text = item.name
-                        binding.chipGroup.addView(chip)
+                            chip.text = item.name
+                            binding.chipGroup.addView(chip)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
 
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
@@ -154,17 +162,20 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
-        viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, {
-            it?.let { listOfTrailers ->
-                if (listOfTrailers.isNotEmpty()) {
-                    trailerAdapter.submitSeriesTrailers(listOfTrailers)
-                } else {
-                    binding.trailerError.visibility = View.VISIBLE
-                    binding.recyclerTrailer.visibility = View.GONE
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getTvTrailers(tvSeries.id, language).observe(viewLifecycleOwner, {
+                it?.let { listOfTrailers ->
+                    if (listOfTrailers.isNotEmpty()) {
+                        trailerAdapter.submitSeriesTrailers(listOfTrailers)
+                    } else {
+                        binding.trailerError.visibility = View.VISIBLE
+                        binding.recyclerTrailer.visibility = View.GONE
+                    }
+                    trailers = listOfTrailers
                 }
-                trailers = listOfTrailers
-            }
-        })
+            })
+        }
+
 
         viewModel.getTvReview(tvSeries.id).observe(viewLifecycleOwner, {
             it?.let { reviews ->

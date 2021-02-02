@@ -21,6 +21,8 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var currentPersonId: Int? = null
 
+    //TODO Internationalize
+
     // In Memory Caching
     private var personMovieResult: MutableLiveData<List<PersonMovieCast>>? = null
     private var personSeriesResult: MutableLiveData<List<PersonTvCast>>? = null
@@ -36,7 +38,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
 
         currentPersonId = personId
         uiScope.launch {
-            person.value = repository.getPerson(personId)
+            person.value = repository.getPerson(personId,"")
             personResult = person
         }
         return person
@@ -53,7 +55,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
         currentPersonId = personId
         uiScope.launch {
             personMovieCastList.value =
-                when (val movieCastList = repository.getPersonMovies(personId)) {
+                when (val movieCastList = repository.getPersonMovies(personId,"")) {
                     is Result.Success -> movieCastList.data
                     is Result.Error -> null
                 }
@@ -75,7 +77,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
         currentPersonId = personId
         uiScope.launch {
             personTvCastList.value =
-                when (val tvCastList = repository.getPersonSeries(personId)) {
+                when (val tvCastList = repository.getPersonSeries(personId,"")) {
                     is Result.Success -> tvCastList.data
                     is Result.Error -> null
                 }

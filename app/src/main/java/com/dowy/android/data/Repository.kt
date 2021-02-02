@@ -100,10 +100,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getMovieTrailer(movieId: Int): Result<List<MovieTrailer>> {
+    suspend fun getMovieTrailer(movieId: Int, language: String): Result<List<MovieTrailer>> {
         return withContext(Dispatchers.IO) {
             try {
-                val movieTrailers = service.getMovieTrailers(movieId, SECRET_KEY).results
+                val movieTrailers = service.getMovieTrailers(movieId, SECRET_KEY, language).results
                 Result.Success(movieTrailers)
 
             } catch (exception: IOException) {
@@ -128,10 +128,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getMovieGenres(): Result<List<MovieGenres>> {
+    suspend fun getMovieGenres(language: String): Result<List<MovieGenres>> {
         return withContext(Dispatchers.IO) {
             try {
-                val movieGenres = service.getMovieGenres(SECRET_KEY).genres
+                val movieGenres = service.getMovieGenres(SECRET_KEY, language).genres
                 Result.Success(movieGenres)
 
             } catch (exception: IOException) {
@@ -156,10 +156,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getTvTrailer(tvId: Int): Result<List<TvTrailer>> {
+    suspend fun getTvTrailer(tvId: Int, language: String): Result<List<TvTrailer>> {
         return withContext(Dispatchers.IO) {
             try {
-                val tvTrailers = service.getTvTrailers(tvId, SECRET_KEY).results
+                val tvTrailers = service.getTvTrailers(tvId, SECRET_KEY, language).results
                 Result.Success(tvTrailers)
 
             } catch (exception: IOException) {
@@ -184,10 +184,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getTvGenres(): Result<List<TvGenres>> {
+    suspend fun getTvGenres(language: String): Result<List<TvGenres>> {
         return withContext(Dispatchers.IO) {
             try {
-                val tvGenres = service.getTvGenres(SECRET_KEY).genres
+                val tvGenres = service.getTvGenres(SECRET_KEY, language).genres
                 Result.Success(tvGenres)
 
             } catch (exception: IOException) {
@@ -198,16 +198,16 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getPerson(personId: Int): Person {
+    suspend fun getPerson(personId: Int, language: String): Person {
         return withContext(Dispatchers.IO) {
-            service.getPerson(personId, SECRET_KEY)
+            service.getPerson(personId, SECRET_KEY, language)
         }
     }
 
-    suspend fun getPersonMovies(personId: Int): Result<List<PersonMovieCast>> {
+    suspend fun getPersonMovies(personId: Int, language: String): Result<List<PersonMovieCast>> {
         return withContext(Dispatchers.IO) {
             try {
-                val personCast = service.getPersonMovieCredit(personId, SECRET_KEY).cast
+                val personCast = service.getPersonMovieCredit(personId, SECRET_KEY, language).cast
                 Result.Success(personCast)
 
             } catch (exception: IOException) {
@@ -219,10 +219,10 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getPersonSeries(personId: Int): Result<List<PersonTvCast>> {
+    suspend fun getPersonSeries(personId: Int, language: String): Result<List<PersonTvCast>> {
         return withContext(Dispatchers.IO) {
             try {
-                val personCast = service.getPersonSeriesCredit(personId, SECRET_KEY).cast
+                val personCast = service.getPersonSeriesCredit(personId, SECRET_KEY, language).cast
                 Result.Success(personCast)
 
             } catch (exception: IOException) {

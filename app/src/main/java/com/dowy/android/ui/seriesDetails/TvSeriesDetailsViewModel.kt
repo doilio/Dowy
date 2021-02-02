@@ -25,19 +25,27 @@ constructor(private val repository: Repository) : ViewModel() {
     private var currentTvCastResult: MutableLiveData<List<TvCast>>? = null
     private var currentTvTrailersResult: MutableLiveData<List<TvTrailer>>? = null
     private var currentTvReviewResult: MutableLiveData<List<TvReview>>? = null
+    private var currentMovieGenreResult: MutableLiveData<List<TvGenres>>? = null
     private var currentTvId: Int? = null
+    private var currentLanguage: String? = null
 
-    private val _listOfGenres = MutableLiveData<List<TvGenres>>()
-    val listOfGenres: LiveData<List<TvGenres>>
-        get() = _listOfGenres
+    fun getTvGenre(language: String): LiveData<List<TvGenres>> {
+        val genreList = MutableLiveData<List<TvGenres>>()
 
-    init {
+        val lastResult = currentMovieGenreResult
+        if (language == currentLanguage && lastResult != null) {
+            return lastResult
+        }
+
+        currentLanguage = language
         uiScope.launch {
-            _listOfGenres.value = when (val tvGenres = repository.getTvGenres()) {
+            genreList.value = when (val tvGenres = repository.getTvGenres(language)) {
                 is Result.Success -> tvGenres.data
                 is Result.Error -> null
             }
+            currentMovieGenreResult = genreList
         }
+        return genreList
     }
 
     fun getTvReview(tvId: Int): LiveData<List<TvReview>> {
@@ -65,17 +73,17 @@ constructor(private val repository: Repository) : ViewModel() {
         return reviewList
     }
 
-    fun getTvTrailers(tvId: Int): LiveData<List<TvTrailer>> {
+    fun getTvTrailers(tvId: Int, language: String): LiveData<List<TvTrailer>> {
         val trailers = MutableLiveData<List<TvTrailer>>()
 
         val lastResult = currentTvTrailersResult
-        if (tvId == currentTvId && lastResult != null) {
+        if (tvId == currentTvId && language == currentLanguage && lastResult != null) {
             return lastResult
         }
 
         currentTvId = tvId
         uiScope.launch {
-            trailers.value = when (val result = repository.getTvTrailer(tvId)) {
+            trailers.value = when (val result = repository.getTvTrailer(tvId, language)) {
                 is Result.Success -> result.data
                 is Result.Error -> null
             }

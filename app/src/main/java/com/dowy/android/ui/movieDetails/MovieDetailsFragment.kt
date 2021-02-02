@@ -1,6 +1,7 @@
 package com.dowy.android.ui.movieDetails
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
@@ -25,14 +26,19 @@ import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.movie.MovieCast
 import com.dowy.android.model.movie.MovieReview
 import com.dowy.android.model.movie.MovieTrailer
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var movie: Movie
     private val viewModel: MovieDetailsViewModel by viewModels()
@@ -107,29 +113,32 @@ class MovieDetailsFragment : Fragment() {
                 openReview(it as MovieReview)
             })
 
-        // Set Chips
-        viewModel.listOfGenres.observe(viewLifecycleOwner, { listOfGenres ->
-            listOfGenres?.let {
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getMovieGenre(language).observe(viewLifecycleOwner, { listOfGenres ->
+                listOfGenres?.let {
 
-                for (elem in movie.genre_ids) {
-                    val filteredListOfGenres = listOfGenres.filter { it.id == elem }
-                    for (item in filteredListOfGenres) {
-                        val chip = Chip(requireContext())
-                        chip.setChipBackgroundColorResource(android.R.color.transparent)
-                        chip.chipStrokeColor = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                android.R.color.darker_gray
+                    for (elem in movie.genre_ids) {
+                        val filteredListOfGenres = listOfGenres.filter { it.id == elem }
+                        for (item in filteredListOfGenres) {
+                            val chip = Chip(requireContext())
+                            chip.setChipBackgroundColorResource(android.R.color.transparent)
+                            chip.chipStrokeColor = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    android.R.color.darker_gray
+                                )
                             )
-                        )
-                        chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
+                            chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
 
-                        chip.text = item.name
-                        binding.chipGroup.addView(chip)
+                            chip.text = item.name
+                            binding.chipGroup.addView(chip)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
+
+
 
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
@@ -146,17 +155,19 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
-        viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, {
-            it?.let { listOfTrailers ->
-                if (listOfTrailers.isNotEmpty()) {
-                    trailerAdapter.submitMovieTrailers(listOfTrailers)
-                } else {
-                    binding.trailerError.visibility = View.VISIBLE
-                    binding.recyclerTrailer.visibility = View.GONE
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let {language ->
+            viewModel.getMovieTrailers(movie.id, language).observe(viewLifecycleOwner, {
+                it?.let { listOfTrailers ->
+                    if (listOfTrailers.isNotEmpty()) {
+                        trailerAdapter.submitMovieTrailers(listOfTrailers)
+                    } else {
+                        binding.trailerError.visibility = View.VISIBLE
+                        binding.recyclerTrailer.visibility = View.GONE
+                    }
+                    trailers = listOfTrailers
                 }
-                trailers = listOfTrailers
-            }
-        })
+            })
+        }
 
         viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, {
             it?.let { reviews ->
