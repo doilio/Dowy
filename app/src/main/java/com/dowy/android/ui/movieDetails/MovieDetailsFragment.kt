@@ -45,24 +45,23 @@ class MovieDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-
-        val arguments = MovieDetailsFragmentArgs.fromBundle(requireArguments())
-        movie = arguments.Movie
-        setupActionBar(movie)
-
+        setupActionBar()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.lifecycleOwner = this
 
+        initComponents()
         populateMoviesUI(movie)
     }
 
-    private fun populateMoviesUI(movie: Movie) {
+    private fun initComponents() {
+        movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).Movie
+    }
 
+    private fun populateMoviesUI(movie: Movie) {
         // Cast Adapter
         binding.recyclerCast.hasFixedSize()
         val layoutManager =
@@ -108,28 +107,28 @@ class MovieDetailsFragment : Fragment() {
                 openReview(it as MovieReview)
             })
 
-            viewModel.getMovieGenre().observe(viewLifecycleOwner, { listOfGenres ->
-                listOfGenres?.let {
+        viewModel.getMovieGenre().observe(viewLifecycleOwner, { listOfGenres ->
+            listOfGenres?.let {
 
-                    for (elem in movie.genre_ids) {
-                        val filteredListOfGenres = listOfGenres.filter { it.id == elem }
-                        for (item in filteredListOfGenres) {
-                            val chip = Chip(requireContext())
-                            chip.setChipBackgroundColorResource(android.R.color.transparent)
-                            chip.chipStrokeColor = ColorStateList.valueOf(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    android.R.color.darker_gray
-                                )
+                for (elem in movie.genre_ids) {
+                    val filteredListOfGenres = listOfGenres.filter { it.id == elem }
+                    for (item in filteredListOfGenres) {
+                        val chip = Chip(requireContext())
+                        chip.setChipBackgroundColorResource(android.R.color.transparent)
+                        chip.chipStrokeColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.darker_gray
                             )
-                            chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
+                        )
+                        chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
 
-                            chip.text = item.name
-                            binding.chipGroup.addView(chip)
-                        }
+                        chip.text = item.name
+                        binding.chipGroup.addView(chip)
                     }
                 }
-            })
+            }
+        })
 
 
 
@@ -137,7 +136,7 @@ class MovieDetailsFragment : Fragment() {
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
 
-        viewModel.getMovieCast(movie.id).observe(viewLifecycleOwner, {
+        viewModel.getMovieCast().observe(viewLifecycleOwner, {
             it?.let { castMembers ->
                 if (castMembers.isNotEmpty()) {
                     castAdapter.submitMovieCastList(castMembers)
@@ -148,19 +147,19 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
-            viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, {
-                it?.let { listOfTrailers ->
-                    if (listOfTrailers.isNotEmpty()) {
-                        trailerAdapter.submitMovieTrailers(listOfTrailers)
-                    } else {
-                        binding.trailerError.visibility = View.VISIBLE
-                        binding.recyclerTrailer.visibility = View.GONE
-                    }
-                    trailers = listOfTrailers
+        viewModel.getMovieTrailers().observe(viewLifecycleOwner, {
+            it?.let { listOfTrailers ->
+                if (listOfTrailers.isNotEmpty()) {
+                    trailerAdapter.submitMovieTrailers(listOfTrailers)
+                } else {
+                    binding.trailerError.visibility = View.VISIBLE
+                    binding.recyclerTrailer.visibility = View.GONE
                 }
-            })
+                trailers = listOfTrailers
+            }
+        })
 
-        viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, {
+        viewModel.getMovieReview().observe(viewLifecycleOwner, {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
                     reviewAdapter.submitMovieReviewList(reviews)
@@ -235,8 +234,9 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar(movie: Movie) {
-        ((activity as AppCompatActivity).supportActionBar)?.title = movie.title
+    private fun setupActionBar() {
+        ((activity as AppCompatActivity).supportActionBar)?.title =
+            MovieDetailsFragmentArgs.fromBundle(requireArguments()).Movie.title
         setHasOptionsMenu(true)
     }
 

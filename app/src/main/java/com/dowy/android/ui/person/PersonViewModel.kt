@@ -1,9 +1,11 @@
 package com.dowy.android.ui.person
 
 import android.content.SharedPreferences
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.dowy.android.data.Repository
 import com.dowy.android.model.person.Person
@@ -20,13 +22,15 @@ import kotlinx.coroutines.launch
 
 class PersonViewModel @ViewModelInject constructor(
     private val repository: Repository,
-    preference: SharedPreferences
+    preference: SharedPreferences,
+    @Assisted val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var currentPersonId: Int? = null
     val language: String = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)!!
+    private val personId = savedStateHandle.get<Int>("personId")!!
 
     // In Memory Caching
     private var personMovieResult: MutableLiveData<List<PersonMovieCast>>? = null
@@ -34,7 +38,7 @@ class PersonViewModel @ViewModelInject constructor(
     private var personResult: MutableLiveData<Person>? = null
     private var currentLanguage: String? = null
 
-    fun getPerson(personId: Int): LiveData<Person> {
+    fun getPerson(): LiveData<Person> {
         val person = MutableLiveData<Person>()
 
         val lastResult = personResult
@@ -50,7 +54,7 @@ class PersonViewModel @ViewModelInject constructor(
         return person
     }
 
-    fun getPersonMovieList(personId: Int): LiveData<List<PersonMovieCast>> {
+    fun getPersonMovieList(): LiveData<List<PersonMovieCast>> {
         val personMovieCastList = MutableLiveData<List<PersonMovieCast>>()
 
         val lastResult = personMovieResult
@@ -72,7 +76,7 @@ class PersonViewModel @ViewModelInject constructor(
 
     }
 
-    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
+    fun getPersonSeriesList(): LiveData<List<PersonTvCast>> {
         val personTvCastList = MutableLiveData<List<PersonTvCast>>()
 
         val lastResult = personSeriesResult

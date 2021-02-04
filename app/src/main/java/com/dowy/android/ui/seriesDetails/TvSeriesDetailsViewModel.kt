@@ -1,15 +1,14 @@
 package com.dowy.android.ui.seriesDetails
 
 import android.content.SharedPreferences
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.dowy.android.data.Repository
-import com.dowy.android.model.tv.TvCast
-import com.dowy.android.model.tv.TvGenres
-import com.dowy.android.model.tv.TvReview
-import com.dowy.android.model.tv.TvTrailer
+import com.dowy.android.model.tv.*
 import com.dowy.android.utils.DEFAULT_LANGUAGE
 import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.Result
@@ -21,13 +20,14 @@ import kotlinx.coroutines.launch
 class TvSeriesDetailsViewModel @ViewModelInject
 constructor(
     private val repository: Repository,
-    preference: SharedPreferences
+    preference: SharedPreferences,
+    @Assisted savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private val language = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)!!
+    private val tvId = savedStateHandle.get<TvSeries>("TvSeries")?.id!!
 
     // In-Memory Caching
     private var currentTvCastResult: MutableLiveData<List<TvCast>>? = null
@@ -56,7 +56,7 @@ constructor(
         return genreList
     }
 
-    fun getTvReview(tvId: Int): LiveData<List<TvReview>> {
+    fun getTvReview(): LiveData<List<TvReview>> {
         val reviewList = MutableLiveData<List<TvReview>>()
 
         val lastResult = currentTvReviewResult
@@ -81,7 +81,7 @@ constructor(
         return reviewList
     }
 
-    fun getTvTrailers(tvId: Int): LiveData<List<TvTrailer>> {
+    fun getTvTrailers(): LiveData<List<TvTrailer>> {
         val trailers = MutableLiveData<List<TvTrailer>>()
 
         val lastResult = currentTvTrailersResult
@@ -100,7 +100,7 @@ constructor(
         return trailers
     }
 
-    fun getTvCast(tvId: Int): LiveData<List<TvCast>> {
+    fun getTvCast(): LiveData<List<TvCast>> {
         val castMembers = MutableLiveData<List<TvCast>>()
 
         val lastResult = currentTvCastResult

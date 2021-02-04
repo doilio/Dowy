@@ -28,7 +28,6 @@ class PersonFragment : Fragment() {
 
     private lateinit var binding: FragmentPersonBinding
     private val viewModel: PersonViewModel by viewModels()
-    private lateinit var arguments: PersonFragmentArgs
     private lateinit var adapterMovies: PersonMoviesAdapter
     private lateinit var adapterSeries: PersonSeriesAdapter
 
@@ -38,8 +37,7 @@ class PersonFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPersonBinding.inflate(inflater, container, false)
-        arguments = PersonFragmentArgs.fromBundle(requireArguments())
-        setupActionBar(arguments.name)
+        setupActionBar()
         return binding.root
     }
 
@@ -48,33 +46,33 @@ class PersonFragment : Fragment() {
 
         initComponents()
 
-            viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, {
-                it?.let { person ->
-                    populateUI(person)
-                }
-            })
+        viewModel.getPerson().observe(viewLifecycleOwner, {
+            it?.let { person ->
+                populateUI(person)
+            }
+        })
 
-            viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, {
-                it?.let { listOfMovies ->
-                    if (listOfMovies.isNotEmpty()) {
-                        adapterMovies.submitList(listOfMovies)
-                    } else {
-                        binding.recyclerMoviesCastIn.visibility = View.GONE
-                        binding.moviesCastInError.visibility = View.VISIBLE
-                    }
+        viewModel.getPersonMovieList().observe(viewLifecycleOwner, {
+            it?.let { listOfMovies ->
+                if (listOfMovies.isNotEmpty()) {
+                    adapterMovies.submitList(listOfMovies)
+                } else {
+                    binding.recyclerMoviesCastIn.visibility = View.GONE
+                    binding.moviesCastInError.visibility = View.VISIBLE
                 }
-            })
+            }
+        })
 
-            viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, {
-                it?.let { listOfSeries ->
-                    if (listOfSeries.isNotEmpty()) {
-                        adapterSeries.submitList(listOfSeries)
-                    } else {
-                        binding.recyclerSeriesCastIn.visibility = View.GONE
-                        binding.tvCastInError.visibility = View.VISIBLE
-                    }
+        viewModel.getPersonSeriesList().observe(viewLifecycleOwner, {
+            it?.let { listOfSeries ->
+                if (listOfSeries.isNotEmpty()) {
+                    adapterSeries.submitList(listOfSeries)
+                } else {
+                    binding.recyclerSeriesCastIn.visibility = View.GONE
+                    binding.tvCastInError.visibility = View.VISIBLE
                 }
-            })
+            }
+        })
 
     }
 
@@ -190,7 +188,8 @@ class PersonFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar(name: String) {
-        ((activity as AppCompatActivity).supportActionBar)?.title = name
+    private fun setupActionBar() {
+        ((activity as AppCompatActivity).supportActionBar)?.title =
+            PersonFragmentArgs.fromBundle(requireArguments()).name
     }
 }

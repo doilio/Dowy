@@ -1,15 +1,14 @@
 package com.dowy.android.ui.movieDetails
 
 import android.content.SharedPreferences
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.dowy.android.data.Repository
-import com.dowy.android.model.movie.MovieCast
-import com.dowy.android.model.movie.MovieGenres
-import com.dowy.android.model.movie.MovieReview
-import com.dowy.android.model.movie.MovieTrailer
+import com.dowy.android.model.movie.*
 import com.dowy.android.utils.DEFAULT_LANGUAGE
 import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.Result
@@ -21,14 +20,15 @@ import kotlinx.coroutines.launch
 class MovieDetailsViewModel @ViewModelInject
 constructor(
     private val repository: Repository,
-    preference: SharedPreferences
+    preference: SharedPreferences,
+    @Assisted savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private val language = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)!!
+    private val movieId = savedStateHandle.get<Movie>("Movie")?.id!!
 
     // In-Memory Caching
     private var currentMovieCastResult: MutableLiveData<List<MovieCast>>? = null
@@ -57,7 +57,7 @@ constructor(
         return genreList
     }
 
-    fun getMovieReview(movieId: Int): LiveData<List<MovieReview>> {
+    fun getMovieReview(): LiveData<List<MovieReview>> {
         val reviewList = MutableLiveData<List<MovieReview>>()
 
         val lastResult = currentMovieReviewResult
@@ -82,7 +82,7 @@ constructor(
         return reviewList
     }
 
-    fun getMovieTrailers(movieId: Int): LiveData<List<MovieTrailer>> {
+    fun getMovieTrailers(): LiveData<List<MovieTrailer>> {
         val trailers = MutableLiveData<List<MovieTrailer>>()
 
         val lastResult = currentMovieTrailersResult
@@ -101,7 +101,7 @@ constructor(
         return trailers
     }
 
-    fun getMovieCast(movieId: Int): LiveData<List<MovieCast>> {
+    fun getMovieCast(): LiveData<List<MovieCast>> {
         val castMembers = MutableLiveData<List<MovieCast>>()
 
         val lastResult = currentMovieCastResult

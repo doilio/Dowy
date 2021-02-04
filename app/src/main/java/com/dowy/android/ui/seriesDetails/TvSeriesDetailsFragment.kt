@@ -1,7 +1,6 @@
 package com.dowy.android.ui.seriesDetails
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
@@ -26,14 +25,11 @@ import com.dowy.android.model.tv.TvCast
 import com.dowy.android.model.tv.TvReview
 import com.dowy.android.model.tv.TvSeries
 import com.dowy.android.model.tv.TvTrailer
-import com.dowy.android.utils.DEFAULT_LANGUAGE
-import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TvSeriesDetailsFragment : Fragment() {
@@ -49,10 +45,7 @@ class TvSeriesDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentTvSeriesDetailsBinding.inflate(inflater, container, false)
-
-        val arguments = TvSeriesDetailsFragmentArgs.fromBundle(requireArguments())
-        tvSeries = arguments.TvSeries
-        setupActionBar(tvSeries)
+        setupActionBar()
 
         return binding.root
     }
@@ -61,8 +54,12 @@ class TvSeriesDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = this
-
+        initComponents()
         populateSeriessUI(tvSeries)
+    }
+
+    private fun initComponents() {
+        tvSeries = TvSeriesDetailsFragmentArgs.fromBundle(requireArguments()).TvSeries
     }
 
     private fun populateSeriessUI(tvSeries: TvSeries) {
@@ -119,35 +116,35 @@ class TvSeriesDetailsFragment : Fragment() {
             })
 
 
-            viewModel.getTvGenre().observe(viewLifecycleOwner, { listOfGenres ->
-                listOfGenres?.let {
+        viewModel.getTvGenre().observe(viewLifecycleOwner, { listOfGenres ->
+            listOfGenres?.let {
 
-                    for (elem in tvSeries.genre_ids) {
-                        val filteredListOfGenres = listOfGenres.filter { it.id == elem }
-                        for (item in filteredListOfGenres) {
-                            val chip = Chip(requireContext())
-                            chip.setChipBackgroundColorResource(android.R.color.transparent)
-                            chip.chipStrokeColor = ColorStateList.valueOf(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    android.R.color.darker_gray
-                                )
+                for (elem in tvSeries.genre_ids) {
+                    val filteredListOfGenres = listOfGenres.filter { it.id == elem }
+                    for (item in filteredListOfGenres) {
+                        val chip = Chip(requireContext())
+                        chip.setChipBackgroundColorResource(android.R.color.transparent)
+                        chip.chipStrokeColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.darker_gray
                             )
-                            chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
+                        )
+                        chip.chipStrokeWidth = Utils.dptoPx(requireContext(), 1)
 
-                            chip.text = item.name
-                            binding.chipGroup.addView(chip)
-                        }
+                        chip.text = item.name
+                        binding.chipGroup.addView(chip)
                     }
                 }
-            })
+            }
+        })
 
 
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
 
-        viewModel.getTvCast(tvSeries.id).observe(viewLifecycleOwner, {
+        viewModel.getTvCast().observe(viewLifecycleOwner, {
             it?.let { castMembers ->
                 if (castMembers.isNotEmpty()) {
                     castAdapter.submitSeriesCastList(castMembers)
@@ -159,21 +156,21 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
-            viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, {
-                it?.let { listOfTrailers ->
-                    if (listOfTrailers.isNotEmpty()) {
-                        trailerAdapter.submitSeriesTrailers(listOfTrailers)
-                    } else {
-                        binding.trailerError.visibility = View.VISIBLE
-                        binding.recyclerTrailer.visibility = View.GONE
-                    }
-                    trailers = listOfTrailers
+        viewModel.getTvTrailers().observe(viewLifecycleOwner, {
+            it?.let { listOfTrailers ->
+                if (listOfTrailers.isNotEmpty()) {
+                    trailerAdapter.submitSeriesTrailers(listOfTrailers)
+                } else {
+                    binding.trailerError.visibility = View.VISIBLE
+                    binding.recyclerTrailer.visibility = View.GONE
                 }
-            })
+                trailers = listOfTrailers
+            }
+        })
 
 
 
-        viewModel.getTvReview(tvSeries.id).observe(viewLifecycleOwner, {
+        viewModel.getTvReview().observe(viewLifecycleOwner, {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
                     reviewAdapter.submitSeriesReviewList(reviews)
@@ -248,8 +245,9 @@ class TvSeriesDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar(tvSeries: TvSeries) {
-        ((activity as AppCompatActivity).supportActionBar)?.title = tvSeries.name
+    private fun setupActionBar() {
+        ((activity as AppCompatActivity).supportActionBar)?.title =
+            TvSeriesDetailsFragmentArgs.fromBundle(requireArguments()).TvSeries.name
         setHasOptionsMenu(true)
     }
 
