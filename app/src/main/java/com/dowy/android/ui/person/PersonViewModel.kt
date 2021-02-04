@@ -27,35 +27,36 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
     private var personMovieResult: MutableLiveData<List<PersonMovieCast>>? = null
     private var personSeriesResult: MutableLiveData<List<PersonTvCast>>? = null
     private var personResult: MutableLiveData<Person>? = null
+    private var currentLanguage: String? = null
 
-    fun getPerson(personId: Int): LiveData<Person> {
+    fun getPerson(personId: Int, language: String): LiveData<Person> {
         val person = MutableLiveData<Person>()
 
         val lastResult = personResult
-        if (personId == currentPersonId && lastResult != null) {
+        if (personId == currentPersonId && language == currentLanguage && lastResult != null) {
             return lastResult
         }
 
         currentPersonId = personId
         uiScope.launch {
-            person.value = repository.getPerson(personId,"")
+            person.value = repository.getPerson(personId, language)
             personResult = person
         }
         return person
     }
 
-    fun getPersonMovieList(personId: Int): LiveData<List<PersonMovieCast>> {
+    fun getPersonMovieList(personId: Int, language: String): LiveData<List<PersonMovieCast>> {
         val personMovieCastList = MutableLiveData<List<PersonMovieCast>>()
 
         val lastResult = personMovieResult
-        if (currentPersonId == personId && lastResult != null) {
+        if (currentPersonId == personId && language == currentLanguage && lastResult != null) {
             return lastResult
         }
 
         currentPersonId = personId
         uiScope.launch {
             personMovieCastList.value =
-                when (val movieCastList = repository.getPersonMovies(personId,"")) {
+                when (val movieCastList = repository.getPersonMovies(personId, language)) {
                     is Result.Success -> movieCastList.data
                     is Result.Error -> null
                 }
@@ -66,18 +67,18 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
 
     }
 
-    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
+    fun getPersonSeriesList(personId: Int, language: String): LiveData<List<PersonTvCast>> {
         val personTvCastList = MutableLiveData<List<PersonTvCast>>()
 
         val lastResult = personSeriesResult
-        if (currentPersonId == personId && lastResult != null) {
+        if (currentPersonId == personId && language == currentLanguage && lastResult != null) {
             return lastResult
         }
 
         currentPersonId = personId
         uiScope.launch {
             personTvCastList.value =
-                when (val tvCastList = repository.getPersonSeries(personId,"")) {
+                when (val tvCastList = repository.getPersonSeries(personId, language)) {
                     is Result.Success -> tvCastList.data
                     is Result.Error -> null
                 }

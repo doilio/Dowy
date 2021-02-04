@@ -1,6 +1,7 @@
 package com.dowy.android.ui.person
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,7 +22,10 @@ import com.dowy.android.databinding.FragmentPersonBinding
 import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.person.Person
 import com.dowy.android.model.tv.TvSeries
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
@@ -31,6 +35,9 @@ class PersonFragment : Fragment() {
     private lateinit var arguments: PersonFragmentArgs
     private lateinit var adapterMovies: PersonMoviesAdapter
     private lateinit var adapterSeries: PersonSeriesAdapter
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,33 +56,40 @@ class PersonFragment : Fragment() {
 
         initComponents()
 
-        viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, {
-            it?.let { person ->
-                populateUI(person)
-            }
-        })
-
-        viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, {
-            it?.let { listOfMovies ->
-                if (listOfMovies.isNotEmpty()) {
-                    adapterMovies.submitList(listOfMovies)
-                } else {
-                    binding.recyclerMoviesCastIn.visibility = View.GONE
-                    binding.moviesCastInError.visibility = View.VISIBLE
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getPerson(arguments.personId, language).observe(viewLifecycleOwner, {
+                it?.let { person ->
+                    populateUI(person)
                 }
-            }
-        })
+            })
+        }
 
-        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, {
-            it?.let { listOfSeries ->
-                if (listOfSeries.isNotEmpty()) {
-                    adapterSeries.submitList(listOfSeries)
-                } else {
-                    binding.recyclerSeriesCastIn.visibility = View.GONE
-                    binding.tvCastInError.visibility = View.VISIBLE
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getPersonMovieList(arguments.personId, language).observe(viewLifecycleOwner, {
+                it?.let { listOfMovies ->
+                    if (listOfMovies.isNotEmpty()) {
+                        adapterMovies.submitList(listOfMovies)
+                    } else {
+                        binding.recyclerMoviesCastIn.visibility = View.GONE
+                        binding.moviesCastInError.visibility = View.VISIBLE
+                    }
                 }
-            }
-        })
+            })
+        }
+
+
+        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
+            viewModel.getPersonSeriesList(arguments.personId, language).observe(viewLifecycleOwner, {
+                it?.let { listOfSeries ->
+                    if (listOfSeries.isNotEmpty()) {
+                        adapterSeries.submitList(listOfSeries)
+                    } else {
+                        binding.recyclerSeriesCastIn.visibility = View.GONE
+                        binding.tvCastInError.visibility = View.VISIBLE
+                    }
+                }
+            })
+        }
 
     }
 
