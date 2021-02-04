@@ -1,5 +1,6 @@
 package com.dowy.android.adapter
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -45,3 +46,21 @@ fun TextView.setCharacterName(character: String?) {
         text = if (it.isNotEmpty()) "as\n${it}" else "Not Specified"
     }
 }
+
+@BindingAdapter("personText")
+fun TextView.setPersonText(msg: String?) {
+
+    text = msg ?: "-"
+
+}
+
+/*@BindingAdapter(value = ["personBio","error"], requireAll = true)
+fun TextView.setPersonBio(msg: String, errorView: TextView) {
+
+    if (msg.isNotEmpty()) {
+        text = msg
+    } else {
+        this.visibility = View.GONE
+        errorView.visibility = View.VISIBLE
+    }
+}*/
