@@ -1,5 +1,6 @@
 package com.dowy.android.ui.person
 
+import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,8 @@ import com.dowy.android.data.Repository
 import com.dowy.android.model.person.Person
 import com.dowy.android.model.person.PersonMovieCast
 import com.dowy.android.model.person.PersonTvCast
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +18,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-class PersonViewModel @ViewModelInject constructor(val repository: Repository) : ViewModel() {
+class PersonViewModel @ViewModelInject constructor(
+    private val repository: Repository,
+    preference: SharedPreferences
+) : ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var currentPersonId: Int? = null
-
-    //TODO Internationalize
+    val language: String = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)!!
 
     // In Memory Caching
     private var personMovieResult: MutableLiveData<List<PersonMovieCast>>? = null
@@ -29,7 +34,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
     private var personResult: MutableLiveData<Person>? = null
     private var currentLanguage: String? = null
 
-    fun getPerson(personId: Int, language: String): LiveData<Person> {
+    fun getPerson(personId: Int): LiveData<Person> {
         val person = MutableLiveData<Person>()
 
         val lastResult = personResult
@@ -45,7 +50,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
         return person
     }
 
-    fun getPersonMovieList(personId: Int, language: String): LiveData<List<PersonMovieCast>> {
+    fun getPersonMovieList(personId: Int): LiveData<List<PersonMovieCast>> {
         val personMovieCastList = MutableLiveData<List<PersonMovieCast>>()
 
         val lastResult = personMovieResult
@@ -67,7 +72,7 @@ class PersonViewModel @ViewModelInject constructor(val repository: Repository) :
 
     }
 
-    fun getPersonSeriesList(personId: Int, language: String): LiveData<List<PersonTvCast>> {
+    fun getPersonSeriesList(personId: Int): LiveData<List<PersonTvCast>> {
         val personTvCastList = MutableLiveData<List<PersonTvCast>>()
 
         val lastResult = personSeriesResult

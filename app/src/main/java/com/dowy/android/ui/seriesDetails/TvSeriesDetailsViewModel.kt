@@ -1,5 +1,6 @@
 package com.dowy.android.ui.seriesDetails
 
+import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,8 @@ import com.dowy.android.model.tv.TvCast
 import com.dowy.android.model.tv.TvGenres
 import com.dowy.android.model.tv.TvReview
 import com.dowy.android.model.tv.TvTrailer
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,10 +19,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TvSeriesDetailsViewModel @ViewModelInject
-constructor(private val repository: Repository) : ViewModel() {
+constructor(
+    private val repository: Repository,
+    preference: SharedPreferences
+) : ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val language = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)!!
 
     // In-Memory Caching
     private var currentTvCastResult: MutableLiveData<List<TvCast>>? = null
@@ -29,7 +37,7 @@ constructor(private val repository: Repository) : ViewModel() {
     private var currentTvId: Int? = null
     private var currentLanguage: String? = null
 
-    fun getTvGenre(language: String): LiveData<List<TvGenres>> {
+    fun getTvGenre(): LiveData<List<TvGenres>> {
         val genreList = MutableLiveData<List<TvGenres>>()
 
         val lastResult = currentMovieGenreResult
@@ -73,7 +81,7 @@ constructor(private val repository: Repository) : ViewModel() {
         return reviewList
     }
 
-    fun getTvTrailers(tvId: Int, language: String): LiveData<List<TvTrailer>> {
+    fun getTvTrailers(tvId: Int): LiveData<List<TvTrailer>> {
         val trailers = MutableLiveData<List<TvTrailer>>()
 
         val lastResult = currentTvTrailersResult

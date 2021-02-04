@@ -75,12 +75,9 @@ class MoviesFragment : Fragment() {
     }
 
     private fun fetchMovies() {
-        val category = sharedPreference.getString(MOVIE_KEY, DEFAULT_CATEGORY)
-        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
-        Timber.d("Category $category")
 
         lifecycleScope.launch {
-            viewModel.getMoviesList(category, language).collectLatest {
+            viewModel.getMoviesList().collectLatest {
                 adapter.submitData(it)
             }
         }

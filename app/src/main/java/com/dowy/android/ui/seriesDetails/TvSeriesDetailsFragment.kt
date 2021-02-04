@@ -38,8 +38,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TvSeriesDetailsFragment : Fragment() {
 
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentTvSeriesDetailsBinding
     private lateinit var tvSeries: TvSeries
     private val viewModel: TvSeriesDetailsViewModel by viewModels()
@@ -120,9 +118,8 @@ class TvSeriesDetailsFragment : Fragment() {
                 openReview(it as TvReview)
             })
 
-        // Set Chips
-        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
-            viewModel.getTvGenre(language).observe(viewLifecycleOwner, { listOfGenres ->
+
+            viewModel.getTvGenre().observe(viewLifecycleOwner, { listOfGenres ->
                 listOfGenres?.let {
 
                     for (elem in tvSeries.genre_ids) {
@@ -144,7 +141,7 @@ class TvSeriesDetailsFragment : Fragment() {
                     }
                 }
             })
-        }
+
 
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
@@ -162,8 +159,7 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
-        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
-            viewModel.getTvTrailers(tvSeries.id, language).observe(viewLifecycleOwner, {
+            viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, {
                 it?.let { listOfTrailers ->
                     if (listOfTrailers.isNotEmpty()) {
                         trailerAdapter.submitSeriesTrailers(listOfTrailers)
@@ -174,7 +170,7 @@ class TvSeriesDetailsFragment : Fragment() {
                     trailers = listOfTrailers
                 }
             })
-        }
+
 
 
         viewModel.getTvReview(tvSeries.id).observe(viewLifecycleOwner, {

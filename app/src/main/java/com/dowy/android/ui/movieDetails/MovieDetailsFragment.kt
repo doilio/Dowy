@@ -1,7 +1,6 @@
 package com.dowy.android.ui.movieDetails
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
@@ -26,19 +25,15 @@ import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.movie.MovieCast
 import com.dowy.android.model.movie.MovieReview
 import com.dowy.android.model.movie.MovieTrailer
-import com.dowy.android.utils.DEFAULT_LANGUAGE
-import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var movie: Movie
     private val viewModel: MovieDetailsViewModel by viewModels()
@@ -113,8 +108,7 @@ class MovieDetailsFragment : Fragment() {
                 openReview(it as MovieReview)
             })
 
-        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let { language ->
-            viewModel.getMovieGenre(language).observe(viewLifecycleOwner, { listOfGenres ->
+            viewModel.getMovieGenre().observe(viewLifecycleOwner, { listOfGenres ->
                 listOfGenres?.let {
 
                     for (elem in movie.genre_ids) {
@@ -136,7 +130,6 @@ class MovieDetailsFragment : Fragment() {
                     }
                 }
             })
-        }
 
 
 
@@ -155,8 +148,7 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
-        sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)?.let {language ->
-            viewModel.getMovieTrailers(movie.id, language).observe(viewLifecycleOwner, {
+            viewModel.getMovieTrailers(movie.id).observe(viewLifecycleOwner, {
                 it?.let { listOfTrailers ->
                     if (listOfTrailers.isNotEmpty()) {
                         trailerAdapter.submitMovieTrailers(listOfTrailers)
@@ -167,7 +159,6 @@ class MovieDetailsFragment : Fragment() {
                     trailers = listOfTrailers
                 }
             })
-        }
 
         viewModel.getMovieReview(movie.id).observe(viewLifecycleOwner, {
             it?.let { reviews ->
