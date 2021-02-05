@@ -116,9 +116,7 @@ class PersonFragment : Fragment() {
     }
 
     private fun populateUI(person: Person) {
-        binding.person = person
-
-        /*Glide.with(this).load(person.fullProfilePath).error(R.drawable.no_image_portrait1)
+        Glide.with(this).load(person.fullProfilePath).error(R.drawable.no_image_portrait1)
             .into(binding.actorImage)
 
         person.name.let {
@@ -141,7 +139,7 @@ class PersonFragment : Fragment() {
             popularity.toString().let {
                 binding.textPopularity.text = if (it.isNotEmpty()) it else "-"
             }
-        }*/
+        }
 
         person.biography?.let {
             if (it.isNotEmpty()) {
