@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="person"
+            type="com.dowy.android.model.person.Person" />
     </data>
 
     <ScrollView
@@ -35,6 +38,7 @@
                         android:layout_weight="@integer/person_image_weight"
                         android:contentDescription="@string/actor_image"
                         android:scaleType="centerCrop"
+                        app:itemImage="@{person.fullProfilePath}"
                         tools:src="@drawable/tom_holland" />
 
                     <LinearLayout
@@ -54,6 +58,7 @@
 
                         <TextView
                             android:id="@+id/text_name"
+                            personText="@{person.name}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -70,6 +75,7 @@
 
                         <TextView
                             android:id="@+id/text_known_for"
+                            personText="@{person.known_for_department}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -86,6 +92,7 @@
 
                         <TextView
                             android:id="@+id/text_birthdate"
+                            personText="@{person.birthday}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -102,6 +109,7 @@
 
                         <TextView
                             android:id="@+id/text_place_of_birth"
+                            personText="@{person.place_of_birth}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -118,6 +126,7 @@
 
                         <TextView
                             android:id="@+id/text_popularity"
+                            personText="@{String.valueOf(person.popularity)}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
