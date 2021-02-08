@@ -11,28 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        tools:context=".ui.seriesDetails.TvSeriesDetailsFragment">
+        tools:context=".ui.movieDetails.MovieDetailsFragment">
 
         <ImageView
-            android:id="@+id/tv_poster"
+            android:id="@+id/movie_poster"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:contentDescription="@string/tv_photo"
+            android:contentDescription="@string/movie_photo"
             android:scaleType="centerCrop"
-            tools:src="@drawable/tv_poster" />
+            tools:src="@drawable/poster" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="7">
+            android:layout_weight="6">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!--tv Details-->
+                <!--Movie Details-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_title_text"
+                            android:id="@+id/movie_title_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -53,7 +53,7 @@
                             android:fontFamily="sans-serif-condensed"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textStyle="bold"
-                            tools:text="Rick and Morty" />
+                            tools:text="Movie Title" />
 
                         <com.google.android.material.chip.ChipGroup
                             android:id="@+id/chip_group"
@@ -69,7 +69,7 @@
                                 tools:chipBackgroundColor="@android:color/transparent"
                                 tools:chipStrokeColor="@color/colorAccent"
                                 tools:chipStrokeWidth="1dp"
-                                tools:text="Comedy"
+                                tools:text="Adventure"
                                 tools:visibility="visible" />
 
                         </com.google.android.material.chip.ChipGroup>
@@ -129,7 +129,7 @@
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="8.7" />
+                            tools:text="5.4" />
 
                         <TextView
                             android:id="@+id/language_text"
@@ -139,7 +139,7 @@
                             app:layout_constraintEnd_toStartOf="@+id/release_date_text"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/rating_text"
-                            tools:text="en" />
+                            tools:text="En-US" />
 
                         <TextView
                             android:id="@+id/release_date_text"
@@ -177,7 +177,7 @@
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/first_aired_date"
+                            android:text="@string/release_date"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/imageView6"
@@ -221,7 +221,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            tools:text="Rick is a mentally-unbalanced but scientifically-gifted old man who has recently reconnected with his family. He spends most of his time involving his young grandson Morty in dangerous, outlandish adventures throughout space and alternate universes. Compounded with Morty's already unstable family life, these events cause Morty much distress at home and school." />
+                            tools:text="Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent." />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <!---->
@@ -239,7 +239,7 @@
                         android:paddingBottom="8dp">
 
                         <TextView
-                            android:id="@+id/textView13"
+                            android:id="@+id/text_cast"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -265,13 +265,13 @@
                             android:clipToPadding="true"
                             android:orientation="horizontal"
                             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/series_cast_item" />
+                            tools:listitem="@layout/movie_cast_item" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/series_trailer_title"
+                    android:id="@+id/movie_trailer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -299,7 +299,7 @@
                     android:clipToPadding="true"
                     android:orientation="horizontal"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/series_trailers_item" />
+                    tools:listitem="@layout/movie_trailers_item" />
 
                 <TextView
                     android:id="@+id/textView1sds3"
@@ -326,9 +326,8 @@
                     android:id="@+id/recycler_review"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     tools:itemCount="3"
-                    tools:listitem="@layout/series_review_item" />
+                    tools:listitem="@layout/movie_review_item" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

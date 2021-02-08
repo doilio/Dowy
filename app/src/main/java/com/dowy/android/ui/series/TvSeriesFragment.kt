@@ -70,11 +70,8 @@ class TvSeriesFragment : Fragment() {
     }
 
     private fun fetchSeries() {
-        val category = sharedPreference.getString(TV_KEY, DEFAULT_CATEGORY)
-        val language = sharedPreference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
-
         lifecycleScope.launch {
-            viewModel.getTvSeriesList(category, language).collectLatest {
+            viewModel.getTvSeriesList().collectLatest {
                 adapter.submitData(it)
             }
         }

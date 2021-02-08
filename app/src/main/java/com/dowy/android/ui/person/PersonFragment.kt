@@ -28,7 +28,6 @@ class PersonFragment : Fragment() {
 
     private lateinit var binding: FragmentPersonBinding
     private val viewModel: PersonViewModel by viewModels()
-    private lateinit var arguments: PersonFragmentArgs
     private lateinit var adapterMovies: PersonMoviesAdapter
     private lateinit var adapterSeries: PersonSeriesAdapter
 
@@ -38,24 +37,22 @@ class PersonFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPersonBinding.inflate(inflater, container, false)
-        arguments = PersonFragmentArgs.fromBundle(requireArguments())
-        setupActionBar(arguments.name)
+        setupActionBar()
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initComponents()
 
-        viewModel.getPerson(arguments.personId).observe(viewLifecycleOwner, {
+        viewModel.getPerson().observe(viewLifecycleOwner, {
             it?.let { person ->
                 populateUI(person)
             }
         })
 
-        viewModel.getPersonMovieList(arguments.personId).observe(viewLifecycleOwner, {
+        viewModel.getPersonMovieList().observe(viewLifecycleOwner, {
             it?.let { listOfMovies ->
                 if (listOfMovies.isNotEmpty()) {
                     adapterMovies.submitList(listOfMovies)
@@ -66,7 +63,7 @@ class PersonFragment : Fragment() {
             }
         })
 
-        viewModel.getPersonSeriesList(arguments.personId).observe(viewLifecycleOwner, {
+        viewModel.getPersonSeriesList().observe(viewLifecycleOwner, {
             it?.let { listOfSeries ->
                 if (listOfSeries.isNotEmpty()) {
                     adapterSeries.submitList(listOfSeries)
@@ -191,7 +188,8 @@ class PersonFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar(name: String) {
-        ((activity as AppCompatActivity).supportActionBar)?.title = name
+    private fun setupActionBar() {
+        ((activity as AppCompatActivity).supportActionBar)?.title =
+            PersonFragmentArgs.fromBundle(requireArguments()).name
     }
 }

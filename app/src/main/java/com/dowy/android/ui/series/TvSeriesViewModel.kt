@@ -1,6 +1,7 @@
 package com.dowy.android.ui.series
 
 
+import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,20 +9,27 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.dowy.android.data.Repository
 import com.dowy.android.model.tv.TvSeries
+import com.dowy.android.utils.DEFAULT_CATEGORY
+import com.dowy.android.utils.DEFAULT_LANGUAGE
+import com.dowy.android.utils.LANGUAGE_KEY
+import com.dowy.android.utils.TV_KEY
 import kotlinx.coroutines.flow.Flow
 
 class TvSeriesViewModel @ViewModelInject constructor(
-    private val repository: Repository
+    private val repository: Repository,
+    preference: SharedPreferences
 ) :
     ViewModel() {
 
+    private val language = preference.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE)
+    private val category = preference.getString(TV_KEY, DEFAULT_CATEGORY)
     private var currentCategory: String? = null
     private var currentQuery: String? = null
     private var currentSearchResult: Flow<PagingData<TvSeries>>? = null
     private var currentQueryResult: Flow<PagingData<TvSeries>>? = null
 
 
-    fun getTvSeriesList(category: String?, language: String?): Flow<PagingData<TvSeries>> {
+    fun getTvSeriesList(): Flow<PagingData<TvSeries>> {
         val lastResult = currentSearchResult
         if (currentCategory == category && lastResult != null) {
             return lastResult

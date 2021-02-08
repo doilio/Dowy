@@ -45,10 +45,7 @@ class TvSeriesDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentTvSeriesDetailsBinding.inflate(inflater, container, false)
-
-        val arguments = TvSeriesDetailsFragmentArgs.fromBundle(requireArguments())
-        tvSeries = arguments.TvSeries
-        setupActionBar(tvSeries)
+        setupActionBar()
 
         return binding.root
     }
@@ -57,8 +54,12 @@ class TvSeriesDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = this
-
+        initComponents()
         populateSeriessUI(tvSeries)
+    }
+
+    private fun initComponents() {
+        tvSeries = TvSeriesDetailsFragmentArgs.fromBundle(requireArguments()).TvSeries
     }
 
     private fun populateSeriessUI(tvSeries: TvSeries) {
@@ -114,8 +115,8 @@ class TvSeriesDetailsFragment : Fragment() {
                 openReview(it as TvReview)
             })
 
-        // Set Chips
-        viewModel.listOfGenres.observe(viewLifecycleOwner, { listOfGenres ->
+
+        viewModel.getTvGenre().observe(viewLifecycleOwner, { listOfGenres ->
             listOfGenres?.let {
 
                 for (elem in tvSeries.genre_ids) {
@@ -138,11 +139,12 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
+
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
 
-        viewModel.getTvCast(tvSeries.id).observe(viewLifecycleOwner, {
+        viewModel.getTvCast().observe(viewLifecycleOwner, {
             it?.let { castMembers ->
                 if (castMembers.isNotEmpty()) {
                     castAdapter.submitSeriesCastList(castMembers)
@@ -154,7 +156,7 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
-        viewModel.getTvTrailers(tvSeries.id).observe(viewLifecycleOwner, {
+        viewModel.getTvTrailers().observe(viewLifecycleOwner, {
             it?.let { listOfTrailers ->
                 if (listOfTrailers.isNotEmpty()) {
                     trailerAdapter.submitSeriesTrailers(listOfTrailers)
@@ -166,7 +168,9 @@ class TvSeriesDetailsFragment : Fragment() {
             }
         })
 
-        viewModel.getTvReview(tvSeries.id).observe(viewLifecycleOwner, {
+
+
+        viewModel.getTvReview().observe(viewLifecycleOwner, {
             it?.let { reviews ->
                 if (reviews.isNotEmpty()) {
                     reviewAdapter.submitSeriesReviewList(reviews)
@@ -241,8 +245,9 @@ class TvSeriesDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar(tvSeries: TvSeries) {
-        ((activity as AppCompatActivity).supportActionBar)?.title = tvSeries.name
+    private fun setupActionBar() {
+        ((activity as AppCompatActivity).supportActionBar)?.title =
+            TvSeriesDetailsFragmentArgs.fromBundle(requireArguments()).TvSeries.name
         setHasOptionsMenu(true)
     }
 
