@@ -1,4 +1,4 @@
-# My-Movies🎬
+# Dowy🎬
 🎬Application that displays a list of more than 10.000 Movies and TV shows using Modern Android Application Development tools and API's
 
 The App Makes a request to TMDB's [API](https://www.themoviedb.org/documentation/api) to get:
