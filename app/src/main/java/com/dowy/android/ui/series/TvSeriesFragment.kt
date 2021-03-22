@@ -21,7 +21,9 @@ import com.dowy.android.adapter.series.SeriesClickListener
 import com.dowy.android.databinding.FragmentTvSeriesBinding
 import com.dowy.android.utils.*
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -33,7 +35,7 @@ class TvSeriesFragment : Fragment() {
 
     private lateinit var binding: FragmentTvSeriesBinding
     private val viewModel: TvSeriesViewModel by viewModels()
-    private lateinit var interstitialAd: InterstitialAd
+    private var interstitialAd: InterstitialAd? = null
     private lateinit var adapter: SeriesAdapter
 
     @Inject
@@ -86,21 +88,34 @@ class TvSeriesFragment : Fragment() {
 
         binding.buttonRetry.setOnClickListener { adapter.retry() }
 
-        // Initialize Ad
-        interstitialAd = InterstitialAd(requireContext())
-        interstitialAd.adUnitId = "ca-app-pub-3005109827350902/9795494153"
-        interstitialAd.loadAd(AdRequest.Builder().build())
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            requireContext(),
+            AD2_ID,
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(myAd: InterstitialAd) {
+                    Timber.d("Ad Loaded")
+                    interstitialAd = myAd
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Timber.d("Failed to load ad: ${adError.message}")
+                    interstitialAd = null
+                }
+            })
     }
 
     private fun initAdapter() {
         adapter = SeriesAdapter(
             SeriesClickListener {
                 // If Ad is ready to be displayed, then display it
-                if (interstitialAd.isLoaded) {
-                    interstitialAd.show()
+                if (interstitialAd != null) {
+                    interstitialAd?.show(requireActivity())
                 } else {
-                    Timber.d("Ad wasn't loaded yet!")
+                    Timber.d("Interstitial Ad not ready yet")
                 }
+
                 findNavController().navigate(
                     TvSeriesFragmentDirections.actionTvSeriesFragmentToTvSeriesDetailsFragment(
                         it

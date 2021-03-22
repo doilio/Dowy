@@ -1,6 +1,7 @@
 package com.dowy.android.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.dowy.android.model.tv.TvSeries
 import com.dowy.android.network.ApiService
 import com.dowy.android.utils.SECRET_KEY
@@ -34,6 +35,10 @@ class TvSeriesPagingSource(
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, TvSeries>): Int? {
+        return state.anchorPosition
     }
 
 

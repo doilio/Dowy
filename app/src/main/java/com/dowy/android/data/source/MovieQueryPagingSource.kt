@@ -1,6 +1,7 @@
 package com.dowy.android.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.dowy.android.model.movie.Movie
 import com.dowy.android.network.ApiService
 import com.dowy.android.utils.MOVIES_LIST_STARTING_PAGE
@@ -29,5 +30,9 @@ class MovieQueryPagingSource(
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+        return state.anchorPosition
     }
 }

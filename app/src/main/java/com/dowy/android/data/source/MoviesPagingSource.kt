@@ -1,6 +1,7 @@
 package com.dowy.android.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.dowy.android.model.movie.Movie
 import com.dowy.android.network.ApiService
 import com.dowy.android.utils.CALENDAR_PATTERN
@@ -52,5 +53,9 @@ class MoviesPagingSource(
         val date = calendar.time
         val sdf = SimpleDateFormat(CALENDAR_PATTERN, Locale.getDefault())
         return sdf.format(date)
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+        return state.anchorPosition
     }
 }
