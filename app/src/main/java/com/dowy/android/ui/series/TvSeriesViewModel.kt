@@ -2,7 +2,6 @@ package com.dowy.android.ui.series
 
 
 import android.content.SharedPreferences
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -13,9 +12,12 @@ import com.dowy.android.utils.DEFAULT_CATEGORY
 import com.dowy.android.utils.DEFAULT_LANGUAGE
 import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.TV_KEY
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class TvSeriesViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TvSeriesViewModel @Inject constructor(
     private val repository: Repository,
     preference: SharedPreferences
 ) :

@@ -1,7 +1,6 @@
 package com.dowy.android.ui.movies
 
 import android.content.SharedPreferences
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -12,9 +11,12 @@ import com.dowy.android.utils.DEFAULT_CATEGORY
 import com.dowy.android.utils.DEFAULT_LANGUAGE
 import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.MOVIE_KEY
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MoviesViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MoviesViewModel @Inject constructor(
     private val repository: Repository,
     preference: SharedPreferences
 ) :

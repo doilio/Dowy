@@ -24,11 +24,11 @@ object NetworkModule {
         val client = OkHttpClient.Builder()
 
         // Only show the logs in debug versions
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
 
-                client.addInterceptor(logger)
+            client.addInterceptor(logger)
         }
 
         return Retrofit.Builder()
