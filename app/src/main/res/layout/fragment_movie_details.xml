@@ -253,8 +253,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:visibility="gone"
-                        android:text="@string/overview_error" />
+                        android:text="@string/overview_error"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/overview_text"
@@ -305,8 +305,10 @@
                         android:id="@+id/recycler_cast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clipToPadding="true"
+                        android:clipToPadding="false"
                         android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/movie_cast_item" />
 
@@ -348,8 +350,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:clipToPadding="true"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/movie_trailers_item" />
             </LinearLayout>
@@ -388,6 +392,8 @@
                     android:id="@+id/recycler_review"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     tools:itemCount="3"
                     tools:listitem="@layout/movie_review_item" />
             </LinearLayout>

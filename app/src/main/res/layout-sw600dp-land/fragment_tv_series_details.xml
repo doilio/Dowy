@@ -262,7 +262,9 @@
                             android:id="@+id/recycler_cast"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clipToPadding="true"
+                            android:clipToPadding="false"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
                             android:orientation="horizontal"
                             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/series_cast_item" />
@@ -296,7 +298,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:clipToPadding="true"
+                    android:clipToPadding="false"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:orientation="horizontal"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/series_trailers_item" />
@@ -326,6 +330,8 @@
                     android:id="@+id/recycler_review"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     android:layout_marginTop="8dp"
                     tools:itemCount="3"
                     tools:listitem="@layout/series_review_item" />
