@@ -1,11 +1,8 @@
 package com.dowy.android.ui.movieDetails
 
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -25,11 +22,12 @@ import com.dowy.android.model.movie.Movie
 import com.dowy.android.model.movie.MovieCast
 import com.dowy.android.model.movie.MovieReview
 import com.dowy.android.model.movie.MovieTrailer
-import com.dowy.android.utils.TEXT_PLAIN
 import com.dowy.android.utils.Utils
+import com.dowy.android.utils.Utils.openReview
+import com.dowy.android.utils.Utils.openTrailer
+import com.dowy.android.utils.Utils.shareDetails
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
@@ -37,7 +35,6 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var movie: Movie
     private val viewModel: MovieDetailsViewModel by viewModels()
-    private lateinit var trailers: List<MovieTrailer>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +42,8 @@ class MovieDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        setupActionBar()
+        movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).Movie
+        setupActionBar(movie.title)
         return binding.root
     }
 
@@ -53,12 +51,7 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
 
-        initComponents()
         populateMoviesUI(movie)
-    }
-
-    private fun initComponents() {
-        movie = MovieDetailsFragmentArgs.fromBundle(requireArguments()).Movie
     }
 
     private fun populateMoviesUI(movie: Movie) {
@@ -66,26 +59,30 @@ class MovieDetailsFragment : Fragment() {
         binding.recyclerCast.hasFixedSize()
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         binding.recyclerCast.layoutManager = layoutManager
         val castAdapter = CastAdapter(CastClickListener {
-            openCastMember(it as MovieCast)
+            (it as MovieCast).let { movieCast ->
+                openCastMember(movieCast.id, movieCast.name)
+            }
         })
 
         // Trailer Adapter
         binding.recyclerTrailer.hasFixedSize()
         binding.recyclerTrailer.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         val trailerAdapter = TrailerAdapter(TrailerClickListener {
-            openTrailer(it as MovieTrailer)
+            openTrailer((it as MovieTrailer).youtubeLink, requireContext())
         })
 
         binding.movieCover?.let {
-            Glide.with(this).load(movie.fullBackDropPath).error(R.drawable.no_image).into(
-                it
-            )
+            Glide.with(this).load(movie.fullBackDropPath).error(R.drawable.no_image).into(it)
         }
+
         Glide.with(this).load(movie.fullPosterPath).error(R.drawable.no_image_portrait1)
             .into(binding.moviePoster)
+
         binding.movieTitleText.text = movie.title
         binding.languageText.text = movie.original_language
         binding.releaseDateText.text = movie.release_date
@@ -102,9 +99,10 @@ class MovieDetailsFragment : Fragment() {
         binding.recyclerReview.hasFixedSize()
         binding.recyclerReview.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         val reviewAdapter =
             ReviewAdapter(ReviewClickListener {
-                openReview(it as MovieReview)
+                openReview((it as MovieReview).url, requireContext())
             })
 
         viewModel.getMovieGenre().observe(viewLifecycleOwner, { listOfGenres ->
@@ -130,8 +128,6 @@ class MovieDetailsFragment : Fragment() {
             }
         })
 
-
-
         binding.recyclerCast.adapter = castAdapter
         binding.recyclerTrailer.adapter = trailerAdapter
         binding.recyclerReview.adapter = reviewAdapter
@@ -155,7 +151,6 @@ class MovieDetailsFragment : Fragment() {
                     binding.trailerError.visibility = View.VISIBLE
                     binding.recyclerTrailer.visibility = View.GONE
                 }
-                trailers = listOfTrailers
             }
         })
 
@@ -169,33 +164,12 @@ class MovieDetailsFragment : Fragment() {
                 }
             }
         })
-
     }
 
-    private fun openCastMember(movieCast: MovieCast) {
+    private fun openCastMember(id: Int, name: String) {
         findNavController().navigate(
-            MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(
-                movieCast.id,
-                movieCast.name
-            )
+            MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(id, name)
         )
-    }
-
-    private fun openTrailer(it: MovieTrailer) {
-        val i = Intent(Intent.ACTION_VIEW).apply {
-            addCategory(Intent.CATEGORY_BROWSABLE)
-            data = Uri.parse("https://www.youtube.com/watch?v=${it.key}")
-        }
-        if (Utils.isAppInstalled(requireContext(), getString(R.string.youtube_app_name))) {
-            i.`package` = getString(R.string.youtube_app_name)
-        }
-        startActivity(i)
-    }
-
-    private fun openReview(review: MovieReview) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(review.url))
-            .addCategory(Intent.CATEGORY_BROWSABLE)
-        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -206,37 +180,18 @@ class MovieDetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.ic_share -> {
-                shareDetails()
+                val message =
+                    "*${movie.title}*\n${movie.overview}\n\n${getString(R.string.more_details)}\n${
+                        getString(R.string.playstore_link)
+                    }"
+                shareDetails(message, requireContext())
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun shareDetails() {
-        // Decide what to share
-        val intentExtra: String = if (trailers.isNotEmpty()) {
-            val firstTrailer = "https://youtu.be/${trailers[0].key}"
-            "Check out: $firstTrailer"
-        } else {
-            "I recommend: **${movie.title}**\n\n${movie.overview}"
-        }
-
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = TEXT_PLAIN
-            putExtra(Intent.EXTRA_TEXT, intentExtra)
-        }
-
-        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-        } else {
-            Toast.makeText(activity, getString(R.string.sharing_failed), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun setupActionBar() {
-        ((activity as AppCompatActivity).supportActionBar)?.title =
-            MovieDetailsFragmentArgs.fromBundle(requireArguments()).Movie.title
+    private fun setupActionBar(title: String) {
+        ((activity as AppCompatActivity).supportActionBar)?.title = title
         setHasOptionsMenu(true)
     }
 

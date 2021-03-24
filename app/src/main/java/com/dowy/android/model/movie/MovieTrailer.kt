@@ -15,4 +15,6 @@ data class MovieTrailer(
 ) {
     val trailerImagePath: String
         get() = "https://img.youtube.com/vi/$key/hqdefault.jpg"
+    val youtubeLink: String
+        get() = "https://www.youtube.com/watch?v=$key"
 }
