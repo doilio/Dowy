@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.dowy.android.model.movie.Movie" />
     </data>
 
     <LinearLayout
@@ -15,6 +18,7 @@
 
         <ImageView
             android:id="@+id/movie_poster"
+            itemImage="@{movie.fullPosterPath}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -51,6 +55,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-condensed"
+                            android:text="@{movie.title}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textStyle="bold"
                             tools:text="Movie Title" />
@@ -125,6 +130,7 @@
                             android:id="@+id/rating_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(movie.vote_average)}"
                             app:layout_constraintEnd_toStartOf="@+id/language_text"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +141,7 @@
                             android:id="@+id/language_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{movie.original_language}"
                             app:layout_constraintBaseline_toBaselineOf="@+id/rating_text"
                             app:layout_constraintEnd_toStartOf="@+id/release_date_text"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -145,6 +152,7 @@
                             android:id="@+id/release_date_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{movie.release_date}"
                             app:layout_constraintBaseline_toBaselineOf="@+id/language_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -209,15 +217,8 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/overview_error"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/overview_error"
-                            android:visibility="gone" />
-
-                        <TextView
                             android:id="@+id/overview_text"
+                            overviewText="@{movie.overview}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"

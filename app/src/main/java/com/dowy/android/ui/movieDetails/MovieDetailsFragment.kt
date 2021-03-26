@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.dowy.android.R
 import com.dowy.android.adapter.cast.CastAdapter
 import com.dowy.android.adapter.cast.CastClickListener
@@ -35,6 +34,9 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var movie: Movie
     private val viewModel: MovieDetailsViewModel by viewModels()
+    private lateinit var castAdapter: CastAdapter
+    private lateinit var trailerAdapter: TrailerAdapter
+    private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,59 +53,14 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
 
+        initAdapters()
         populateMoviesUI(movie)
     }
 
     private fun populateMoviesUI(movie: Movie) {
-        // Cast Adapter
-        binding.recyclerCast.hasFixedSize()
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        binding.recyclerCast.layoutManager = layoutManager
-        val castAdapter = CastAdapter(CastClickListener {
-            (it as MovieCast).let { movieCast ->
-                openCastMember(movieCast.id, movieCast.name)
-            }
-        })
-
-        // Trailer Adapter
-        binding.recyclerTrailer.hasFixedSize()
-        binding.recyclerTrailer.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        val trailerAdapter = TrailerAdapter(TrailerClickListener {
-            openTrailer((it as MovieTrailer).youtubeLink, requireContext())
-        })
-
-        binding.movieCover?.let {
-            Glide.with(this).load(movie.fullBackDropPath).error(R.drawable.no_image).into(it)
-        }
-
-        Glide.with(this).load(movie.fullPosterPath).error(R.drawable.no_image_portrait1)
-            .into(binding.moviePoster)
-
-        binding.movieTitleText.text = movie.title
-        binding.languageText.text = movie.original_language
-        binding.releaseDateText.text = movie.release_date
-        binding.ratingText.text = movie.vote_average.toString()
-
-        if (movie.overview.isNotEmpty()) {
-            binding.overviewText.text = movie.overview
-        } else {
-            binding.overviewText.visibility = View.GONE
-            binding.overviewError.visibility = View.VISIBLE
-        }
-
-        // Reviews Adapter
-        binding.recyclerReview.hasFixedSize()
-        binding.recyclerReview.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-        val reviewAdapter =
-            ReviewAdapter(ReviewClickListener {
-                openReview((it as MovieReview).url, requireContext())
-            })
+        binding.movie = movie
+        binding.executePendingBindings()
 
         viewModel.getMovieGenre().observe(viewLifecycleOwner, { listOfGenres ->
             listOfGenres?.let {
@@ -127,10 +84,6 @@ class MovieDetailsFragment : Fragment() {
                 }
             }
         })
-
-        binding.recyclerCast.adapter = castAdapter
-        binding.recyclerTrailer.adapter = trailerAdapter
-        binding.recyclerReview.adapter = reviewAdapter
 
         viewModel.getMovieCast().observe(viewLifecycleOwner, {
             it?.let { castMembers ->
@@ -164,6 +117,38 @@ class MovieDetailsFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun initAdapters() {
+        binding.recyclerCast.hasFixedSize()
+        binding.recyclerTrailer.hasFixedSize()
+        binding.recyclerReview.hasFixedSize()
+
+        binding.recyclerCast.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerTrailer.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerReview.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        castAdapter = CastAdapter(CastClickListener {
+            (it as MovieCast).let { movieCast ->
+                openCastMember(movieCast.id, movieCast.name)
+            }
+        })
+
+        trailerAdapter = TrailerAdapter(TrailerClickListener {
+            openTrailer((it as MovieTrailer).youtubeLink, requireContext())
+        })
+
+        reviewAdapter =
+            ReviewAdapter(ReviewClickListener {
+                openReview((it as MovieReview).url, requireContext())
+            })
+
+        binding.recyclerCast.adapter = castAdapter
+        binding.recyclerTrailer.adapter = trailerAdapter
+        binding.recyclerReview.adapter = reviewAdapter
     }
 
     private fun openCastMember(id: Int, name: String) {

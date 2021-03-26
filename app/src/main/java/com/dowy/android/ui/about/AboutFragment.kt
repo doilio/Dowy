@@ -42,7 +42,6 @@ class AboutFragment : Fragment() {
                 getString(R.string.about_app_link),
                 getString(R.string.playstore_page)
             )
-
             .addGroup(getString(R.string.redes_sociais))
             .addInstagram(getString(R.string.dev_instagram_page), getString(R.string.instagram))
             .addGitHub(getString(R.string.dev_github_page), getString(R.string.github))

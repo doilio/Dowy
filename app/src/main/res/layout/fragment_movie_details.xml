@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.dowy.android.model.movie.Movie" />
     </data>
 
     <ScrollView
@@ -20,6 +23,7 @@
                 android:id="@+id/movie_cover"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/cover_height"
+                poster="@{movie.fullBackDropPath}"
                 android:contentDescription="@string/movie_cover"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +46,7 @@
                 <ImageView
                     android:id="@+id/movie_poster"
                     android:layout_width="match_parent"
+                    itemImage="@{movie.fullPosterPath}"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/movie_photo"
                     tools:src="@drawable/poster" />
@@ -68,6 +73,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        android:text="@{movie.title}"
                         android:fontFamily="sans-serif-condensed"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textStyle="bold"
@@ -160,6 +166,7 @@
 
                     <TextView
                         android:id="@+id/rating_text"
+                        android:text="@{String.valueOf(movie.vote_average)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toStartOf="@+id/language_text"
@@ -171,6 +178,7 @@
                     <TextView
                         android:id="@+id/language_text"
                         android:layout_width="wrap_content"
+                        android:text="@{movie.original_language}"
                         android:layout_height="wrap_content"
                         app:layout_constraintBaseline_toBaselineOf="@+id/rating_text"
                         app:layout_constraintEnd_toStartOf="@+id/release_date_text"
@@ -182,6 +190,7 @@
                         android:id="@+id/release_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{movie.release_date}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/language_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -249,16 +258,9 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/overview_error"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/overview_error"
-                        android:visibility="gone" />
-
-                    <TextView
                         android:id="@+id/overview_text"
                         android:layout_width="match_parent"
+                        overviewText="@{movie.overview}"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         tools:text="Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent." />

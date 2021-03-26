@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.dowy.android.R
 import com.dowy.android.adapter.person.PersonMovieClickListener
 import com.dowy.android.adapter.person.PersonMoviesAdapter
 import com.dowy.android.adapter.person.PersonSeriesAdapter
@@ -37,18 +35,27 @@ class PersonFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPersonBinding.inflate(inflater, container, false)
-        setupActionBar()
+        val person = PersonFragmentArgs.fromBundle(requireArguments())
+
+        setupActionBar(person.name)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        initComponents()
+        initAdapters()
 
         viewModel.getPerson().observe(viewLifecycleOwner, {
-            it?.let { person ->
-                populateUI(person)
+            it?.let { person: Person ->
+                binding.person = person
+
+                // IMDB and Web Links
+                setButtonVisibility(person.linkIMDB, person.homepage)
+
+                binding.imdbLogo.setOnClickListener { openImdb(person.linkIMDB) }
+                binding.websiteLogo.setOnClickListener { openWebsite(person.homepage) }
             }
         })
 
@@ -76,8 +83,15 @@ class PersonFragment : Fragment() {
 
     }
 
-    private fun initComponents() {
-        binding.lifecycleOwner = this
+    private fun initAdapters() {
+
+        binding.recyclerMoviesCastIn.hasFixedSize()
+        binding.recyclerSeriesCastIn.hasFixedSize()
+
+        binding.recyclerMoviesCastIn.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerSeriesCastIn.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         adapterMovies = PersonMoviesAdapter(PersonMovieClickListener {
             val movie = Movie(
@@ -92,11 +106,6 @@ class PersonFragment : Fragment() {
             )
         })
 
-        binding.recyclerMoviesCastIn.hasFixedSize()
-        binding.recyclerMoviesCastIn.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerMoviesCastIn.adapter = adapterMovies
-
         adapterSeries = PersonSeriesAdapter(PersonSeriesClickListener {
             val tvSeries = TvSeries(
                 it.original_name, it.genre_ids, it.name, it.popularity,
@@ -109,53 +118,9 @@ class PersonFragment : Fragment() {
                 )
             )
         })
-        binding.recyclerSeriesCastIn.hasFixedSize()
-        binding.recyclerSeriesCastIn.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.recyclerMoviesCastIn.adapter = adapterMovies
         binding.recyclerSeriesCastIn.adapter = adapterSeries
-    }
-
-    private fun populateUI(person: Person) {
-        Glide.with(this).load(person.fullProfilePath).error(R.drawable.no_image_portrait1)
-            .into(binding.actorImage)
-
-        person.name.let {
-            binding.textName.text = it ?: "-"
-        }
-
-        person.known_for_department.let {
-            binding.textKnownFor.text = it ?: "-"
-        }
-
-        person.birthday.let {
-            binding.textBirthdate.text = it ?: "-"
-        }
-
-        person.place_of_birth.let {
-            binding.textPlaceOfBirth.text = it ?: "-"
-        }
-
-        person.popularity.let { popularity ->
-            popularity.toString().let {
-                binding.textPopularity.text = if (it.isNotEmpty()) it else "-"
-            }
-        }
-
-        person.biography?.let {
-            if (it.isNotEmpty()) {
-                binding.textBiography.text = person.biography
-            } else {
-                binding.textBiography.visibility = View.GONE
-                binding.textBiographyError.visibility = View.VISIBLE
-            }
-        }
-
-        // IMDB and Web Links
-        setButtonVisibility(person)
-
-        binding.imdbLogo.setOnClickListener { openImdb(person.imdb_id) }
-        binding.websiteLogo.setOnClickListener { openWebsite(person.homepage) }
-
     }
 
     private fun openWebsite(webpage: String?) {
@@ -166,30 +131,26 @@ class PersonFragment : Fragment() {
         startActivity(websiteIntent)
     }
 
-    private fun openImdb(imdbId: String?) {
+    private fun openImdb(linkIMDB: String?) {
         val imdbIntent = Intent(Intent.ACTION_VIEW).apply {
             addCategory(Intent.CATEGORY_BROWSABLE)
-            data = Uri.parse("https://www.imdb.com/name/$imdbId")
+            data = Uri.parse(linkIMDB)
         }
         startActivity(imdbIntent)
     }
 
-    private fun setButtonVisibility(person: Person) {
-        if (person.imdb_id.isNullOrEmpty()) {
-            binding.imdbLogo.visibility = View.GONE
-        } else {
+    private fun setButtonVisibility(linkIMDB: String?, webPage: String?) {
+        if (!linkIMDB.isNullOrEmpty()) {
             binding.imdbLogo.visibility = View.VISIBLE
         }
-
-        if (person.homepage.isNullOrEmpty()) {
-            binding.websiteLogo.visibility = View.GONE
-        } else {
+        if (!webPage.isNullOrEmpty()) {
             binding.websiteLogo.visibility = View.VISIBLE
         }
+
     }
 
-    private fun setupActionBar() {
-        ((activity as AppCompatActivity).supportActionBar)?.title =
-            PersonFragmentArgs.fromBundle(requireArguments()).name
+    private fun setupActionBar(name: String) {
+        ((activity as AppCompatActivity).supportActionBar)?.title = name
+
     }
 }
