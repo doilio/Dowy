@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="person"
+            type="com.dowy.android.model.person.Person" />
     </data>
 
     <LinearLayout
@@ -17,6 +20,7 @@
             android:id="@+id/actor_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            itemImage="@{person.fullProfilePath}"
             android:layout_weight="3"
             android:contentDescription="@string/actor_image"
             android:scaleType="centerCrop"
@@ -106,6 +110,7 @@
                             android:id="@+id/text_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:text="@{person.name}"
                             app:layout_constraintBottom_toTopOf="@+id/title_known_for"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -118,6 +123,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toTopOf="@+id/title_birthdate"
                             app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@{person.known_for_department}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/title_known_for"
                             tools:text="Acting" />
@@ -125,6 +131,7 @@
                         <TextView
                             android:id="@+id/text_birthdate"
                             android:layout_width="0dp"
+                            android:text="@{person.birthday}"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toTopOf="@+id/title_place_of_birth"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -135,6 +142,7 @@
                         <TextView
                             android:id="@+id/text_place_of_birth"
                             android:layout_width="0dp"
+                            android:text="@{person.place_of_birth}"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toTopOf="@+id/textView5"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -147,6 +155,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:text="@{String.valueOf(person.popularity)}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -185,25 +194,15 @@
                             app:layout_constraintVertical_chainStyle="packed" />
 
                         <TextView
-                            android:id="@+id/text_biography_error"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/biography_is_currently_not_available"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/title_biography" />
-
-                        <TextView
                             android:id="@+id/text_biography"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
+                            biographyText="@{person.biography}"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_biography_error"
+                            app:layout_constraintTop_toBottomOf="@+id/title_biography"
                             tools:text="@string/biography_text" />
 
                         <ImageView
