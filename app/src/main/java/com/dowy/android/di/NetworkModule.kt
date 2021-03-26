@@ -6,14 +6,14 @@ import com.dowy.android.network.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
 
@@ -24,11 +24,11 @@ object NetworkModule {
         val client = OkHttpClient.Builder()
 
         // Only show the logs in debug versions
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
 
-                client.addInterceptor(logger)
+            client.addInterceptor(logger)
         }
 
         return Retrofit.Builder()

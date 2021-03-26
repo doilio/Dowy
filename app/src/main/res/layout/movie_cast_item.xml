@@ -22,7 +22,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()-> clicklistener.onClick(cast)}"
-        android:padding="8dp">
+        android:padding="2dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/movie_cast_photo"

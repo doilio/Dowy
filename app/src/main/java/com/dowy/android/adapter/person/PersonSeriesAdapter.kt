@@ -31,6 +31,6 @@ class PersonSeriesDiffUtilCallback : DiffUtil.ItemCallback<PersonTvCast>() {
 
 }
 
-class PersonSeriesClickListener(val clicklistener: (series: PersonTvCast) -> Unit) {
-    fun onClick(series: PersonTvCast) = clicklistener(series)
+class PersonSeriesClickListener(val clickListener: (series: PersonTvCast) -> Unit) {
+    fun onClick(series: PersonTvCast) = clickListener(series)
 }

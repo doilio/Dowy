@@ -1,8 +1,6 @@
 package com.dowy.android.ui.movieDetails
 
 import android.content.SharedPreferences
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -12,16 +10,19 @@ import com.dowy.android.model.movie.*
 import com.dowy.android.utils.DEFAULT_LANGUAGE
 import com.dowy.android.utils.LANGUAGE_KEY
 import com.dowy.android.utils.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailsViewModel @ViewModelInject
+@HiltViewModel
+class MovieDetailsViewModel @Inject
 constructor(
     private val repository: Repository,
     preference: SharedPreferences,
-    @Assisted savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
 

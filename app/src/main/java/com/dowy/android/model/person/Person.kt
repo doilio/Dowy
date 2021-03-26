@@ -21,4 +21,6 @@ data class Person(
 ) {
     val fullProfilePath: String
         get() = "http://image.tmdb.org/t/p/w342$profile_path"
+    val linkIMDB: String
+        get() = "https://www.imdb.com/name/$imdb_id"
 }

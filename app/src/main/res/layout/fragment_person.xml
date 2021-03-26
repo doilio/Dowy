@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="person"
+            type="com.dowy.android.model.person.Person" />
     </data>
 
     <ScrollView
@@ -31,6 +34,7 @@
                     <ImageView
                         android:id="@+id/actor_image"
                         android:layout_width="0dp"
+                        itemImage="@{person.fullProfilePath}"
                         android:layout_height="@dimen/person_image_height"
                         android:layout_weight="@integer/person_image_weight"
                         android:contentDescription="@string/actor_image"
@@ -58,6 +62,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
+                            android:text="@{person.name}"
                             tools:text="Tom Holland" />
 
                         <TextView
@@ -74,6 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
+                            android:text="@{person.known_for_department}"
                             tools:text="Acting" />
 
                         <TextView
@@ -90,6 +96,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
+                            android:text="@{person.birthday}"
                             tools:text="1996-06-01" />
 
                         <TextView
@@ -104,6 +111,7 @@
                             android:id="@+id/text_place_of_birth"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@{person.place_of_birth}"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             tools:text="Kingston upon Thames, Surrey, England, UK" />
@@ -122,6 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
+                            android:text="@{String.valueOf(person.popularity)}"
                             tools:text="14.712" />
 
                     </LinearLayout>
@@ -154,24 +163,14 @@
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
-                        android:id="@+id/text_biography_error"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/biography_is_currently_not_available"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/title_biography" />
-
-                    <TextView
                         android:id="@+id/text_biography"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        biographyText="@{person.biography}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_biography_error"
+                        app:layout_constraintTop_toBottomOf="@+id/title_biography"
                         tools:text="@string/biography_text" />
 
                     <ImageView
@@ -239,6 +238,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:visibility="visible"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_movie_item"
@@ -271,6 +273,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
+                android:clipToPadding="false"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:visibility="visible"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/person_series_item"

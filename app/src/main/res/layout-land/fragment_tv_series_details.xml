@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="tvSeries"
+            type="com.dowy.android.model.tv.TvSeries" />
     </data>
 
     <LinearLayout
@@ -15,6 +18,7 @@
 
         <ImageView
             android:id="@+id/tv_poster"
+            itemImage="@{tvSeries.fullPosterPath}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -51,6 +55,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-condensed"
+                            android:text="@{tvSeries.name}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textStyle="bold"
                             tools:text="Rick and Morty" />
@@ -125,6 +130,7 @@
                             android:id="@+id/rating_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(tvSeries.vote_average)}"
                             app:layout_constraintEnd_toStartOf="@+id/language_text"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +141,7 @@
                             android:id="@+id/language_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{tvSeries.original_language}"
                             app:layout_constraintBaseline_toBaselineOf="@+id/rating_text"
                             app:layout_constraintEnd_toStartOf="@+id/release_date_text"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -145,6 +152,7 @@
                             android:id="@+id/release_date_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{tvSeries.first_air_date}"
                             app:layout_constraintBaseline_toBaselineOf="@+id/language_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -209,15 +217,8 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/overview_error"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/overview_error"
-                            android:visibility="gone" />
-
-                        <TextView
                             android:id="@+id/overview_text"
+                            overviewText="@{tvSeries.overview}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -262,8 +263,10 @@
                             android:id="@+id/recycler_cast"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clipToPadding="true"
+                            android:clipToPadding="false"
                             android:orientation="horizontal"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
                             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/series_cast_item" />
 
@@ -296,8 +299,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:clipToPadding="true"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/series_trailers_item" />
 
@@ -327,6 +332,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     tools:itemCount="3"
                     tools:listitem="@layout/series_review_item" />
             </LinearLayout>
