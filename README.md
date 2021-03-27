@@ -28,6 +28,9 @@ Base URL = `"https://api.themoviedb.org/3/"`
 2. Create a file on the Utils package with: 
 `const val SECRET_KEY = "PLACE YOUR API KEY HERE"`
 
+[Video Demonstration](https://youtu.be/j47L6ZQ2kuA)
+
+
 ![dowy_light](https://user-images.githubusercontent.com/38020305/105013821-4f544500-5a48-11eb-99bd-ecaf6d420df9.jpg)
 ![dowy_dark](https://user-images.githubusercontent.com/38020305/105013807-4bc0be00-5a48-11eb-997c-709c887e9408.jpg)
 
