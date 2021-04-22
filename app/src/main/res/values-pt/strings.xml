@@ -1,7 +1,7 @@
 <resources>
     <string name="movies">Filmes</string>
     <string name="tv_series">Séries de TV</string>
-    <string name="favorites">Favoritos</string>
+    <string name="watch_list">Meus Filmes</string>
     <string name="coming_soon">Em breve</string>
     <string name="movie_poster">Pôster de filme</string>
     <string name="series_poster">Pôster da série</string>

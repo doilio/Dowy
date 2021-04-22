@@ -16,13 +16,13 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"  />
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.dowy.android.ui.favorites.FavoritesFragment"
-        android:label="@string/favorites"
-        tools:layout="@layout/fragment_favorites" />
+        android:id="@+id/watchListFragment"
+        android:name="com.dowy.android.ui.watchList.WatchListFragment"
+        android:label="@string/watch_list"
+        tools:layout="@layout/fragment_watch_list" />
     <fragment
         android:id="@+id/tvSeriesFragment"
         android:name="com.dowy.android.ui.series.TvSeriesFragment"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/personFragment"
         android:name="com.dowy.android.ui.person.PersonFragment"
-        tools:layout="@layout/fragment_person" >
+        tools:layout="@layout/fragment_person">
         <argument
             android:name="personId"
             app:argType="integer" />
@@ -78,24 +78,23 @@
         <action
             android:id="@+id/action_personFragment_to_tvSeriesDetailsFragment"
             app:destination="@id/tvSeriesDetailsFragment"
-            app:popUpTo="@id/personFragment"
-            app:popUpToInclusive="true"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_personFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
-            app:popUpTo="@id/personFragment"
-            app:popUpToInclusive="true"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/personFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
         android:name="com.dowy.android.ui.about.AboutFragment"
         android:label="@string/about" />
 </navigation>

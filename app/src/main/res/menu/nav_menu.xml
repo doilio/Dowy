@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="@string/favorites" />
+        android:icon="@drawable/ic_baseline_local_movies_24"
+        android:title="@string/watch_list" />
 
 </menu>
