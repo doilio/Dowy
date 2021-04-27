@@ -12,7 +12,7 @@
         android:title="@string/tv_series" />
 
     <item
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/watchListFragment"
         android:icon="@drawable/ic_baseline_local_movies_24"
         android:title="@string/watch_list" />
 

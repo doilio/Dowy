@@ -95,6 +95,7 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
+        android:id="@+id/aboutFragment"
         android:name="com.dowy.android.ui.about.AboutFragment"
         android:label="@string/about" />
 </navigation>
