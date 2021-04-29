@@ -27,3 +27,4 @@ const val SERIES_VIEW_TYPE = 1
 const val CALENDAR_PATTERN = "yyyy-MM-dd"
 const val AD1_ID = "ca-app-pub-3005109827350902/9253618425"
 const val AD2_ID = "ca-app-pub-3005109827350902/9795494153"
+const val SIGN_IN_REQUEST_CODE = 101

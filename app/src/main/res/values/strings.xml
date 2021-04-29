@@ -158,7 +158,11 @@
     <string name="playstore_link" translatable="false">https://play.google.com/store/apps/details?id=com.dowy.android</string>
     <string name="more_details">See this and more details on Dowy.</string>
     <string name="cannot_show_watch_list">Cannot show watch list</string>
-    <string name="cannot_login_subtitle">You need to login to view your watch list.</string>
+    <string name="cannot_show_watch_list_subtitle">You need to login to view your watch list.</string>
     <string name="login_to_dowy">Login to Dowy</string>
     <string name="user_isn_t_logged_in">User isn\'t logged in</string>
+    <string name="empty_watch_list">Empty watch list</string>
+    <string name="empty_watch_list_subtitle">Once you start adding content to your watch list, you will be able to see it here.</string>
+    <string name="notify">Notify</string>
+    <string name="sign_out_of_dowy">Sign out of Dowy</string>
 </resources>

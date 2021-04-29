@@ -65,4 +65,12 @@
     <string name="list_of_tv_shows_cast_in_is_currently_unavailable">A lista de programas de TV escalados está indisponível no momento.</string>
     <string name="biography_is_currently_not_available">A biografia não está disponível no momento.</string>
     <string name="more_details">Veja este e mais detalhes no Dowy.</string>
+    <string name="cannot_show_watch_list">Não é possível mostrar a lista de  conteúdos</string>
+    <string name="cannot_show_watch_list_subtitle">Você precisa logar-se para ver sua lista de conteúdos.</string>
+    <string name="login_to_dowy">Logar no Dowy</string>
+    <string name="user_isn_t_logged_in">O usuário não está logado</string>
+    <string name="empty_watch_list">Lista de conteúdos vazia</string>
+    <string name="empty_watch_list_subtitle">Depois de começar a adicionar conteúdo à sua lista, você poderá vê-los aqui.</string>
+    <string name="notify">Notificar</string>
+    <string name="sign_out_of_dowy">Sair do Dowy</string>
 </resources>

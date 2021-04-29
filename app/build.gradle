@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -51,6 +52,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // Firebase BOM
+    implementation platform("com.google.firebase:firebase-bom:$bom_version")
+
+    implementation "com.google.firebase:firebase-analytics"
+    implementation "com.firebaseui:firebase-ui-auth:$auth_version"
+
     // ConstraintLayout
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
@@ -73,8 +80,6 @@ dependencies {
     // Failing to process SingletonComponent
     //kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:2.31.2-alpha"
-
-
 
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_ext_version"
     // When using Kotlin.
