@@ -38,6 +38,7 @@ constructor(
     private var currentMovieGenreResult: MutableLiveData<List<MovieGenres>>? = null
     private var currentMovieId: Int? = null
     private var currentLanguage: String? = null
+    var clicked = false
 
     fun getMovieGenre(): LiveData<List<MovieGenres>> {
         val genreList = MutableLiveData<List<MovieGenres>>()

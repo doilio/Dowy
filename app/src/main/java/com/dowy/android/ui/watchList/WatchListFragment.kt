@@ -55,7 +55,7 @@ class WatchListFragment : Fragment() {
         )
     }
 
-    fun observeAuthenticationState() {
+    private fun observeAuthenticationState() {
         viewModel.authenticationState.observe(viewLifecycleOwner, { authenticationState ->
             when (authenticationState) {
                 AuthenticationState.AUTHENTICATED -> {

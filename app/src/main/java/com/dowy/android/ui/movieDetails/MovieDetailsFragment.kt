@@ -3,6 +3,7 @@ package com.dowy.android.ui.movieDetails
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -155,6 +156,27 @@ class MovieDetailsFragment : Fragment() {
         findNavController().navigate(
             MovieDetailsFragmentDirections.actionDetailsFragmentToPersonFragment(id, name)
         )
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val notifierItem = menu.findItem(R.id.ic_notify)
+
+        notifierItem.setOnMenuItemClickListener {
+            if (viewModel.clicked) {
+                // TODO: Remove the Movie from the Watch List
+                notifierItem.setIcon(R.drawable.ic_baseline_notifications_none_24)
+                viewModel.clicked = false
+                Toast.makeText(requireContext(), "Removed from watch list", Toast.LENGTH_SHORT).show()
+            } else {
+                // TODO: Add the Movie to Watch List
+                notifierItem.setIcon(R.drawable.ic_baseline_notifications_active_24)
+                Toast.makeText(requireContext(), "Added to watch list", Toast.LENGTH_SHORT).show()
+                viewModel.clicked = true
+            }
+            true
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
